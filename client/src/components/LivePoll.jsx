@@ -17,7 +17,7 @@ const LivePoll = ({ question: defaultQuestion, options: defaultOptions }) => {
     useEffect(() => {
         const fetchPoll = async () => {
             try {
-                const response = await fetch('http://localhost:3001/api/polls/active');
+                const response = await fetch('/api/polls/active');
                 if (response.ok) {
                     const data = await response.json();
                     if (data && data.active) {
@@ -98,7 +98,7 @@ const LivePoll = ({ question: defaultQuestion, options: defaultOptions }) => {
         // Backend update
         if (poll.id) {
             try {
-                await fetch(`http://localhost:3001/api/polls/${poll.id}/vote`, {
+                await fetch(`/api/polls/${poll.id}/vote`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ answer: poll.options[index] })
@@ -109,13 +109,46 @@ const LivePoll = ({ question: defaultQuestion, options: defaultOptions }) => {
         }
     };
 
+    const handleGoLive = async () => {
+        try {
+            const response = await fetch('/api/polls', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    question: poll.question,
+                    options: poll.options
+                })
+            });
+
+            if (response.ok) {
+                const newPoll = await response.json();
+                setPoll(prev => ({ ...prev, id: newPoll.id }));
+                // Clear local votes if you want to start fresh or keep them if you want to sync (complex)
+                // For simplicity, we start fresh on the server, but we could try to sync.
+                // Let's keep it simple: "Going Live" starts the session. 
+            }
+        } catch (error) {
+            console.error("Failed to go live:", error);
+        }
+    };
+
     if (loading && !poll.question) return <div className="p-6 text-center text-slate-400">Cargando encuesta...</div>;
 
     return (
         <div className="bg-white p-6 rounded-xl shadow-lg border border-slate-100">
-            <div className="flex items-center gap-2 mb-6 text-secondary">
-                <BarChart3 className="w-6 h-6" />
-                <span className="text-xs font-bold uppercase tracking-wider">Encuesta en vivo {poll.id ? '(Online)' : '(Local)'}</span>
+            <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center gap-2 text-secondary">
+                    <BarChart3 className="w-6 h-6" />
+                    <span className="text-xs font-bold uppercase tracking-wider">Encuesta en vivo {poll.id ? '(Online)' : '(Local)'}</span>
+                </div>
+                {!poll.id && (
+                    <button
+                        onClick={handleGoLive}
+                        className="px-3 py-1 bg-accent text-primary text-xs font-bold uppercase tracking-widest rounded-full hover:bg-yellow-400 transition-colors shadow-sm"
+                    >
+                        Iniciar Online
+                    </button>
+                )}
             </div>
 
             <h3 className="text-xl font-bold text-slate-800 mb-6 leading-tight">{poll.question}</h3>

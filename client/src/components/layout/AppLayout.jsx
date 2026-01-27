@@ -83,7 +83,7 @@ const AppLayout = ({ modules, activeModuleId, activeSlideId, onNavigate, childre
             </aside>
 
             {/* Main Content + Right Panel wrapper to handle layout */}
-            <div className="flex-1 flex min-w-0">
+            <div className="flex-1 flex flex-col xl:flex-row min-w-0">
 
                 {/* Main Content - Flexible */}
                 <main className="flex-1 flex flex-col relative bg-slate-50/50">
@@ -138,17 +138,19 @@ const AppLayout = ({ modules, activeModuleId, activeSlideId, onNavigate, childre
                 </main>
 
                 {/* Right Panel - Fixed width but responsive on smaller screens if needed */}
-                <aside className="w-[420px] bg-white border-l border-slate-200 flex flex-col shadow-xl z-10 flex-shrink-0 hidden xl:flex">
-                    <div className="p-6 bg-slate-50 border-b border-slate-100">
-                        <h3 className="font-bold text-slate-400 text-xs uppercase tracking-wider flex items-center gap-2">
-                            <div className="w-2 h-2 rounded-full bg-accent animate-pulse"></div>
-                            Interacción
-                        </h3>
-                    </div>
-                    <div className="flex-1 overflow-y-auto p-6 bg-slate-50/30">
-                        {rightPanel}
-                    </div>
-                </aside>
+                {activeSlide.type === 'poll' && (
+                    <aside className="w-full xl:w-[420px] bg-white border-t xl:border-t-0 xl:border-l border-slate-200 flex flex-col shadow-xl z-10 flex-shrink-0 order-first xl:order-last h-[400px] xl:h-auto">
+                        <div className="p-6 bg-slate-50 border-b border-slate-100">
+                            <h3 className="font-bold text-slate-400 text-xs uppercase tracking-wider flex items-center gap-2">
+                                <div className="w-2 h-2 rounded-full bg-accent animate-pulse"></div>
+                                Interacción
+                            </h3>
+                        </div>
+                        <div className="flex-1 overflow-y-auto p-6 bg-slate-50/30">
+                            {rightPanel}
+                        </div>
+                    </aside>
+                )}
 
             </div>
         </div>
