@@ -1,5 +1,6 @@
 import React from 'react';
 import { ChevronRight } from 'lucide-react';
+import SlideRenderer from '../SlideRenderer';
 
 const AppLayout = ({ modules, activeModuleId, activeSlideId, onNavigate, children, rightPanel }) => {
     const activeModule = modules.find(m => m.id === activeModuleId);
@@ -55,8 +56,8 @@ const AppLayout = ({ modules, activeModuleId, activeSlideId, onNavigate, childre
                                 key={module.id}
                                 onClick={() => onNavigate(module.id, module.slides[0].id)}
                                 className={`w-full flex items-center gap-4 px-4 py-4 rounded-xl transition-all duration-300 group relative overflow-hidden ${isActive
-                                        ? 'bg-blue-600 text-white shadow-lg shadow-blue-900/20 ring-1 ring-blue-500/50'
-                                        : 'text-blue-200 hover:bg-white/5 hover:text-white'
+                                    ? 'bg-blue-600 text-white shadow-lg shadow-blue-900/20 ring-1 ring-blue-500/50'
+                                    : 'text-blue-200 hover:bg-white/5 hover:text-white'
                                     }`}
                             >
                                 {isActive && (
@@ -107,22 +108,7 @@ const AppLayout = ({ modules, activeModuleId, activeSlideId, onNavigate, childre
 
                                 <div className="h-1.5 w-24 bg-gradient-to-r from-accent to-yellow-300 rounded-full mb-10"></div>
 
-                                <div className="prose prose-lg prose-slate text-slate-600 mb-10 leading-relaxed max-w-none">
-                                    <p className="text-xl font-light text-slate-700">{activeSlide.content}</p>
-                                </div>
-
-                                {activeSlide.bullets && (
-                                    <div className="grid gap-4">
-                                        {activeSlide.bullets.map((bullet, idx) => (
-                                            <div key={idx} className="flex items-start gap-4 p-5 rounded-xl bg-white border border-slate-100 shadow-sm hover:shadow-md transition-shadow group">
-                                                <span className="flex-shrink-0 w-8 h-8 bg-blue-50 text-secondary rounded-lg flex items-center justify-center font-bold text-sm border border-blue-100 group-hover:scale-110 transition-transform">
-                                                    {idx + 1}
-                                                </span>
-                                                <span className="text-slate-700 font-medium pt-1 text-lg">{bullet}</span>
-                                            </div>
-                                        ))}
-                                    </div>
-                                )}
+                                <SlideRenderer slide={activeSlide} />
                             </div>
                         </div>
                     </div>

@@ -8,6 +8,7 @@ import ToolRadar from './components/ToolRadar';
 import LivePoll from './components/LivePoll';
 import CaseStudyPanel from './components/CaseStudyPanel';
 import ResourceLibrary from './components/ResourceLibrary';
+import ActionPanel from './components/ActionPanel';
 import { Settings } from 'lucide-react';
 
 const COMPONENT_MAP = {
@@ -15,7 +16,8 @@ const COMPONENT_MAP = {
   ToolRadar,
   LivePoll,
   CaseStudyPanel,
-  ResourceLibrary
+  ResourceLibrary,
+  action: ActionPanel
 };
 
 function App() {

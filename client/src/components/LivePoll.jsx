@@ -129,15 +129,15 @@ const LivePoll = ({ question: defaultQuestion, options: defaultOptions }) => {
                             <button
                                 onClick={() => handleVote(index)}
                                 disabled={hasVoted}
-                                className={`w-full text-left p-4 rounded-lg border-2 transition-all relative z-10 overflow-hidden
+                                className={`w-full text-left p-4 rounded-xl border-2 transition-all relative z-10 overflow-hidden
                   ${hasVoted
                                         ? 'border-transparent cursor-default'
-                                        : 'border-slate-200 hover:border-secondary hover:bg-slate-50'}`}
+                                        : 'border-slate-200 hover:border-primary hover:bg-blue-50/30'}`}
                             >
-                                <div className="relative z-10 flex justify-between items-center font-medium text-slate-700">
-                                    <span className={hasVoted && index === votes.indexOf(Math.max(...votes)) ? "font-bold text-slate-900" : ""}>{option}</span>
+                                <div className="relative z-10 flex justify-between items-center font-bold text-slate-700">
+                                    <span>{option}</span>
                                     {hasVoted && (
-                                        <span className={`text-sm font-bold ${percentage > 50 ? 'text-secondary' : 'text-slate-500'}`}>
+                                        <span className="text-sm font-black text-slate-500">
                                             {percentage}%
                                         </span>
                                     )}
@@ -146,7 +146,7 @@ const LivePoll = ({ question: defaultQuestion, options: defaultOptions }) => {
 
                             {hasVoted && (
                                 <div
-                                    className="absolute top-0 left-0 h-full bg-blue-100 rounded-lg transition-all duration-1000 ease-out z-0 opacity-60"
+                                    className="absolute top-0 left-0 h-full bg-blue-100/50 rounded-xl transition-all duration-1000 ease-out z-0"
                                     style={{ width: `${percentage}%` }}
                                 />
                             )}
@@ -156,8 +156,12 @@ const LivePoll = ({ question: defaultQuestion, options: defaultOptions }) => {
             </div>
 
             {hasVoted && (
-                <div className="mt-6 pt-4 border-t border-slate-100 text-center">
-                    <p className="text-sm text-slate-400">Gracias por tu voto • {totalVotes} votos totales</p>
+                <div className="mt-8 pt-6 border-t border-slate-100 text-center animate-in fade-in slide-in-from-top-2">
+                    <div className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-50 text-emerald-700 rounded-full text-xs font-black uppercase tracking-widest mb-4">
+                        <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
+                        Voto Anónimo Registrado
+                    </div>
+                    <p className="text-sm text-slate-400 font-medium">Estadísticas basadas en {totalVotes} aportes grupales.</p>
                 </div>
             )}
         </div>
