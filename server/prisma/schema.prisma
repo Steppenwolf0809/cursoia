@@ -1,0 +1,25 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Poll {
+  id        String   @id @default(uuid())
+  question  String
+  options   String   // Stored as JSON string
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  responses PollResponse[]
+}
+
+model PollResponse {
+  id        String   @id @default(uuid())
+  pollId    String
+  poll      Poll     @relation(fields: [pollId], references: [id])
+  answer    String
+  createdAt DateTime @default(now())
+}
