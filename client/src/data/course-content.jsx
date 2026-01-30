@@ -14,6 +14,8 @@ export const MASTER_KIT_CONTENT = {
 
 import MODULE_2 from './MODULO_2';
 import MODULE_3 from './MODULO_3';
+import MODULE_4 from './MODULO_4';
+import MODULE_5 from './MODULO_5';
 
 export const COURSE_MODULES = [
     {
@@ -233,5 +235,7 @@ export const COURSE_MODULES = [
         ]
     },
     MODULE_2,
-    MODULE_3
+    MODULE_3,
+    MODULE_4,
+    MODULE_5
 ];
