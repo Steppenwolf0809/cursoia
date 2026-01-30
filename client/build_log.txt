@@ -1,0 +1,38 @@
+
+> curso-ia@0.0.0 build
+> vite build
+
+[36mvite v7.3.1 [32mbuilding client environment for production...[36m[39m
+transforming...
+
+[1m[33mwarn[39m[22m - The class `duration-[2000ms]` is ambiguous and matches multiple utilities.
+[1m[33mwarn[39m[22m - If this is content and not a class, replace it with `duration-&lsqb;2000ms&rsqb;` to silence this warning.
+[32m✓[39m 2152 modules transformed.
+[31m✗[39m Build failed in 3.97s
+[31merror during build:
+[31m../node_modules/framer-motion/dist/es/context/LayoutGroupContext.mjs (2:9): "createContext" is not exported by "__vite-optional-peer-dep:react:framer-motion:false", imported by "../node_modules/framer-motion/dist/es/context/LayoutGroupContext.mjs".[31m
+file: [36mC:/curso_IA/node_modules/framer-motion/dist/es/context/LayoutGroupContext.mjs:2:9[31m
+[33m
+1: "use client";
+2: import { createContext } from 'react';
+            ^
+3: 
+4: const LayoutGroupContext = createContext({});
+[31m
+    at getRollupError (file:///C:/curso_IA/node_modules/rollup/dist/es/shared/parseAst.js:402:41)
+    at error (file:///C:/curso_IA/node_modules/rollup/dist/es/shared/parseAst.js:398:42)
+    at Module.error (file:///C:/curso_IA/node_modules/rollup/dist/es/shared/node-entry.js:17037:16)
+    at Module.traceVariable (file:///C:/curso_IA/node_modules/rollup/dist/es/shared/node-entry.js:17449:29)
+    at ModuleScope.findVariable (file:///C:/curso_IA/node_modules/rollup/dist/es/shared/node-entry.js:15067:39)
+    at Identifier.bind (file:///C:/curso_IA/node_modules/rollup/dist/es/shared/node-entry.js:5447:40)
+    at CallExpression.bind (file:///C:/curso_IA/node_modules/rollup/dist/es/shared/node-entry.js:2829:23)
+    at CallExpression.bind (file:///C:/curso_IA/node_modules/rollup/dist/es/shared/node-entry.js:12179:15)
+    at VariableDeclarator.bind (file:///C:/curso_IA/node_modules/rollup/dist/es/shared/node-entry.js:2829:23)
+    at VariableDeclaration.bind (file:///C:/curso_IA/node_modules/rollup/dist/es/shared/node-entry.js:2825:28)[39m
+npm error Lifecycle script `build` failed with error:
+npm error code 1
+npm error path C:\curso_IA\client
+npm error workspace curso-ia@0.0.0
+npm error location C:\curso_IA\client
+npm error command failed
+npm error command C:\Windows\system32\cmd.exe /d /s /c vite build
