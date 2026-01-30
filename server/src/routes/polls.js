@@ -2,12 +2,19 @@ import express from 'express';
 import { PrismaClient } from '@prisma/client';
 
 const router = express.Router();
-const prisma = new PrismaClient();
+let prismaInstance;
+
+const getPrisma = () => {
+    if (!prismaInstance) {
+        prismaInstance = new PrismaClient();
+    }
+    return prismaInstance;
+};
 
 // Get active poll
 router.get('/active', async (req, res) => {
     try {
-        const activePoll = await prisma.poll.findFirst({
+        const activePoll = await getPrisma().poll.findFirst({
             where: { active: true },
             include: { responses: true }
         });
@@ -35,12 +42,12 @@ router.post('/', async (req, res) => {
         const { question, options } = req.body;
 
         // Deactivate others
-        await prisma.poll.updateMany({
+        await getPrisma().poll.updateMany({
             where: { active: true },
             data: { active: false }
         });
 
-        const newPoll = await prisma.poll.create({
+        const newPoll = await getPrisma().poll.create({
             data: {
                 question,
                 options: JSON.stringify(options), // Store as JSON string
@@ -60,7 +67,7 @@ router.post('/:id/vote', async (req, res) => {
         const { id } = req.params;
         const { answer } = req.body;
 
-        const response = await prisma.pollResponse.create({
+        const response = await getPrisma().pollResponse.create({
             data: {
                 pollId: id,
                 answer
