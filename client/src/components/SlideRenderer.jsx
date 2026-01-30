@@ -48,6 +48,23 @@ import WarningTable from './slides/WarningTable';
 import ConfigPanel from './slides/ConfigPanel';
 import StatHighlight from './slides/StatHighlight';
 import DecisionTree from './slides/DecisionTree';
+import CaseIntro from './slides/CaseIntro';
+import PromptTemplate from './slides/PromptTemplate';
+import Rules from './slides/Rules';
+import Break from './slides/Break';
+import ToolComparisonVoice from './slides/ToolComparisonVoice';
+import SetupGuide from './slides/SetupGuide';
+import PromptCollection from './slides/PromptCollection';
+import FeatureShowcase from './slides/FeatureShowcase';
+import Workflow from './slides/Workflow';
+import GalleryView from './slides/GalleryView';
+import KeyPoints from './slides/KeyPoints';
+import ResourcesDownload from './slides/ResourcesDownload';
+import ToolSummary from './slides/ToolSummary';
+import QuoteLarge from './slides/QuoteLarge';
+import NextSteps from './slides/NextSteps';
+import Contact from './slides/Contact';
+import ExerciseInteractive from './slides/ExerciseInteractive';
 
 const ICON_MAP = {
     Car,
@@ -413,6 +430,57 @@ const SlideRenderer = ({ slide }) => {
 
             case 'decision-tree':
                 return <DecisionTree contentData={contentData} />;
+
+            case 'case-intro':
+                return <CaseIntro contentData={contentData} />;
+
+            case 'prompt-template':
+                return <PromptTemplate contentData={contentData} />;
+
+            case 'rules':
+                return <Rules contentData={contentData} />;
+
+            case 'break':
+                return <Break contentData={contentData} />;
+
+            case 'tool-comparison-voice':
+                return <ToolComparisonVoice contentData={contentData} />;
+
+            case 'setup-guide':
+                return <SetupGuide contentData={contentData} />;
+
+            case 'prompt-collection':
+                return <PromptCollection contentData={contentData} />;
+
+            case 'feature-showcase':
+                return <FeatureShowcase contentData={contentData} />;
+
+            case 'workflow':
+                return <Workflow contentData={contentData} />;
+
+            case 'gallery-view':
+                return <GalleryView contentData={contentData} />;
+
+            case 'key-points':
+                return <KeyPoints contentData={contentData} />;
+
+            case 'resources-download':
+                return <ResourcesDownload contentData={contentData} />;
+
+            case 'tool-summary':
+                return <ToolSummary contentData={contentData} />;
+
+            case 'quote-large':
+                return <QuoteLarge contentData={contentData} />;
+
+            case 'next-steps':
+                return <NextSteps contentData={contentData} />;
+
+            case 'contact':
+                return <Contact contentData={contentData} />;
+
+            case 'exercise-interactive':
+                return <ExerciseInteractive contentData={contentData} interaction={slide.interaction} />;
 
             case 'exercise':
                 return <ExerciseSlide contentData={contentData} />;

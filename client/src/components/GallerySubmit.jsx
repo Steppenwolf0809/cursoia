@@ -1,0 +1,198 @@
+import React, { useState } from 'react';
+import { useGallery } from '../hooks/useGallery';
+import { useParticipant } from '../hooks/useParticipant';
+import { Send, CheckCircle, Image as ImageIcon, Loader2 } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+
+const GallerySubmit = ({ exerciseId, promptLabel, resultLabel, allowImage = false }) => {
+    const [promptText, setPromptText] = useState('');
+    const [resultText, setResultText] = useState('');
+    const [imageFile, setImageFile] = useState(null);
+    const [imagePreview, setImagePreview] = useState(null);
+    const [submitted, setSubmitted] = useState(false);
+    const [submitting, setSubmitting] = useState(false);
+    const [error, setError] = useState(null);
+
+    // We assume these hooks will be available via context or props in the real app,
+    // but for now we follow the instruction structure.
+    // If hooks are not yet implemented globally, this might need adjustment,
+    // but strict adherence to instructions puts them here.
+    const { submitToGallery } = useGallery();
+    const { participant } = useParticipant();
+
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setImageFile(file);
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setImagePreview(reader.result);
+            };
+            reader.readAsDataURL(file);
+        }
+    };
+
+    const handleSubmit = async () => {
+        if (!promptText.trim() && !resultText.trim() && !imageFile) {
+            setError("Por favor completa al menos un campo.");
+            return;
+        }
+
+        setSubmitting(true);
+        setError(null);
+
+        try {
+            const { error: submitError } = await submitToGallery({
+                exerciseId,
+                participantId: participant?.id,
+                participantName: participant?.name,
+                promptText,
+                resultText,
+                imageFile
+            });
+
+            if (submitError) throw submitError;
+
+            setSubmitted(true);
+        } catch (err) {
+            console.error(err);
+            setError("Hubo un error al enviar. Inténtalo de nuevo.");
+        } finally {
+            setSubmitting(false);
+        }
+    };
+
+    if (submitted) {
+        return (
+            <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="bg-green-50 border border-green-200 rounded-2xl p-8 text-center h-full flex flex-col items-center justify-center"
+            >
+                <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center text-green-600 mb-6 shadow-sm">
+                    <CheckCircle className="w-10 h-10" />
+                </div>
+                <h3 className="text-2xl font-black text-green-800 mb-2">¡Enviado con éxito!</h3>
+                <p className="text-green-700 font-medium text-lg mb-8">
+                    Tu resultado ya está en la galería del grupo.
+                </p>
+                <button
+                    onClick={() => {
+                        setSubmitted(false);
+                        setPromptText('');
+                        setResultText('');
+                        setImageFile(null);
+                        setImagePreview(null);
+                    }}
+                    className="px-6 py-2 bg-white text-green-700 font-bold rounded-lg shadow-sm border border-green-200 hover:bg-green-50 transition-colors"
+                >
+                    Enviar otro resultado
+                </button>
+            </motion.div>
+        );
+    }
+
+    return (
+        <div className="bg-white rounded-[2rem] shadow-xl border border-slate-200 overflow-hidden flex flex-col h-full">
+            <div className="bg-slate-50 px-8 py-6 border-b border-slate-100">
+                <h3 className="text-2xl font-black text-slate-800">Tu Turno</h3>
+                <p className="text-slate-500 font-medium">Completa el ejercicio y comparte tu resultado</p>
+            </div>
+
+            <div className="p-8 flex-1 overflow-y-auto custom-scrollbar space-y-6">
+
+                {/* Prompt Section */}
+                <div>
+                    <label className="block text-sm font-bold text-slate-700 uppercase tracking-wide mb-2">
+                        {promptLabel || 'Tu prompt'}
+                    </label>
+                    <textarea
+                        value={promptText}
+                        onChange={(e) => setPromptText(e.target.value)}
+                        className="w-full px-4 py-3 rounded-xl border-2 border-slate-200 focus:border-blue-500 focus:outline-none resize-none text-slate-700 text-base transition-colors bg-slate-50 focus:bg-white"
+                        rows={4}
+                        placeholder={promptLabel ? `Escribe aquí ${promptLabel.toLowerCase()}...` : "Pega aquí el prompt que utilizaste..."}
+                    />
+                </div>
+
+                {/* Result Section */}
+                <div>
+                    <label className="block text-sm font-bold text-slate-700 uppercase tracking-wide mb-2">
+                        {resultLabel || 'El resultado'}
+                    </label>
+                    <textarea
+                        value={resultText}
+                        onChange={(e) => setResultText(e.target.value)}
+                        className="w-full px-4 py-3 rounded-xl border-2 border-slate-200 focus:border-blue-500 focus:outline-none resize-none text-slate-700 text-base transition-colors bg-slate-50 focus:bg-white"
+                        rows={6}
+                        placeholder={resultLabel ? `Escribe aquí ${resultLabel.toLowerCase()}...` : "Pega aquí el resultado interesante o tu conclusión..."}
+                    />
+                </div>
+
+                {/* Image Upload */}
+                {allowImage && (
+                    <div>
+                        <label className="block text-sm font-bold text-slate-700 uppercase tracking-wide mb-2">
+                            Captura (Opcional)
+                        </label>
+
+                        {!imagePreview ? (
+                            <div className="relative group">
+                                <input
+                                    type="file"
+                                    accept="image/*"
+                                    onChange={handleImageChange}
+                                    className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+                                />
+                                <div className="w-full h-32 border-2 border-dashed border-slate-300 rounded-xl flex flex-col items-center justify-center text-slate-400 group-hover:border-blue-400 group-hover:bg-blue-50 group-hover:text-blue-500 transition-all">
+                                    <ImageIcon className="w-8 h-8 mb-2" />
+                                    <span className="font-medium text-sm">Click para subir una imagen</span>
+                                </div>
+                            </div>
+                        ) : (
+                            <div className="relative rounded-xl overflow-hidden border border-slate-200">
+                                <img src={imagePreview} alt="Preview" className="w-full h-64 object-cover" />
+                                <button
+                                    onClick={() => {
+                                        setImageFile(null);
+                                        setImagePreview(null);
+                                    }}
+                                    className="absolute top-2 right-2 bg-black/50 hover:bg-black/70 text-white rounded-full p-1 transition-colors backdrop-blur-sm"
+                                >
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                </button>
+                            </div>
+                        )}
+                    </div>
+                )}
+
+                {error && (
+                    <div className="p-3 bg-red-50 text-red-600 rounded-lg text-sm font-medium text-center animate-pulse">
+                        {error}
+                    </div>
+                )}
+
+            </div>
+
+            <div className="p-8 pt-0">
+                <button
+                    onClick={handleSubmit}
+                    disabled={submitting}
+                    className="w-full bg-blue-600 text-white py-4 rounded-xl font-black text-lg shadow-lg shadow-blue-200 hover:bg-blue-700 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-70 disabled:hover:scale-100 transition-all flex items-center justify-center gap-2"
+                >
+                    {submitting ? (
+                        <>
+                            <Loader2 className="animate-spin" /> Enviando...
+                        </>
+                    ) : (
+                        <>
+                            Enviar a la Galería <Send size={20} />
+                        </>
+                    )}
+                </button>
+            </div>
+        </div>
+    );
+};
+
+export default GallerySubmit;
