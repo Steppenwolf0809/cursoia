@@ -1,6 +1,7 @@
 import React from 'react';
 import { ChevronRight } from 'lucide-react';
 import SlideRenderer from '../SlideRenderer';
+import AnimatedSlide from '../AnimatedSlide';
 
 const AppLayout = ({ modules, activeModuleId, activeSlideId, onNavigate, children, rightPanel }) => {
     const activeModule = modules.find(m => m.id === activeModuleId);
@@ -97,7 +98,7 @@ const AppLayout = ({ modules, activeModuleId, activeSlideId, onNavigate, childre
 
                     <div className="flex-1 overflow-y-auto w-full">
                         <div className="max-w-3xl mx-auto p-8 lg:p-12 pb-32">
-                            <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 key={activeSlide.id}"> {/* Key forces re-render/anim */}
+                            <AnimatedSlide slideKey={activeSlide.id}>
                                 <span className="inline-flex items-center px-3 py-1 rounded-full bg-blue-100/80 text-primary text-xs font-bold tracking-wider mb-6 border border-blue-200 uppercase">
                                     Módulo {modules.indexOf(activeModule) + 1}
                                 </span>
@@ -109,7 +110,7 @@ const AppLayout = ({ modules, activeModuleId, activeSlideId, onNavigate, childre
                                 <div className="h-1.5 w-24 bg-gradient-to-r from-accent to-yellow-300 rounded-full mb-10"></div>
 
                                 <SlideRenderer slide={activeSlide} />
-                            </div>
+                            </AnimatedSlide>
                         </div>
                     </div>
 

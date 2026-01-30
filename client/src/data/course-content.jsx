@@ -12,6 +12,9 @@ export const MASTER_KIT_CONTENT = {
     description: "Recursos exclusivos para el curso."
 };
 
+import MODULE_2 from './MODULO_2';
+import MODULE_3 from './MODULO_3';
+
 export const COURSE_MODULES = [
     {
         id: "module-1",
@@ -99,7 +102,6 @@ export const COURSE_MODULES = [
                     }
                 }
             },
-
             // --- SECCIÓN 2: TEORÍA Y FUNDAMENTOS ---
             {
                 id: "1-6",
@@ -136,6 +138,7 @@ export const COURSE_MODULES = [
                 title: "Capacidades: La Verdad",
                 type: "list-comparison",
                 contentData: {
+                    heading: "Lo que SÍ hace vs Lo que NO hace",
                     leftTitle: "Lo que SÍ hace",
                     leftItems: [
                         "Resumir y Redactar",
@@ -184,7 +187,51 @@ export const COURSE_MODULES = [
                     ],
                     highlight: { type: "danger", text: "Anonimiza todo antes de preguntar." }
                 }
+            },
+            {
+                id: "1-11",
+                title: "🎯 Ejercicio Práctico",
+                type: "exercise",
+                contentData: {
+                    heading: "Tu Primera Conversación con IA",
+                    instruction: "Abre ChatGPT, Gemini o Claude y escribe este prompt:",
+                    prompt: "Hola, soy nuevo usando inteligencia artificial. ¿Puedes explicarme en 3 párrafos simples cómo funcionas y qué puedes hacer por mí?",
+                    tips: [
+                        "Prueba en 2 herramientas diferentes y compara",
+                        "Observa el tono y estructura de cada respuesta",
+                        "Haz una pregunta de seguimiento"
+                    ],
+                    duration: "5 min"
+                }
+            },
+            {
+                id: "1-12",
+                title: "✅ Resumen del Módulo",
+                type: "summary",
+                contentData: {
+                    heading: "Lo que aprendimos",
+                    keyPoints: [
+                        {
+                            icon: "🧠",
+                            title: "Mentalidad AI First",
+                            description: "Usa la IA desde el inicio, no solo cuando te trabes."
+                        },
+                        {
+                            icon: "⚠️",
+                            title: "La IA Miente",
+                            description: "Verificar siempre es TU responsabilidad."
+                        },
+                        {
+                            icon: "🔒",
+                            title: "Seguridad Primero",
+                            description: "Nunca compartas datos sensibles. Anonimiza todo."
+                        }
+                    ],
+                    nextModule: "Módulo 2: El Arte del Prompting"
+                }
             }
         ]
-    }
+    },
+    MODULE_2,
+    MODULE_3
 ];

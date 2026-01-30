@@ -11,8 +11,43 @@ import {
     User,
     Quote,
     Layout,
-    MessageSquare
+    MessageSquare,
+    Globe,
+    FileText,
+    Image,
+    Mic,
+    Building2,
+    Wrench,
+    Search,
+    BookOpen,
+    Sparkles,
+    Settings,
+    Sliders,
+    ShieldCheck,
+    GitFork,
+    Lightbulb,
+    Copy,
+    HelpCircle,
+    RefreshCw,
+    Wand2,
+    Activity
 } from 'lucide-react';
+
+import ExerciseSlide from './slides/ExerciseSlide';
+import SummarySlide from './slides/SummarySlide';
+import ToolCard from './slides/ToolCard';
+import Technique from './slides/Technique';
+import TechniqueAdvanced from './slides/TechniqueAdvanced';
+import TechniqueGrid from './slides/TechniqueGrid';
+import FeatureHighlight from './slides/FeatureHighlight';
+import FeatureGrid from './slides/FeatureGrid';
+import ToolStack from './slides/ToolStack';
+import ToolComparisonTable from './slides/ToolComparisonTable';
+import TableDetail from './slides/TableDetail';
+import WarningTable from './slides/WarningTable';
+import ConfigPanel from './slides/ConfigPanel';
+import StatHighlight from './slides/StatHighlight';
+import DecisionTree from './slides/DecisionTree';
 
 const ICON_MAP = {
     Car,
@@ -21,7 +56,26 @@ const ICON_MAP = {
     Target,
     User,
     Layout,
-    MessageSquare
+    MessageSquare,
+    Globe,
+    FileText,
+    Image,
+    Mic,
+    Building2,
+    Wrench,
+    Search,
+    BookOpen,
+    Sparkles,
+    Settings,
+    Sliders,
+    ShieldCheck,
+    GitFork,
+    Lightbulb,
+    Copy,
+    HelpCircle,
+    RefreshCw,
+    Wand2,
+    Activity
 };
 
 const SlideRenderer = ({ slide }) => {
@@ -131,6 +185,7 @@ const SlideRenderer = ({ slide }) => {
                 );
 
             case 'warning':
+                const { bullets } = contentData;
                 return (
                     <div className="space-y-8 animate-in zoom-in-95 duration-500">
                         <div className="bg-red-50 border-2 border-red-100 rounded-[2rem] p-10 relative overflow-hidden ring-8 ring-red-50/50">
@@ -142,8 +197,22 @@ const SlideRenderer = ({ slide }) => {
                                 <h3 className="text-4xl font-black text-red-900 tracking-tight">{contentData.heading}</h3>
                             </div>
                             <p className="text-2xl text-red-800/90 font-bold leading-relaxed mb-10">{contentData.paragraph}</p>
+
+                            {bullets && bullets.length > 0 && (
+                                <ul className="space-y-3 mb-6">
+                                    {bullets.map((bullet, index) => (
+                                        <li
+                                            key={index}
+                                            className="flex items-center gap-3 text-gray-700 text-lg bg-red-100/50 p-4 rounded-xl font-medium"
+                                        >
+                                            <div className="w-2 h-2 bg-red-400 rounded-full"></div>
+                                            {bullet}
+                                        </li>
+                                    ))}
+                                </ul>
+                            )}
                             {contentData.highlight && (
-                                <div className="bg-red-600 p-8 rounded-2xl text-white shadow-2xl shadow-red-300 transform -rotate-1">
+                                <div className="bg-red-600 p-8 rounded-2xl text-white shadow-2xl shadow-red-300 transform -rotate-1 mt-6">
                                     <p className="text-3xl font-black text-center uppercase tracking-widest">{contentData.highlight.text}</p>
                                 </div>
                             )}
@@ -304,6 +373,52 @@ const SlideRenderer = ({ slide }) => {
                         </div>
                     </div>
                 );
+
+            // --- NEW SLIDE TYPES ---
+            case 'tool-card':
+                return <ToolCard contentData={contentData} />;
+
+            case 'technique':
+                return <Technique contentData={contentData} />;
+
+            case 'technique-advanced':
+                return <TechniqueAdvanced contentData={contentData} />;
+
+            case 'technique-grid':
+                return <TechniqueGrid contentData={contentData} />;
+
+            case 'feature-highlight':
+                return <FeatureHighlight contentData={contentData} />;
+
+            case 'feature-grid':
+                return <FeatureGrid contentData={contentData} />;
+
+            case 'tool-stack':
+                return <ToolStack contentData={contentData} />;
+
+            case 'tool-comparison-table':
+                return <ToolComparisonTable contentData={contentData} />;
+
+            case 'table-detail':
+                return <TableDetail contentData={contentData} />;
+
+            case 'warning-table':
+                return <WarningTable contentData={contentData} />;
+
+            case 'config-panel':
+                return <ConfigPanel contentData={contentData} />;
+
+            case 'stat-highlight':
+                return <StatHighlight contentData={contentData} />;
+
+            case 'decision-tree':
+                return <DecisionTree contentData={contentData} />;
+
+            case 'exercise':
+                return <ExerciseSlide contentData={contentData} />;
+
+            case 'summary':
+                return <SummarySlide contentData={contentData} />;
 
             default:
                 // Mantener compatibilidad con formato antiguo si existe
