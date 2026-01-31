@@ -1,5 +1,23 @@
 [phases.setup]
 nixPkgs = ["nodejs_22"]
 
+[phases.install]
+cmds = [
+    "npm ci",
+    "cd server && npm ci"
+]
+
 [phases.build]
-cmds = ["npm run build"]
+cmds = [
+    "npm run build",
+    "cd server && npx prisma generate"
+]
+
+[phases.deploy]
+cmds = [
+    "cd server && npx prisma migrate deploy || echo 'Migration skipped or failed'",
+    "cd server && node src/index.js"
+]
+
+[start]
+cmd = "cd server && node src/index.js"
