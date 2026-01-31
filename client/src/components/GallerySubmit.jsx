@@ -1,23 +1,29 @@
 import React, { useState } from 'react';
 import { useGallery } from '../hooks/useGallery';
 import { useParticipant } from '../hooks/useParticipant';
-import { Send, CheckCircle, Image as ImageIcon, Loader2, Bot } from 'lucide-react';
+import { Send, CheckCircle, Image as ImageIcon, Loader2, Bot, Star } from 'lucide-react';
 
-const GallerySubmit = ({ exerciseId, moduleId, promptLabel, resultLabel, allowImage = false, showPrompt = true, showAIModel = false }) => {
+const GallerySubmit = ({ 
+    exerciseId, 
+    moduleId, 
+    promptLabel, 
+    resultLabel, 
+    allowImage = false, 
+    showPrompt = true, 
+    showAIModel = false,
+    additionalFields = []
+}) => {
     const [promptText, setPromptText] = useState('');
     const [resultText, setResultText] = useState('');
     const [aiName, setAiName] = useState('');
     const [aiModel, setAiModel] = useState('');
     const [imageFile, setImageFile] = useState(null);
     const [imagePreview, setImagePreview] = useState(null);
+    const [additionalData, setAdditionalData] = useState({});
     const [submitted, setSubmitted] = useState(false);
     const [submitting, setSubmitting] = useState(false);
     const [error, setError] = useState(null);
 
-    // We assume these hooks will be available via context or props in the real app,
-    // but for now we follow the instruction structure.
-    // If hooks are not yet implemented globally, this might need adjustment,
-    // but strict adherence to instructions puts them here.
     const { submitToGallery } = useGallery();
     const { participant } = useParticipant();
 
@@ -30,6 +36,83 @@ const GallerySubmit = ({ exerciseId, moduleId, promptLabel, resultLabel, allowIm
                 setImagePreview(reader.result);
             };
             reader.readAsDataURL(file);
+        }
+    };
+
+    const handleAdditionalFieldChange = (name, value) => {
+        setAdditionalData(prev => ({
+            ...prev,
+            [name]: value
+        }));
+    };
+
+    const renderAdditionalField = (field) => {
+        const { name, label, type, options, max } = field;
+        const value = additionalData[name] || '';
+
+        switch (type) {
+            case 'select':
+                return (
+                    <div key={name}>
+                        <label className="block text-sm font-bold text-slate-700 uppercase tracking-wide mb-2">
+                            {label}
+                        </label>
+                        <select
+                            value={value}
+                            onChange={(e) => handleAdditionalFieldChange(name, e.target.value)}
+                            className="w-full px-4 py-3 rounded-xl border-2 border-slate-200 focus:border-blue-500 focus:outline-none text-slate-700 text-base transition-colors bg-slate-50 focus:bg-white"
+                        >
+                            <option value="">Selecciona...</option>
+                            {options?.map((option) => (
+                                <option key={option} value={option}>
+                                    {option}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                );
+            
+            case 'rating':
+                return (
+                    <div key={name}>
+                        <label className="block text-sm font-bold text-slate-700 uppercase tracking-wide mb-3">
+                            {label}
+                        </label>
+                        <div className="flex gap-2">
+                            {Array.from({ length: max || 5 }, (_, i) => i + 1).map((star) => (
+                                <button
+                                    key={star}
+                                    type="button"
+                                    onClick={() => handleAdditionalFieldChange(name, star)}
+                                    className={`p-2 rounded-xl transition-all ${
+                                        value >= star 
+                                            ? 'text-yellow-400 bg-yellow-50' 
+                                            : 'text-slate-300 hover:text-yellow-300'
+                                    }`}
+                                >
+                                    <Star className="w-8 h-8 fill-current" />
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+                );
+            
+            case 'text':
+            default:
+                return (
+                    <div key={name}>
+                        <label className="block text-sm font-bold text-slate-700 uppercase tracking-wide mb-2">
+                            {label}
+                        </label>
+                        <input
+                            type="text"
+                            value={value}
+                            onChange={(e) => handleAdditionalFieldChange(name, e.target.value)}
+                            className="w-full px-4 py-3 rounded-xl border-2 border-slate-200 focus:border-blue-500 focus:outline-none text-slate-700 text-base transition-colors bg-slate-50 focus:bg-white"
+                            placeholder={label}
+                        />
+                    </div>
+                );
         }
     };
 
@@ -51,7 +134,8 @@ const GallerySubmit = ({ exerciseId, moduleId, promptLabel, resultLabel, allowIm
             resultText,
             aiName,
             aiModel,
-            imageFile
+            imageFile,
+            additionalData
         };
         console.log('[GallerySubmit] Submitting:', submitData);
 
@@ -89,6 +173,7 @@ const GallerySubmit = ({ exerciseId, moduleId, promptLabel, resultLabel, allowIm
                         setAiModel('');
                         setImageFile(null);
                         setImagePreview(null);
+                        setAdditionalData({});
                     }}
                     className="px-6 py-2 bg-white text-green-700 font-bold rounded-lg shadow-sm border border-green-200 hover:bg-green-50 transition-colors"
                 >
@@ -122,19 +207,21 @@ const GallerySubmit = ({ exerciseId, moduleId, promptLabel, resultLabel, allowIm
                     </div>
                 )}
 
-                {/* Result Section */}
-                <div>
-                    <label className="block text-sm font-bold text-slate-700 uppercase tracking-wide mb-2">
-                        {resultLabel || 'El resultado'}
-                    </label>
-                    <textarea
-                        value={resultText}
-                        onChange={(e) => setResultText(e.target.value)}
-                        className="w-full px-4 py-3 rounded-xl border-2 border-slate-200 focus:border-blue-500 focus:outline-none resize-none text-slate-700 text-base transition-colors bg-slate-50 focus:bg-white"
-                        rows={6}
-                        placeholder={resultLabel ? `Escribe aquí ${resultLabel.toLowerCase()}...` : "Pega aquí el resultado interesante o tu conclusión..."}
-                    />
-                </div>
+                {/* Result Section - Solo si no hay campos adicionales que lo reemplacen */}
+                {additionalFields.length === 0 && (
+                    <div>
+                        <label className="block text-sm font-bold text-slate-700 uppercase tracking-wide mb-2">
+                            {resultLabel || 'El resultado'}
+                        </label>
+                        <textarea
+                            value={resultText}
+                            onChange={(e) => setResultText(e.target.value)}
+                            className="w-full px-4 py-3 rounded-xl border-2 border-slate-200 focus:border-blue-500 focus:outline-none resize-none text-slate-700 text-base transition-colors bg-slate-50 focus:bg-white"
+                            rows={6}
+                            placeholder={resultLabel ? `Escribe aquí ${resultLabel.toLowerCase()}...` : "Pega aquí el resultado interesante o tu conclusión..."}
+                        />
+                    </div>
+                )}
 
                 {/* AI and Model Section */}
                 {showAIModel && (
@@ -167,11 +254,18 @@ const GallerySubmit = ({ exerciseId, moduleId, promptLabel, resultLabel, allowIm
                     </div>
                 )}
 
+                {/* Additional Fields */}
+                {additionalFields.length > 0 && (
+                    <div className="space-y-5">
+                        {additionalFields.map(renderAdditionalField)}
+                    </div>
+                )}
+
                 {/* Image Upload */}
                 {allowImage && (
                     <div>
                         <label className="block text-sm font-bold text-slate-700 uppercase tracking-wide mb-2">
-                            Captura (Opcional)
+                            {additionalFields.length > 0 ? '🖼️ La imagen generada' : 'Captura (Opcional)'}
                         </label>
 
                         {!imagePreview ? (
@@ -184,7 +278,9 @@ const GallerySubmit = ({ exerciseId, moduleId, promptLabel, resultLabel, allowIm
                                 />
                                 <div className="w-full h-32 border-2 border-dashed border-slate-300 rounded-xl flex flex-col items-center justify-center text-slate-400 group-hover:border-blue-400 group-hover:bg-blue-50 group-hover:text-blue-500 transition-all">
                                     <ImageIcon className="w-8 h-8 mb-2" />
-                                    <span className="font-medium text-sm">Click para subir una imagen</span>
+                                    <span className="font-medium text-sm">
+                                        {additionalFields.length > 0 ? 'Sube tu imagen generada' : 'Click para subir una imagen'}
+                                    </span>
                                 </div>
                             </div>
                         ) : (

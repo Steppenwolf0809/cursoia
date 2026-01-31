@@ -22,6 +22,8 @@ const GalleryDisplay = ({ exerciseId, moduleId, showAll = false, showHighlighted
     };
 
     const safeSubmissions = Array.isArray(submissions) ? submissions.filter(Boolean) : [];
+    // Para grupos pequeños: mostrar todos los envíos visibles por defecto
+    // Los destacados siguen apareciendo primero (ordenados por is_highlighted)
     const filteredSubmissions = safeSubmissions.filter(sub => {
         if (showAll) return true;
         if (showHighlighted) return sub.is_highlighted;
@@ -35,8 +37,8 @@ const GalleryDisplay = ({ exerciseId, moduleId, showAll = false, showHighlighted
     if (filteredSubmissions.length === 0) {
         return (
             <div className="p-10 text-center bg-slate-50 rounded-2xl border border-slate-200 border-dashed">
-                <p className="text-slate-500 font-medium">Aún no hay envíos destacados para este ejercicio.</p>
-                <p className="text-slate-400 text-sm mt-2">Los mejores prompts aparecerán aquí.</p>
+                <p className="text-slate-500 font-medium">Aún no hay envíos para este ejercicio.</p>
+                <p className="text-slate-400 text-sm mt-2">Sé el primero en compartir tu resultado.</p>
             </div>
         );
     }

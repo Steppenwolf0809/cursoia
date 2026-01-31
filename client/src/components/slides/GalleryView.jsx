@@ -5,7 +5,8 @@ import { motion } from 'framer-motion';
 
 const GalleryView = ({ contentData, moduleId }) => {
     const exerciseId = contentData?.exerciseId || null;
-    const [showHighlightedOnly, setShowHighlightedOnly] = useState(true);
+    // Mostrar todos los envíos por defecto (no solo destacados) para grupos pequeños
+    const [showHighlightedOnly, setShowHighlightedOnly] = useState(false);
     console.log('[GalleryView] Rendering with moduleId:', moduleId, 'exerciseId:', exerciseId);
 
     return (

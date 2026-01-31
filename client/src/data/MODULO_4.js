@@ -38,8 +38,8 @@ export const MODULE_4 = {
                     },
                     {
                         icon: "Trophy",
-                        title: "Los mejores destacan",
-                        description: "Seleccionaré los mejores ejemplos para mostrar al grupo."
+                        title: "Todos los envíos aparecen",
+                        description: "Con grupos pequeños, todos los ejemplos se muestran directamente en la galería."
                     },
                     {
                         icon: "HelpCircle",
@@ -128,6 +128,25 @@ Dame 3 versiones:
             }
         },
 
+        // --- GALERÍA CASO 1 ---
+        {
+            id: "4-4b",
+            title: "🖼️ Galería: Correos Difíciles",
+            type: "gallery-view",
+            contentData: {
+                heading: "Correos del Grupo",
+                description: "Los prompts y correos que crearon tus compañeros.",
+                exerciseId: "caso-1-correo"
+            },
+            interaction: {
+                type: "GalleryDisplay",
+                data: {
+                    showAll: true,
+                    showHighlighted: false
+                }
+            }
+        },
+
         // =====================================================
         // CASO 2: INVESTIGACIÓN Y ANÁLISIS
         // =====================================================
@@ -206,6 +225,25 @@ FORMATO:
             }
         },
 
+        // --- GALERÍA CASO 2 ---
+        {
+            id: "4-7b",
+            title: "🖼️ Galería: Investigaciones",
+            type: "gallery-view",
+            contentData: {
+                heading: "Hallazgos del Grupo",
+                description: "Las investigaciones y comparativas que realizaron tus compañeros.",
+                exerciseId: "caso-2-investigacion"
+            },
+            interaction: {
+                type: "GalleryDisplay",
+                data: {
+                    showAll: true,
+                    showHighlighted: false
+                }
+            }
+        },
+
         // =====================================================
         // CASO 3: TRANSFORMAR DATOS CAÓTICOS
         // =====================================================
@@ -279,6 +317,25 @@ Las tareas deben estar en formato:
                     promptLabel: "Tus notas originales (caóticas)",
                     resultLabel: "Resultado organizado",
                     allowImage: true
+                }
+            }
+        },
+
+        // --- GALERÍA CASO 3 ---
+        {
+            id: "4-10b",
+            title: "🖼️ Galería: Del Caos al Orden",
+            type: "gallery-view",
+            contentData: {
+                heading: "Transformaciones del Grupo",
+                description: "Las notas organizadas y estructuradas por tus compañeros.",
+                exerciseId: "caso-3-organizacion"
+            },
+            interaction: {
+                type: "GalleryDisplay",
+                data: {
+                    showAll: true,
+                    showHighlighted: false
                 }
             }
         },
@@ -442,6 +499,25 @@ Las tareas deben estar en formato:
             }
         },
 
+        // --- GALERÍA CASO 4 ---
+        {
+            id: "4-16b",
+            title: "🖼️ Galería: Práctica de Idiomas",
+            type: "gallery-view",
+            contentData: {
+                heading: "Experiencias con Idiomas",
+                description: "Las conversaciones y correcciones que compartieron tus compañeros.",
+                exerciseId: "caso-4-idiomas"
+            },
+            interaction: {
+                type: "GalleryDisplay",
+                data: {
+                    showAll: true,
+                    showHighlighted: false
+                }
+            }
+        },
+
         // =====================================================
         // CASO 5: ASISTENCIA TÉCNICA CON GEMINI LIVE
         // =====================================================
@@ -520,6 +596,25 @@ Las tareas deben estar en formato:
                     promptLabel: "¿Qué problema intentaste resolver?",
                     resultLabel: "¿Lo resolviste? ¿Cómo fue la experiencia?",
                     allowImage: true
+                }
+            }
+        },
+
+        // --- GALERÍA CASO 5 ---
+        {
+            id: "4-19b",
+            title: "🖼️ Galería: Soluciones Técnicas",
+            type: "gallery-view",
+            contentData: {
+                heading: "Problemas Resueltos",
+                description: "Los problemas técnicos que tus compañeros resolvieron con IA.",
+                exerciseId: "caso-5-tecnico"
+            },
+            interaction: {
+                type: "GalleryDisplay",
+                data: {
+                    showAll: true,
+                    showHighlighted: false
                 }
             }
         },
@@ -626,6 +721,25 @@ Dame el prompt listo para copiar y usar.`,
             }
         },
 
+        // --- GALERÍA CASO 6 ---
+        {
+            id: "4-23b",
+            title: "🖼️ Galería: Mega-Prompts",
+            type: "gallery-view",
+            contentData: {
+                heading: "Prompts Profesionales",
+                description: "Los mega-prompts generados por tus compañeros con NotebookLM.",
+                exerciseId: "caso-6-metaprompt"
+            },
+            interaction: {
+                type: "GalleryDisplay",
+                data: {
+                    showAll: true,
+                    showHighlighted: false
+                }
+            }
+        },
+
         // =====================================================
         // CASO 7: PROBLEMA LIBRE
         // =====================================================
@@ -701,12 +815,31 @@ Antes de responder, hazme las preguntas necesarias para entender mi caso al 100%
             }
         },
 
+        // --- GALERÍA CASO 7 ---
+        {
+            id: "4-26b",
+            title: "🖼️ Galería: Desafíos Personales",
+            type: "gallery-view",
+            contentData: {
+                heading: "Problemas Reales Resueltos",
+                description: "Los desafíos personales que tus compañeros resolvieron con IA.",
+                exerciseId: "caso-7-libre"
+            },
+            interaction: {
+                type: "GalleryDisplay",
+                data: {
+                    showAll: true,
+                    showHighlighted: false
+                }
+            }
+        },
+
         // =====================================================
-        // GALERÍA Y VOTACIÓN
+        // GALERÍA GENERAL DEL MÓDULO
         // =====================================================
         {
             id: "4-27",
-            title: "🏆 Galería de Resultados",
+            title: "🏆 Galería Completa del Módulo",
             type: "gallery-view",
             contentData: {
                 heading: "Los Mejores Prompts del Grupo",
@@ -720,8 +853,8 @@ Antes de responder, hazme las preguntas necesarias para entender mi caso al 100%
             interaction: {
                 type: "GalleryDisplay",
                 data: {
-                    showAll: false,
-                    showHighlighted: true,
+                    showAll: true,
+                    showHighlighted: false,
                     allowVoting: true
                 }
             }

@@ -101,7 +101,39 @@ export const MODULE_5 = {
             interaction: {
                 type: "ResourceLibrary",
                 data: {
-                    trackDownloads: true
+                    trackDownloads: true,
+                    resources: [
+                        {
+                            name: "Mega-Guía de Prompts Legales",
+                            type: "PDF",
+                            size: "2.4 MB",
+                            downloadUrl: "/downloads/prompts-legales.pdf"
+                        },
+                        {
+                            name: "Checklist de Verificación de IA",
+                            type: "Notion",
+                            size: "Link",
+                            downloadUrl: "/recursos"
+                        },
+                        {
+                            name: "Plantillas de Prompts para Imágenes",
+                            type: "PDF",
+                            size: "1.8 MB",
+                            downloadUrl: "/downloads/plantillas-imagenes.pdf"
+                        },
+                        {
+                            name: "Glosario de Términos IA",
+                            type: "PDF",
+                            size: "1.1 MB",
+                            downloadUrl: "/downloads/glosario-ia.pdf"
+                        },
+                        {
+                            name: "Links a Todas las Herramientas",
+                            type: "Web",
+                            size: "Link",
+                            downloadUrl: "/recursos"
+                        }
+                    ]
                 }
             }
         },

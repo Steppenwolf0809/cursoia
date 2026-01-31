@@ -65,6 +65,57 @@ const AppLayout = ({ modules, activeModuleId, activeSlideId, onNavigate, childre
         }
     };
 
+    // Navegación por teclado para instructor
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            // Solo funciona para admin/instructor
+            if (!isAdmin) return;
+            
+            // Ignorar si está escribiendo en un input, textarea o contenteditable
+            const target = e.target;
+            const isInput = target.tagName === 'INPUT' || 
+                           target.tagName === 'TEXTAREA' || 
+                           target.isContentEditable;
+            
+            if (isInput) return;
+
+            switch (e.key) {
+                case 'ArrowRight':
+                case 'ArrowDown':
+                case ' ':  // Barra espaciadora
+                case 'PageDown':
+                    e.preventDefault();
+                    handleNext();
+                    break;
+                case 'ArrowLeft':
+                case 'ArrowUp':
+                case 'PageUp':
+                    e.preventDefault();
+                    handlePrev();
+                    break;
+                case 'Home':
+                    e.preventDefault();
+                    // Ir a la primera slide
+                    if (activeModule?.slides?.length > 0) {
+                        onNavigate(activeModuleId, activeModule.slides[0].id);
+                    }
+                    break;
+                case 'End':
+                    e.preventDefault();
+                    // Ir a la última slide
+                    if (activeModule?.slides?.length > 0) {
+                        onNavigate(activeModuleId, activeModule.slides[activeModule.slides.length - 1].id);
+                    }
+                    break;
+                default:
+                    break;
+            }
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [isAdmin, activeModule, activeModuleId, safeSlideIndex, onNavigate]);
+
     useEffect(() => {
         try {
             localStorage.setItem('course_notes', JSON.stringify(notes));
@@ -398,7 +449,8 @@ const AppLayout = ({ modules, activeModuleId, activeSlideId, onNavigate, childre
 
                 {/* Right Panel - Fixed width but responsive on smaller screens if needed */}
                 {/* No mostrar panel derecho para gallery-view (la galería va en el área principal) */}
-                {(activeSlide.type === 'poll' || (activeSlide.interaction && activeSlide.type !== 'gallery-view')) && (
+                {/* Tampoco para exercise-interactive (ya incluye su propio formulario) */}
+                {(activeSlide.type === 'poll' || (activeSlide.interaction && activeSlide.type !== 'gallery-view' && activeSlide.type !== 'exercise-interactive')) && (
                     <aside className="w-full xl:w-[420px] bg-white border-t xl:border-t-0 xl:border-l border-slate-200 flex flex-col shadow-xl z-10 flex-shrink-0 order-first xl:order-last h-[300px] sm:h-[350px] xl:h-auto">
                         <div className="p-4 sm:p-6 bg-slate-50 border-b border-slate-100">
                             <h3 className="font-bold text-slate-400 text-xs uppercase tracking-wider flex items-center gap-2">

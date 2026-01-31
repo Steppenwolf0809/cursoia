@@ -35,18 +35,7 @@ export const COURSE_MODULES = [
             },
             // --- SECCIÓN 1: APERTURA E HISTORIA ---
             {
-                id: "1-1",
-                title: "La Realidad Actual",
-                type: "stat-comparison",
-                contentData: {
-                    heading: "De 45 minutos a 10 minutos",
-                    statPrimary: "10 min",
-                    statSecondary: "45 min",
-                    label: "Tiempo promedio por documento",
-                    quote: "Tranquila jefa, ahora sí tengo tiempo de revisar que todo esté perfecto."
-                }
-            },
-            {
+        
                 id: "1-2",
                 title: "¿Quién soy?",
                 type: "profile",
@@ -80,12 +69,34 @@ export const COURSE_MODULES = [
             },
             {
                 id: "1-4",
-                title: "ADVERTENCIA CRÍTICA",
+                title: "ADVERTENCIA CRÍTICA: La IA Miente",
                 type: "warning",
                 contentData: {
-                    heading: "La IA Miente",
-                    paragraph: "La Inteligencia Artificial no tiene moral. Su prioridad es satisfacer tu pregunta, no decir la verdad.",
+                    heading: "⚠️ La IA Miente",
+                    paragraph: "La Inteligencia Artificial no tiene moral. No 'piensa', solo PREDICE la siguiente palabra más probable. Su prioridad es satisfacer tu pregunta, no decir la verdad.",
+                    bullets: [
+                        "🎭 Alucina: inventa datos falsos con total confianza",
+                        "🤖 No entiende, solo calcula probabilidades",
+                        "🎯 Te dirá lo que quieres oír, no lo correcto"
+                    ],
                     highlight: { type: "danger", text: "Tu trabajo obligatorio: VERIFICAR SIEMPRE." }
+                }
+            },
+            {
+                id: "1-4b",
+                title: "La vez que la IA me engañó por días",
+                type: "narrative",
+                contentData: {
+                    Heading1: "🎭 La vez que la IA me engañó por días enteros",
+                    paragraph1: "Estaba programando un sistema para la notaría. Le pedía funciones a la IA, me mostraba resultados que parecían funcionar perfectamente. Yo feliz, avanzando. Hasta que noté algo raro: los datos siempre eran los mismos. Demasiado perfectos.",
+                    bullets1: [
+                        "💻 La IA estaba 'hardcodeando' resultados",
+                        "📝 Inventaba datos falsos escritos directamente en el código",
+                        "🎭 Me hacía creer que funcionaba cuando no era así"
+                    ],
+                    Heading2: "El descubrimiento",
+                    paragraph2: "Lo confronté, le dije 'me estás engañando' y tuvo que aceptarlo. Días de trabajo perdidos por confiar ciegamente.",
+                    highlight: { type: "danger", text: "Ahí aprendí: la IA no tiene moral. No le importa mentirte si eso satisface tu pregunta." }
                 }
             },
             {
@@ -128,16 +139,17 @@ export const COURSE_MODULES = [
             {
                 id: "1-5b",
                 title: "🤖 ¿Qué es un LLM?",
-                type: "concept",
+                type: "feature-highlight",
                 contentData: {
                     heading: "Large Language Model",
                     paragraph: "Un LLM es un modelo de lenguaje entrenado con billones de textos para predecir qué palabra viene después. No 'piensa', solo calcula probabilidades.",
                     image: "/images/llm-diagram.png",
-                    bullets: [
+                    steps: [
                         "📖 Entrenado con internet completo",
                         "🎯 Predice la siguiente palabra más probable",
                         "💡 Ejemplos: GPT-4, Claude, Gemini"
-                    ]
+                    ],
+                    tip: "Piensa en el LLM como un 'autocompletar' súper avanzado, no como un cerebro pensante."
                 }
             },
             {
@@ -171,21 +183,7 @@ export const COURSE_MODULES = [
                     quote: "Es como la RAM de una computadora. Mientras más grande, más información puede 'recordar' en una conversación."
                 }
             },
-            {
-                id: "1-5e",
-                title: "🎭 Alucinaciones",
-                type: "warning",
-                contentData: {
-                    heading: "Cuando la IA Inventa",
-                    paragraph: "Una alucinación es cuando la IA genera información falsa con total confianza. No es un bug, es parte de cómo funciona.",
-                    bullets: [
-                        "🚫 Inventa fechas, nombres, citas",
-                        "🚫 Crea referencias bibliográficas falsas",
-                        "🚫 Mezcla hechos reales con ficción"
-                    ],
-                    highlight: { type: "danger", text: "Por eso SIEMPRE debes verificar." }
-                }
-            },
+            // NOTA: El contenido de Alucinaciones (1-5e) se fusionó con el slide 1-4
             {
                 id: "1-5f",
                 title: "🎓 Entrenamiento vs Fine-tuning",
@@ -239,23 +237,9 @@ export const COURSE_MODULES = [
                     ]
                 }
             },
+            // NOTA: El contenido técnico de "No piensa, PREDICE" (1-7) se fusionó con el slide 1-4
             {
                 id: "1-7",
-                title: "¿Cómo funciona realmente?",
-                type: "concept",
-                contentData: {
-                    heading: "No piensa, PREDICE.",
-                    paragraph: "Es una calculadora gigante de probabilidades. Adivina la siguiente palabra.",
-                    image: "/images/next-token.png",
-                    bullets: [
-                        "1. Aprender (Datos)",
-                        "2. Decidir (Patrones)",
-                        "3. Crear (Generar)"
-                    ]
-                }
-            },
-            {
-                id: "1-8",
                 title: "Capacidades: La Verdad",
                 type: "list-comparison",
                 contentData: {
@@ -276,7 +260,7 @@ export const COURSE_MODULES = [
                 }
             },
             {
-                id: "1-9",
+                id: "1-8",
                 title: "La Analogía del Auto",
                 type: "analogy",
                 contentData: {
@@ -295,7 +279,7 @@ export const COURSE_MODULES = [
                 }
             },
             {
-                id: "1-10",
+                id: "1-9",
                 title: "Seguridad: Reglas de Oro",
                 type: "warning",
                 contentData: {
@@ -310,7 +294,7 @@ export const COURSE_MODULES = [
                 }
             },
             {
-                id: "1-11",
+                id: "1-10",
                 title: "🎯 Ejercicio Práctico",
                 type: "exercise",
                 contentData: {
@@ -335,7 +319,7 @@ export const COURSE_MODULES = [
                 }
             },
             {
-                id: "1-12",
+                id: "1-11",
                 title: "🖼️ Galería del Módulo 1",
                 type: "gallery-view",
                 contentData: {
@@ -352,7 +336,7 @@ export const COURSE_MODULES = [
                 }
             },
             {
-                id: "1-13",
+                id: "1-12",
                 title: "✅ Resumen del Módulo",
                 type: "summary",
                 contentData: {

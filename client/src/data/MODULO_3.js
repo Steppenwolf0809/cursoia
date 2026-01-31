@@ -67,7 +67,7 @@ export const MODULE_3 = {
                 heading: "Claude",
                 company: "Anthropic",
                 tagline: "El Analista Profundo",
-                logo: "/images/logos/claude-logo.png",
+                logo: "/images/claude-logo.png",
                 color: "#D97757",
                 strengths: [
                     "Mejor seguimiento de instrucciones largas",
@@ -114,7 +114,7 @@ export const MODULE_3 = {
                 heading: "ChatGPT",
                 company: "OpenAI",
                 tagline: "El Todoterreno",
-                logo: "/images/logos/chatgpt-logo.png",
+                logo: "/images/chatgpt-logo.png",
                 color: "#10A37F",
                 strengths: [
                     "El más versátil y conocido",
@@ -176,7 +176,7 @@ export const MODULE_3 = {
                 heading: "Gemini",
                 company: "Google",
                 tagline: "El Integrador Google",
-                logo: "/images/logos/gemini-logo.png",
+                logo: "/images/gemini-logo.png",
                 color: "#4285F4",
                 strengths: [
                     "Ventana de contexto ENORME (2M tokens)",
@@ -223,7 +223,7 @@ export const MODULE_3 = {
                 heading: "Google AI Studio",
                 company: "Google",
                 tagline: "El Laboratorio Profesional",
-                logo: "/images/logos/aistudio-logo.png",
+                logo: "/images/aistudio-logo.png",
                 color: "#EA4335",
                 strengths: [
                     "Control total sobre parámetros del modelo",
@@ -280,7 +280,7 @@ export const MODULE_3 = {
                 heading: "Perplexity",
                 company: "Perplexity AI",
                 tagline: "El Investigador con Fuentes",
-                logo: "/images/logos/perplexity-logo.png",
+                logo: "/images/perplexity-logo.png",
                 color: "#20B2AA",
                 strengths: [
                     "Búsqueda con fuentes citadas automáticamente",
@@ -328,7 +328,7 @@ export const MODULE_3 = {
                 heading: "NotebookLM",
                 company: "Google",
                 tagline: "Tu Biblioteca Personal Inteligente",
-                logo: "/images/logos/notebooklm-logo.png",
+                logo: "/images/notebooklm-logo.png",
                 color: "#FBBC04",
                 strengths: [
                     "Trabaja SOLO con tus documentos (cero alucinaciones externas)",
@@ -430,7 +430,7 @@ export const MODULE_3 = {
                 heading: "Microsoft Copilot",
                 company: "Microsoft",
                 tagline: "El Asistente Integrado",
-                logo: "/images/logos/copilot-logo.png",
+                logo: "/images/copilot-logo.png",
                 color: "#00A4EF",
                 strengths: [
                     "Integrado en Windows, Edge, Office",

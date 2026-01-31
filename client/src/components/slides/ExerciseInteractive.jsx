@@ -113,9 +113,11 @@ const ExerciseInteractive = ({ contentData, interaction }) => {
                     {interaction.type === 'GallerySubmit' && (
                         <GallerySubmit
                             exerciseId={interaction.data.exerciseId}
+                            moduleId={interaction.data.moduleId}
                             promptLabel={interaction.data.promptLabel}
                             resultLabel={interaction.data.resultLabel}
                             allowImage={interaction.data.allowImage}
+                            additionalFields={interaction.data.additionalFields}
                         />
                     )}
                     {/* Extend here for other interaction types if needed */}
