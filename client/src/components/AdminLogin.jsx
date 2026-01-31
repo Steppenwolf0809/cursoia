@@ -4,20 +4,37 @@ import { X } from 'lucide-react';
 export function AdminLogin({ isOpen, onClose, onLogin }) {
     const [password, setPassword] = useState('');
     const [error, setError] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     if (!isOpen) return null;
 
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
         e.preventDefault();
-        const adminPassword = import.meta.env.VITE_ADMIN_PASSWORD;
+        setLoading(true);
+        setError(false);
 
-        if (password === adminPassword) {
-            onLogin();
-            onClose();
-            setPassword('');
-            setError(false);
-        } else {
+        try {
+            const response = await fetch('/api/auth/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ password })
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                onLogin();
+                onClose();
+                setPassword('');
+                setError(false);
+            } else {
+                setError(true);
+            }
+        } catch (err) {
+            console.error('Login error:', err);
             setError(true);
+        } finally {
+            setLoading(false);
         }
     }
 
@@ -45,8 +62,9 @@ export function AdminLogin({ isOpen, onClose, onLogin }) {
                                 setError(false);
                             }}
                             placeholder="Contraseña"
+                            disabled={loading}
                             className="w-full px-4 py-3 rounded-lg bg-slate-900 border border-slate-700 
-                                       text-white focus:border-blue-500 focus:outline-none"
+                                       text-white focus:border-blue-500 focus:outline-none disabled:opacity-50"
                             autoFocus
                         />
                         {error && (
@@ -58,10 +76,11 @@ export function AdminLogin({ isOpen, onClose, onLogin }) {
 
                     <button
                         type="submit"
+                        disabled={loading}
                         className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold
-                                   hover:bg-blue-700 transition-colors"
+                                   hover:bg-blue-700 transition-colors disabled:opacity-50"
                     >
-                        Ingresar
+                        {loading ? 'Verificando...' : 'Ingresar'}
                     </button>
                 </form>
             </div>

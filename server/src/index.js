@@ -5,6 +5,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import pollsRouter from './routes/polls.js';
 import notesRouter from './routes/notes.js';
+import authRouter from './routes/auth.js';
 
 dotenv.config();
 
@@ -36,6 +37,7 @@ app.get('/health', (req, res) => {
 // API routes
 app.use('/api/polls', pollsRouter);
 app.use('/api/notes', notesRouter);
+app.use('/api/auth', authRouter);
 
 // Serve static files from client/dist in production
 if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'PRODUCTION') {
