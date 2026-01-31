@@ -3,12 +3,17 @@ FROM node:22-alpine AS builder
 
 WORKDIR /app
 
-# Copy all files first (including prisma schema)
+# Copy all files first
 COPY . .
 
-# Install dependencies
+# Install root dependencies
 RUN npm ci --ignore-scripts
+
+# Install server dependencies
 RUN cd server && npm ci
+
+# Install client dependencies
+RUN cd client && npm ci
 
 # Build frontend
 RUN npm run build
