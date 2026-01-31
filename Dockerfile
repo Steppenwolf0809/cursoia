@@ -16,7 +16,11 @@ RUN npm ci --ignore-scripts
 COPY server ./server
 COPY client ./client
 
-# Build frontend
+# Build frontend (with env vars)
+ARG VITE_SUPABASE_URL
+ARG VITE_SUPABASE_ANON_KEY
+ENV VITE_SUPABASE_URL=$VITE_SUPABASE_URL
+ENV VITE_SUPABASE_ANON_KEY=$VITE_SUPABASE_ANON_KEY
 RUN npm run build
 
 # Generate Prisma client
