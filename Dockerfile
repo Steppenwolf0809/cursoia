@@ -37,4 +37,4 @@ ENV PORT=3001
 EXPOSE 3001
 
 # Start command
-CMD ["sh", "-c", "cd server && npx prisma@5.22.0 migrate deploy && node src/index.js"]
+CMD sh -c "cd server && npx prisma@5.22.0 migrate deploy && node src/index.js"
