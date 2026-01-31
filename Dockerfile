@@ -3,14 +3,16 @@ FROM node:22-alpine AS builder
 
 WORKDIR /app
 
-# Copy all files first
-COPY . .
+# Copy package files
+COPY package*.json ./
+COPY server/package*.json ./server/
+COPY server/prisma ./server/prisma/
 
-# Install root dependencies (esto instala todo incluyendo server y client por los workspaces)
+# Install root dependencies (workspaces)
 RUN npm ci --ignore-scripts
 
-# Build frontend
-RUN npm run build
+# Copy server source
+COPY server ./server
 
 # Generate Prisma client
 RUN cd server && npx prisma@5.22.0 generate
@@ -20,13 +22,10 @@ FROM node:22-alpine
 
 WORKDIR /app
 
-# Copy built frontend
-COPY --from=builder /app/client/dist ./client/dist
-
 # Copy server files
 COPY --from=builder /app/server ./server
 
-# Copy node_modules (root only - las dependencias del server están aquí por workspaces)
+# Copy node_modules (root - incluye deps del server por workspaces)
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package*.json ./
 
