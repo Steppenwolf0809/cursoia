@@ -13,11 +13,5 @@ cmds = [
     "cd server && npx prisma generate"
 ]
 
-[phases.deploy]
-cmds = [
-    "cd server && npx prisma migrate deploy || echo 'Migration skipped or failed'",
-    "cd server && node src/index.js"
-]
-
 [start]
-cmd = "cd server && node src/index.js"
+cmd = "cd server && npx prisma migrate deploy && node src/index.js"
