@@ -11,8 +11,8 @@ cmds = [
 [phases.build]
 cmds = [
     "npm run build",
-    "cd server && ./node_modules/.bin/prisma generate"
+    "cd server && npx prisma@5.22.0 generate"
 ]
 
 [start]
-cmd = "cd server && ./node_modules/.bin/prisma migrate deploy && node src/index.js"
+cmd = "cd server && npx prisma@5.22.0 migrate deploy && node src/index.js"

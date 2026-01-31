@@ -19,7 +19,7 @@ RUN cd client && npm ci --ignore-scripts
 RUN npm run build
 
 # Generate Prisma client
-RUN cd server && ./node_modules/.bin/prisma generate
+RUN cd server && npx prisma@5.22.0 generate
 
 # Production stage
 FROM node:22-alpine
@@ -45,4 +45,4 @@ ENV PORT=3001
 EXPOSE 3001
 
 # Start command
-CMD ["sh", "-c", "cd server && ./node_modules/.bin/prisma migrate deploy && node src/index.js"]
+CMD ["sh", "-c", "cd server && npx prisma@5.22.0 migrate deploy && node src/index.js"]
