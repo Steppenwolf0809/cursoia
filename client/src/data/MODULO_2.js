@@ -1,5 +1,5 @@
 import React from 'react';
-import { MessageSquare, Lightbulb, AlertTriangle, Target, Sparkles, RefreshCw, HelpCircle, Wand2, Copy, CheckCircle } from "lucide-react";
+import { MessageSquare, Lightbulb, AlertTriangle, Target, Sparkles, RefreshCw, HelpCircle, Wand2, Copy, CheckCircle, Edit3 } from "lucide-react";
 
 export const MODULE_2 = {
     id: "module-2",
@@ -338,6 +338,139 @@ Dame el prompt listo para copiar y usar.`
             }
         },
 
+        // --- SLIDE 2-14a: INTRODUCCIÓN AL PROBLEMA ---
+        {
+            id: "2-14a",
+            title: "El Problema: Textos que 'Huelen' a IA",
+            type: "hero",
+            contentData: {
+                heading: "¿Por qué detectan cuando usas IA?",
+                paragraph: "La IA genera contenido útil, pero tiene patrones reconocibles. Aprender a identificarlos te permitirá crear textos más auténticos y humanos.",
+                image: "/images/ia_texto_huele.png"
+            }
+        },
+
+        // --- SLIDE 2-14a2: LOS 4 PILARES ---
+        {
+            id: "2-14a2",
+            title: "Los 4 Pilares del Problema",
+            type: "comparison",
+            contentData: {
+                heading: "¿Qué hace que un texto 'huela' a IA?",
+                paragraph: "Cuatro señales de alerta que debes conocer:",
+                headers: ["🤖 Predecible", "👁️ Detectable"],
+                rows: [
+                    [
+                        "Estructuras repetitivas y frases genéricas que la IA usa por defecto. Siempre empieza igual.",
+                        "Lectores experimentados reconocen los patrones inmediatamente. Lo notan al instante."
+                    ],
+                    [
+                        "✨ Humanizable: No es engañar, es adaptar el contenido a tu voz personal. Hazlo tuyo.",
+                        "🎯 El Equilibrio: Mantén la eficiencia de la IA con la autenticidad humana. Lo mejor de ambos mundos."
+                    ]
+                ]
+            }
+        },
+
+        // --- SLIDE 2-14b: PROMPTS PARA IMÁGENES ---
+        {
+            id: "2-14b",
+            title: "🎨 Prompts para Generación de Imágenes",
+            type: "concept",
+            contentData: {
+                heading: "Describe imágenes como un director de fotografía",
+                paragraph: "Las IAs de imagen (Midjourney, DALL-E, Leonardo, Flux, NanoBanana, Kimi 2.5) necesitan descripciones técnicas precisas. Cuanto más específico seas con términos fotográficos, mejor el resultado.",
+                bullets: [
+                    "📸 Piensa como un fotógrafo: sujeto, encuadre, lente, iluminación",
+                    "🎨 Especifica estilo artístico: fotorealista, cinematográfico, ilustración, 3D",
+                    "💡 Describe la iluminación: hora del día, fuentes de luz, sombras",
+                    "🎯 Incluye detalles técnicos: apertura, tipo de lente, profundidad de campo"
+                ]
+            }
+        },
+
+        // --- SLIDE 2-14c: ANATOMÍA DEL PROMPT DE IMAGEN ---
+        {
+            id: "2-14c",
+            title: "Fórmula de Descripción Visual",
+            type: "table-detail",
+            contentData: {
+                heading: "Estructura profesional para describir imágenes",
+                paragraph: "Sigue este orden para resultados consistentes:",
+                columns: ["Elemento", "Qué describir", "Ejemplos útiles"],
+                rows: [
+                    ["👤 SUJETO", "Persona/objeto principal + acción + atributos", "Abogado de 40 años, traje azul marino, revisando documentos con expresión concentrada"],
+                    ["📍 ENTORNO/LUGAR", "Ubicación, ambiente, época, detalles del set", "Oficina moderna en Quito, ventana con vista a la ciudad, escritorio de madera oscura"],
+                    ["🧍 POSTURA/POSE", "Posición del cuerpo, gesto, interacción", "Sentado erguido, una mano sosteniendo pluma, mirando hacia abajo"],
+                    ["💡 ILUMINACIÓN", "Tipo de luz, dirección, calidad, hora", "Luz natural suave por ventana lateral, golden hour, sombras suaves"],
+                    ["📷 CÁMARA/LENTE", "Tipo de lente, distancia focal, apertura", "Lente 85mm f/1.8, plano medio, fondo desenfocado (bokeh)"],
+                    ["🎨 ESTILO/CALIDAD", "Técnica artística, resolución, referencias", "Fotografía editorial, colores cálidos, alta resolución 8K, detalle nítido"]
+                ]
+            }
+        },
+
+        // --- SLIDE 2-14d: TÉCNICAS DE ILUMINACIÓN ---
+        {
+            id: "2-14d",
+            title: "💡 Guía de Iluminación Fotográfica",
+            type: "technique",
+            contentData: {
+                heading: "Controla la luz en tus imágenes",
+                icon: "Lightbulb",
+                paragraph: "La iluminación determina el mood y profesionalismo de la imagen:",
+                examples: [
+                    {
+                        label: "Tipos de luz natural",
+                        text: "Golden hour (amanecer/atardecer): cálida, dorada, suave. Blue hour: fría, azulada, urbana. Luz de mediodía: dura, contrastes fuertes. Luz nublada: difusa, sin sombras duras."
+                    },
+                    {
+                        label: "Dirección de iluminación",
+                        text: "Frontal: ilumina todo, plano. Lateral: crea volumen y textura. Rembrandt: luz 45° con triángulo en la mejilla. Contraluz: silueta o halo dorado. Zenital: desde arriba, sombras debajo."
+                    },
+                    {
+                        label: "Iluminación de estudio",
+                        text: "Luz principal (key light): define la forma. Luz de relleno: suaviza sombras. Luz de fondo: separa del fondo. Beauty dish: para retratos de moda. Softbox: luz suave y difusa."
+                    },
+                    {
+                        label: "Ambiente/Atmósfera",
+                        text: "Cinematográfica: contrastes altos, dramática. Documental: natural, realista. Editorial de moda: pulida, perfecta. Moody: sombras marcadas, misteriosa."
+                    }
+                ],
+                tip: "Especifica 'iluminación cinematográfica con sombras pronunciadas' o 'luz natural suave de ventana' para controlar el resultado."
+            }
+        },
+
+        // --- SLIDE 2-14e: POSTURAS Y COMPOSICIÓN ---
+        {
+            id: "2-14e",
+            title: "🧍 Posturas y Composición",
+            type: "technique",
+            contentData: {
+                heading: "Guía el encuadre y la pose del sujeto",
+                icon: "User",
+                paragraph: "La postura y composición comunican personalidad y profesionalismo:",
+                examples: [
+                    {
+                        label: "Tipos de plano (encuadre)",
+                        text: "Primerísimo primer plano: solo ojos/nariz. Primer plano: cabeza y hombros. Plano medio: cintura hacia arriba. Plano americano: rodillas hacia arriba. Plano general: cuerpo completo. Plano panorámico: ambiente amplio."
+                    },
+                    {
+                        label: "Ángulos de cámara",
+                        text: "Normal: a altura de los ojos, neutral. Contrapicado: cámara abajo, sujeto poderoso. Picado: cámara arriba, sujeto vulnerable. Picado extremo: vista de pájaro. Contrapicado extremo: de abajo hacia arriba."
+                    },
+                    {
+                        label: "Posturas corporales",
+                        text: "Profesional formal: espalda recta, mirada directa. Natural/relajada: ligera inclinación, gestos suaves. Dinámica: en movimiento, acción. Pensativa: mirada lejana, mano en barbilla. Autoritaria: pecho hacia afuera, brazos cruzados."
+                    },
+                    {
+                        label: "Reglas de composición",
+                        text: "Regla de tercios: sujeto en intersecciones. Centro simétrico: formal, estable. Líneas guía: conducen la mirada. Marco natural: puertas, ventanas como marco. Espacio negativo: minimalismo, aislamiento."
+                    }
+                ],
+                tip: "Añade 'poses naturales, no forzadas' para evitar manos raras o sonrisas robóticas comunes en IA."
+            }
+        },
+
         // --- SLIDE 2-15: ENCUESTA DE PRÁCTICA ---
         {
             id: "2-15",
@@ -374,12 +507,240 @@ Dame el prompt listo para copiar y usar.`
                     "¿Qué formato prefieres?"
                 ],
                 sampleStrong: "Actúa como experto en comunicación corporativa. Contexto: Soy empleado hace 3 años, buena relación con mi jefe, quiero 2 semanas en marzo para un viaje familiar. Mi jefe valora la planificación y no le gustan las sorpresas. Tarea: Redacta un correo solicitando vacaciones que sea profesional pero cálido. Formato: Correo breve (máximo 150 palabras) con asunto incluido."
+            },
+            interaction: {
+                type: "gallery",
+                data: {
+                    exerciseId: "mod2-ejercicio-prompt",
+                    moduleId: "module-2",
+                    showAIModel: true,
+                    promptLabel: "Tu prompt mejorado (R.C.T.F.)",
+                    resultLabel: "El resultado que obtuviste"
+                }
             }
         },
 
-        // --- SLIDE 2-17: RESUMEN DEL MÓDULO ---
+        // --- SLIDE 2-17: COHERENCIA Y CONSISTENCIA ---
         {
             id: "2-17",
+            title: "🎯 Mantener Coherencia en Series",
+            type: "technique",
+            contentData: {
+                heading: "Consejos para imágenes consistentes",
+                icon: "Copy",
+                paragraph: "Generar múltiples imágenes del mismo personaje o estilo es un desafío. Usa estas técnicas:",
+                examples: [
+                    {
+                        label: "1. Seed/semilla consistente",
+                        text: "Usa el mismo número de seed en cada generación. En Midjourney añade '--seed 12345'. Guarda este número para futuras imágenes del mismo personaje."
+                    },
+                    {
+                        label: "2. Descripción fija del personaje",
+                        text: "Crea una 'ficha técnica' con todos los detalles: 'mujer de 35 años, cabello castaño corto, ojos verdes, traje azul marino, aretes perlas' y repítela exactamente."
+                    },
+                    {
+                        label: "3. Character Reference (Midjourney)",
+                        text: "Usa '--cref URL' con una imagen de referencia del personaje. Ajusta con '--cw 0' (solo rostro) hasta '--cw 100' (rostro, ropa, pelo completo)."
+                    },
+                    {
+                        label: "4. Style Reference para consistencia visual",
+                        text: "Usa '--sref URL' para copiar el estilo de una imagen. Combina con '--sw 100' (strength weight) para controlar qué tan fuerte es la referencia."
+                    }
+                ],
+                tip: "Crea un documento con tus 'bloques de descripción' fijos y cópialos en cada prompt."
+            }
+        },
+
+        // --- SLIDE 2-18: HERRAMIENTAS Y PARÁMETROS ---
+        {
+            id: "2-18",
+            title: "🛠️ Herramientas y Parámetros",
+            type: "comparison",
+            contentData: {
+                heading: "Comparativa de IAs de imagen",
+                paragraph: "Cada herramienta tiene fortalezas diferentes y parámetros específicos:",
+                headers: ["Herramienta", "Fortaleza principal", "Parámetros clave"],
+                rows: [
+                    ["Midjourney v6", "Calidad artística, texturas", "--ar 16:9 (ratio), --stylize 250 (estilo), --seed (coherencia), --cref (personaje)"],
+                    ["DALL-E 3", "Seguimiento preciso del prompt", "Estilo: Vívido/Natural. No usa parámetros complejos, describe todo en texto."],
+                    ["Leonardo AI", "Control granular, gratis", "PhotoReal, Alchemy, ControlNet (pose), Image2Image, modelo Fine-tuned"],
+                    ["Adobe Firefly", "Seguro para uso comercial", "Estructura (pose referencia), Estilo (textura), Efectos, Configuración fotográfica"],
+                    ["Ideogram 2.0", "Texto legible en imágenes", "Estilos: Realista, Diseño, 3D, Anime. Magic Prompt mejora tu descripción."],
+                    ["Flux (Black Forest)", "Open source, alta calidad", "Disponible en Replicate, HuggingFace. Compite con Midjourney en calidad."]
+                ]
+            }
+        },
+
+        // --- SLIDE 2-19: EJEMPLOS COMPARADOS ---
+        {
+            id: "2-19",
+            title: "Ejemplos: De básico a profesional",
+            type: "comparison",
+            contentData: {
+                heading: "Compara la diferencia",
+                paragraph: "Mismo concepto, diferente nivel de detalle técnico:",
+                headers: ["❌ Básico (resultado aleatorio)", "✅ Profesional (resultado controlado)"],
+                rows: [
+                    [
+                        "Un abogado en su oficina",
+                        "Abogado ecuatoriano de 45 años, traje gris charcoal, sentado en escritorio de nogal, revisando contratos con expresión concentrada, oficina moderna con librero de fondo, luz natural entrando por ventana grande a la izquierda (luz de ventana lateral), lente 85mm f/1.8, plano medio, fondo desenfocado bokeh suave, fotografía editorial, colores cálidos terrosos, alta resolución 8K"
+                    ],
+                    [
+                        "Retrato de mujer ejecutiva",
+                        "Mujer ejecutiva latina de 35 años, cabello castaño en corte bob, blazer azul marino, posición de poder con brazos ligeramente cruzados, mirada confiada directo a cámara, fondo de oficina corporativa desenfocado, iluminación de estudio con beauty dish frontal y luz de relleno suave, lente 50mm f/2.8, primer plano, fotografía de retrato corporativo, tonos neutros profesionales, piel con textura natural, 4K nítido"
+                    ]
+                ]
+            }
+        },
+
+        // --- SLIDE 2-20: PLANTILLA DE PROMPT ---
+        {
+            id: "2-20",
+            title: "📝 Plantilla para Copiar",
+            type: "technique",
+            contentData: {
+                heading: "Fórmula lista para usar",
+                icon: "Wand2",
+                paragraph: "Completa cada sección entre corchetes:",
+                codeBlock: {
+                    title: "Template de Prompt de Imagen",
+                    code: `[SUJETO]: [descripción detallada de persona/objeto + qué está haciendo + atributos físicos]
+
+[ENTORNO]: [lugar específico + detalles del ambiente + elementos de fondo]
+
+[POSTURA]: [posición corporal + gesto + expresión facial + dirección de mirada]
+
+[ILUMINACIÓN]: [tipo de luz + dirección + hora del día + calidad + sombras]
+
+[CÁMARA]: [tipo de lente + distancia focal + apertura + tipo de plano + profundidad de campo]
+
+[ESTILO]: [técnica artística + referencias fotográficas + paleta de colores + resolución]`
+                },
+                tip: "Copia esta estructura en un documento y llénala antes de generar cada imagen."
+            }
+        },
+
+        // --- SLIDE 2-21: CONSTRUCTOR DE PROMPTS DE IMAGEN (EN CONTENIDO PRINCIPAL) ---
+        {
+            id: "2-21",
+            title: "🎯 Constructor de Prompts de Imagen",
+            type: "builder",
+            contentData: {
+                heading: "Crea tu prompt profesional paso a paso",
+                paragraph: "Completa cada campo para generar un prompt detallado. Luego copia el resultado y pruébalo en Midjourney, Leonardo AI o DALL-E.",
+                builder: {
+                    type: "PromptBuilder",
+                    templateString: "[Sujeto], [Entorno], [Postura/Pose], [Iluminación], [Cámara/Lente], [Estilo/Calidad]",
+                    placeholders: {
+                        Sujeto: "abogado ecuatoriano de 45 años, traje gris charcoal, revisando documentos con concentración",
+                        Entorno: "oficina moderna en Quito, escritorio de nogal, librero con libros de derecho al fondo",
+                        "Postura/Pose": "sentado erguido, una mano sosteniendo pluma, mirada enfocada en los papeles",
+                        Iluminación: "luz natural suave entrando por ventana grande a la izquierda, golden hour, sombras suaves",
+                        "Cámara/Lente": "lente 85mm f/1.8, plano medio, fondo desenfocado bokeh",
+                        "Estilo/Calidad": "fotografía editorial, colores cálidos terrosos, alta resolución 8K, detalle nítido"
+                    },
+                    labels: {
+                        Sujeto: "👤 Sujeto (quién + qué hace + atributos)",
+                        Entorno: "📍 Entorno (lugar + detalles del fondo)",
+                        "Postura/Pose": "🧍 Postura/Pose (posición + gesto + expresión)",
+                        Iluminación: "💡 Iluminación (tipo + dirección + hora)",
+                        "Cámara/Lente": "📷 Cámara/Lente (lente + plano + profundidad)",
+                        "Estilo/Calidad": "🎨 Estilo/Calidad (técnica + colores + resolución)"
+                    }
+                },
+                tip: "💡 Sé específico con la iluminación y el tipo de lente para mejores resultados."
+            }
+        },
+
+        // --- SLIDE 2-21b: INSTRUCCIONES DEL EJERCICIO ---
+        {
+            id: "2-21b",
+            title: "📋 Instrucciones del Ejercicio",
+            type: "concept",
+            contentData: {
+                heading: "¿Cómo completar el ejercicio?",
+                paragraph: "Sigue estos pasos para crear y compartir tu imagen:",
+                bullets: [
+                    "1️⃣ Usa el constructor (slide anterior) para generar tu prompt",
+                    "2️⃣ Copia el prompt resultante al portapapeles",
+                    "3️⃣ Abre Midjourney, Leonardo AI, DALL-E o tu herramienta favorita",
+                    "4️⃣ Pega el prompt y genera la imagen",
+                    "5️⃣ Descarga la imagen generada",
+                    "6️⃣ Ve a la siguiente slide para subir tu creación a la galería"
+                ],
+                highlight: {
+                    type: "info",
+                    text: "Tip: Guarda el prompt que generaste, lo necesitarás para subirlo a la galería."
+                }
+            }
+        },
+
+        // --- SLIDE 2-22: GALERÍA DE PROMPTS DE IMAGEN ---
+        {
+            id: "2-22",
+            title: "🖼️ Galería: Prompts de Imagen",
+            type: "gallery-view",
+            contentData: {
+                heading: "Imágenes Generadas por el Grupo",
+                description: "Revisa los prompts y las imágenes que crearon tus compañeros. Inspírate para tus próximas creaciones."
+            },
+            interaction: {
+                type: "GalleryDisplay",
+                data: {
+                    showAll: true,
+                    showHighlighted: true,
+                    allowVoting: true,
+                    filterByType: "image-prompt"
+                }
+            }
+        },
+
+        // --- SLIDE 2-23: ENVÍO A GALERÍA ---
+        {
+            id: "2-23",
+            title: "📤 Sube tu Creación",
+            type: "exercise-interactive",
+            contentData: {
+                heading: "Comparte tu imagen generada",
+                instructions: "Sube la imagen que generaste con tu prompt. Los mejores serán destacados en la galería.",
+                duration: "3 minutos",
+                steps: [
+                    "1. Descarga tu imagen generada",
+                    "2. Copia el prompt completo que usaste",
+                    "3. Completa el formulario de envío",
+                    "4. ¡Listo! Tu imagen aparecerá en la galería"
+                ]
+            },
+            interaction: {
+                type: "GallerySubmit",
+                data: {
+                    exerciseId: "mod2-prompt-imagen",
+                    moduleId: "module-2",
+                    promptLabel: "📝 Tu prompt completo",
+                    resultLabel: "🖼️ La imagen generada",
+                    allowImage: true,
+                    requireImage: true,
+                    additionalFields: [
+                        {
+                            name: "tool",
+                            label: "¿Qué herramienta usaste?",
+                            type: "select",
+                            options: ["Midjourney", "DALL-E 3", "Leonardo AI", "Adobe Firefly", "Ideogram", "Flux", "Otra"]
+                        },
+                        {
+                            name: "satisfaction",
+                            label: "¿Qué tan satisfecho estás con el resultado?",
+                            type: "rating",
+                            max: 5
+                        }
+                    ]
+                }
+            }
+        },
+
+        // --- SLIDE 2-24: RESUMEN DEL MÓDULO ---
+        {
+            id: "2-24",
             title: "Resumen: Módulo 2",
             type: "summary",
             contentData: {
@@ -390,7 +751,9 @@ Dame el prompt listo para copiar y usar.`
                     "✅ Entrevista Guiada: Una pregunta a la vez",
                     "✅ Meta-Prompting: Usa la IA para crear mejores prompts",
                     "✅ Iteración: La primera respuesta es solo el borrador",
-                    "✅ Evita el Work Slop: Agrega tu criterio siempre"
+                    "✅ Evita el Work Slop: Agrega tu criterio siempre",
+                    "✅ Prompts de imagen: Sujeto + Lugar + Postura + Iluminación + Cámara + Estilo",
+                    "✅ Mantén coherencia con seed, descripción fija y referencias de personaje"
                 ],
                 callToAction: "Siguiente: Conocerás las herramientas específicas para cada tipo de tarea →"
             }

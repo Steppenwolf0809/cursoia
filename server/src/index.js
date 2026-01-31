@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import pollsRouter from './routes/polls.js';
+import notesRouter from './routes/notes.js';
 
 dotenv.config();
 
@@ -12,6 +13,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use('/api/polls', pollsRouter);
+app.use('/api/notes', notesRouter);
 
 // Serve static files from client/dist in production
 if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'PRODUCTION') {

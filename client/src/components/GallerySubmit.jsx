@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { useGallery } from '../hooks/useGallery';
 import { useParticipant } from '../hooks/useParticipant';
-import { Send, CheckCircle, Image as ImageIcon, Loader2 } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { Send, CheckCircle, Image as ImageIcon, Loader2, Bot } from 'lucide-react';
 
-const GallerySubmit = ({ exerciseId, promptLabel, resultLabel, allowImage = false }) => {
+const GallerySubmit = ({ exerciseId, moduleId, promptLabel, resultLabel, allowImage = false, showPrompt = true, showAIModel = false }) => {
     const [promptText, setPromptText] = useState('');
     const [resultText, setResultText] = useState('');
+    const [aiName, setAiName] = useState('');
+    const [aiModel, setAiModel] = useState('');
     const [imageFile, setImageFile] = useState(null);
     const [imagePreview, setImagePreview] = useState(null);
     const [submitted, setSubmitted] = useState(false);
@@ -41,21 +42,28 @@ const GallerySubmit = ({ exerciseId, promptLabel, resultLabel, allowImage = fals
         setSubmitting(true);
         setError(null);
 
+        const submitData = {
+            exerciseId,
+            moduleId,
+            participantId: participant?.id,
+            participantName: participant?.name,
+            promptText,
+            resultText,
+            aiName,
+            aiModel,
+            imageFile
+        };
+        console.log('[GallerySubmit] Submitting:', submitData);
+
         try {
-            const { error: submitError } = await submitToGallery({
-                exerciseId,
-                participantId: participant?.id,
-                participantName: participant?.name,
-                promptText,
-                resultText,
-                imageFile
-            });
+            const { data, error: submitError } = await submitToGallery(submitData);
 
             if (submitError) throw submitError;
 
+            console.log('[GallerySubmit] Submission successful:', data);
             setSubmitted(true);
         } catch (err) {
-            console.error(err);
+            console.error('[GallerySubmit] Submission error:', err);
             setError("Hubo un error al enviar. Inténtalo de nuevo.");
         } finally {
             setSubmitting(false);
@@ -64,11 +72,7 @@ const GallerySubmit = ({ exerciseId, promptLabel, resultLabel, allowImage = fals
 
     if (submitted) {
         return (
-            <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className="bg-green-50 border border-green-200 rounded-2xl p-8 text-center h-full flex flex-col items-center justify-center"
-            >
+            <div className="bg-green-50 border border-green-200 rounded-2xl p-8 text-center h-full flex flex-col items-center justify-center">
                 <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center text-green-600 mb-6 shadow-sm">
                     <CheckCircle className="w-10 h-10" />
                 </div>
@@ -81,6 +85,8 @@ const GallerySubmit = ({ exerciseId, promptLabel, resultLabel, allowImage = fals
                         setSubmitted(false);
                         setPromptText('');
                         setResultText('');
+                        setAiName('');
+                        setAiModel('');
                         setImageFile(null);
                         setImagePreview(null);
                     }}
@@ -88,7 +94,7 @@ const GallerySubmit = ({ exerciseId, promptLabel, resultLabel, allowImage = fals
                 >
                     Enviar otro resultado
                 </button>
-            </motion.div>
+            </div>
         );
     }
 
@@ -101,19 +107,20 @@ const GallerySubmit = ({ exerciseId, promptLabel, resultLabel, allowImage = fals
 
             <div className="p-8 flex-1 overflow-y-auto custom-scrollbar space-y-6">
 
-                {/* Prompt Section */}
-                <div>
-                    <label className="block text-sm font-bold text-slate-700 uppercase tracking-wide mb-2">
-                        {promptLabel || 'Tu prompt'}
-                    </label>
-                    <textarea
-                        value={promptText}
-                        onChange={(e) => setPromptText(e.target.value)}
-                        className="w-full px-4 py-3 rounded-xl border-2 border-slate-200 focus:border-blue-500 focus:outline-none resize-none text-slate-700 text-base transition-colors bg-slate-50 focus:bg-white"
-                        rows={4}
-                        placeholder={promptLabel ? `Escribe aquí ${promptLabel.toLowerCase()}...` : "Pega aquí el prompt que utilizaste..."}
-                    />
-                </div>
+                {showPrompt && (
+                    <div>
+                        <label className="block text-sm font-bold text-slate-700 uppercase tracking-wide mb-2">
+                            {promptLabel || 'Tu prompt'}
+                        </label>
+                        <textarea
+                            value={promptText}
+                            onChange={(e) => setPromptText(e.target.value)}
+                            className="w-full px-4 py-3 rounded-xl border-2 border-slate-200 focus:border-blue-500 focus:outline-none resize-none text-slate-700 text-base transition-colors bg-slate-50 focus:bg-white"
+                            rows={4}
+                            placeholder={promptLabel ? `Escribe aquí ${promptLabel.toLowerCase()}...` : "Pega aquí el prompt que utilizaste..."}
+                        />
+                    </div>
+                )}
 
                 {/* Result Section */}
                 <div>
@@ -128,6 +135,37 @@ const GallerySubmit = ({ exerciseId, promptLabel, resultLabel, allowImage = fals
                         placeholder={resultLabel ? `Escribe aquí ${resultLabel.toLowerCase()}...` : "Pega aquí el resultado interesante o tu conclusión..."}
                     />
                 </div>
+
+                {/* AI and Model Section */}
+                {showAIModel && (
+                    <div className="grid grid-cols-2 gap-4">
+                        <div>
+                            <label className="block text-sm font-bold text-slate-700 uppercase tracking-wide mb-2 flex items-center gap-2">
+                                <Bot className="w-4 h-4" />
+                                IA Usada
+                            </label>
+                            <input
+                                type="text"
+                                value={aiName}
+                                onChange={(e) => setAiName(e.target.value)}
+                                className="w-full px-4 py-3 rounded-xl border-2 border-slate-200 focus:border-blue-500 focus:outline-none text-slate-700 text-base transition-colors bg-slate-50 focus:bg-white"
+                                placeholder="Ej: ChatGPT, Claude..."
+                            />
+                        </div>
+                        <div>
+                            <label className="block text-sm font-bold text-slate-700 uppercase tracking-wide mb-2">
+                                Modelo
+                            </label>
+                            <input
+                                type="text"
+                                value={aiModel}
+                                onChange={(e) => setAiModel(e.target.value)}
+                                className="w-full px-4 py-3 rounded-xl border-2 border-slate-200 focus:border-blue-500 focus:outline-none text-slate-700 text-base transition-colors bg-slate-50 focus:bg-white"
+                                placeholder="Ej: GPT-4, Opus..."
+                            />
+                        </div>
+                    </div>
+                )}
 
                 {/* Image Upload */}
                 {allowImage && (

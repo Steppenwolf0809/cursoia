@@ -6,20 +6,13 @@ const slideVariants = {
     exit: { opacity: 0, x: -50 }
 };
 
-const AnimatedSlide = ({ children, slideKey }) => (
-    <AnimatePresence mode="wait">
-        <motion.div
-            key={slideKey}
-            variants={slideVariants}
-            initial="initial"
-            animate="animate"
-            exit="exit"
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="h-full w-full"
-        >
+const AnimatedSlide = ({ children, slideKey }) => {
+    // Temporarily removed AnimatePresence due to crash
+    return (
+        <div key={slideKey} className="h-full w-full animate-in fade-in duration-500">
             {children}
-        </motion.div>
-    </AnimatePresence>
-);
+        </div>
+    );
+};
 
 export default AnimatedSlide;

@@ -95,7 +95,7 @@ const ICON_MAP = {
     Activity
 };
 
-const SlideRenderer = ({ slide }) => {
+const SlideRenderer = ({ slide, moduleId }) => {
     if (!slide) return null;
     const { type, contentData, title } = slide;
 
@@ -176,13 +176,14 @@ const SlideRenderer = ({ slide }) => {
             case 'narrative':
                 return (
                     <div className="space-y-8 animate-in fade-in duration-700">
+                        {/* Primera sección */}
                         <div className="prose prose-xl prose-slate max-w-none">
-                            <h3 className="text-3xl font-bold text-slate-800 tracking-tight">{contentData.heading}</h3>
-                            <p className="text-slate-600 leading-relaxed text-xl">{contentData.paragraph}</p>
+                            <h3 className="text-3xl font-bold text-slate-800 tracking-tight">{contentData.Heading1}</h3>
+                            <p className="text-slate-600 leading-relaxed text-xl">{contentData.paragraph1}</p>
                         </div>
-                        {contentData.bullets && (
+                        {contentData.bullets1 && (
                             <div className="grid gap-4">
-                                {contentData.bullets.map((bullet, i) => (
+                                {contentData.bullets1.map((bullet, i) => (
                                     <div key={i} className="flex items-start gap-5 p-5 rounded-2xl bg-white border border-slate-100 shadow-sm group hover:border-blue-200 transition-all hover:-translate-y-1">
                                         <div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors shadow-sm">
                                             <CheckCircle2 className="w-6 h-6" />
@@ -192,6 +193,27 @@ const SlideRenderer = ({ slide }) => {
                                 ))}
                             </div>
                         )}
+                        
+                        {/* Segunda sección */}
+                        {contentData.Heading2 && (
+                            <div className="prose prose-xl prose-slate max-w-none">
+                                <h3 className="text-3xl font-bold text-slate-800 tracking-tight">{contentData.Heading2}</h3>
+                                <p className="text-slate-600 leading-relaxed text-xl">{contentData.paragraph2}</p>
+                            </div>
+                        )}
+                        {contentData.bullets2 && (
+                            <div className="grid gap-4">
+                                {contentData.bullets2.map((bullet, i) => (
+                                    <div key={i} className="flex items-start gap-5 p-5 rounded-2xl bg-white border border-slate-100 shadow-sm group hover:border-blue-200 transition-all hover:-translate-y-1">
+                                        <div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors shadow-sm">
+                                            <CheckCircle2 className="w-6 h-6" />
+                                        </div>
+                                        <span className="text-slate-700 font-bold text-lg pt-1">{bullet}</span>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+                        
                         {contentData.highlight && (
                             <div className={`p-8 rounded-3xl border-l-[8px] shadow-lg ${contentData.highlight.type === 'success' ? 'bg-emerald-50 border-emerald-400 text-emerald-900' : 'bg-blue-50 border-blue-400 text-blue-900'
                                 }`}>
@@ -459,7 +481,7 @@ const SlideRenderer = ({ slide }) => {
                 return <Workflow contentData={contentData} />;
 
             case 'gallery-view':
-                return <GalleryView contentData={contentData} />;
+                return <GalleryView contentData={contentData} moduleId={moduleId} />;
 
             case 'key-points':
                 return <KeyPoints contentData={contentData} />;
@@ -487,6 +509,26 @@ const SlideRenderer = ({ slide }) => {
 
             case 'summary':
                 return <SummarySlide contentData={contentData} />;
+
+            case 'interactive':
+                // Slides interactivas muestran su contenido en el panel derecho
+                return (
+                    <div className="text-center py-20 animate-in zoom-in-95 duration-700">
+                        <div className="w-24 h-24 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-8 shadow-inner">
+                            <Settings className="w-12 h-12 text-primary" />
+                        </div>
+                        <h3 className="text-4xl font-black text-slate-800 mb-6">{title}</h3>
+                        <p className="text-2xl text-slate-500 font-medium max-w-xl mx-auto mb-10">
+                            Usa el panel de la derecha para interactuar con esta actividad.
+                        </p>
+                        <div className="flex justify-center">
+                            <div className="inline-flex items-center gap-2 px-6 py-3 bg-primary/10 text-primary rounded-full font-black text-sm uppercase tracking-widest">
+                                <div className="w-2 h-2 rounded-full bg-accent animate-ping"></div>
+                                Activo Ahora
+                            </div>
+                        </div>
+                    </div>
+                );
 
             default:
                 // Mantener compatibilidad con formato antiguo si existe

@@ -562,9 +562,31 @@ export const MODULE_3 = {
             }
         },
 
-        // --- SLIDE 3-23: RESUMEN ---
+        // --- SLIDE 3-23: ENCUESTA DE HERRAMIENTAS ---
         {
             id: "3-23",
+            title: "🗳️ Tu Herramienta Favorita",
+            type: "poll",
+            interaction: {
+                type: "LivePoll",
+                data: {
+                    id: "poll-favorite-tool",
+                    question: "¿Cuál herramienta te pareció más interesante?",
+                    options: [
+                        "🧠 Claude - Razonamiento profundo",
+                        "💬 ChatGPT - Versatilidad total",
+                        "✨ Gemini - Contexto masivo",
+                        "🔍 Perplexity - Fuentes verificables",
+                        "📚 NotebookLM - Mis documentos",
+                        "🏢 Copilot - Integración Office"
+                    ]
+                }
+            }
+        },
+
+        // --- SLIDE 3-24: RESUMEN ---
+        {
+            id: "3-24",
             title: "Resumen: Módulo 3",
             type: "summary",
             contentData: {

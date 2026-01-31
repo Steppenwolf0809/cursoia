@@ -23,3 +23,11 @@ model PollResponse {
   answer    String
   createdAt DateTime @default(now())
 }
+
+model CourseNote {
+  id              String   @id @default(uuid())
+  participantId   String?
+  participantName String
+  payload         String
+  createdAt       DateTime @default(now())
+}

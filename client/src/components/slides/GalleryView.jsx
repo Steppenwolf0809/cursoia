@@ -3,10 +3,10 @@ import GalleryDisplay from '../GalleryDisplay'; // Ensure path is correct relati
 import { Users, Filter } from 'lucide-react';
 import { motion } from 'framer-motion';
 
-const GalleryView = ({ contentData }) => {
-    // You might want to grab admin status from context or prop if available
-    // For now we assume typical user view, but controls can be added
+const GalleryView = ({ contentData, moduleId }) => {
+    const exerciseId = contentData?.exerciseId || null;
     const [showHighlightedOnly, setShowHighlightedOnly] = useState(true);
+    console.log('[GalleryView] Rendering with moduleId:', moduleId, 'exerciseId:', exerciseId);
 
     return (
         <div className="h-full flex flex-col p-8 max-w-7xl mx-auto">
@@ -49,8 +49,9 @@ const GalleryView = ({ contentData }) => {
             <div className="flex-1 overflow-y-auto custom-scrollbar pr-2">
                 <GalleryDisplay
                     showAll={!showHighlightedOnly}
-                    showHighlighted={true} // Always show highlighted, just filter others
-                    exerciseId={null} // Show all unless constrained? Usually specific to slide, but description implies 'all submissions'
+                    showHighlighted={true}
+                    exerciseId={exerciseId}
+                    moduleId={moduleId}
                 />
             </div>
         </div>
