@@ -401,7 +401,12 @@ const AppLayout = ({ modules, activeModuleId, activeSlideId, onNavigate, childre
                         <button
                             type="button"
                             onClick={handleAddNote}
-                            className={`fixed bottom-6 right-6 z-40 flex items-center gap-2 rounded-full bg-primary text-white px-4 py-2 sm:px-5 sm:py-3 shadow-2xl shadow-blue-900/30 hover:bg-blue-800 transition-all active:scale-95 text-sm sm:text-base ${isNotesOpen ? 'translate-x-[-320px] sm:translate-x-[-360px] md:translate-x-[-420px]' : ''}`}
+                            className={`fixed right-6 z-40 flex items-center gap-2 rounded-full bg-primary text-white px-4 py-2 sm:px-5 sm:py-3 shadow-2xl shadow-blue-900/30 hover:bg-blue-800 transition-all active:scale-95 text-sm sm:text-base ${
+                                // En modo libre, subir el botón para no tapar el footer de navegación
+                                (sessionState?.isFreeMode && sessionState?.freeModuleId === activeModule?.id)
+                                    ? 'bottom-20 sm:bottom-24'
+                                    : 'bottom-6'
+                            } ${isNotesOpen ? 'translate-x-[-320px] sm:translate-x-[-360px] md:translate-x-[-420px]' : ''}`}
                         >
                             <StickyNote className="w-4 h-4" />
                             <span className="hidden sm:inline">Tomar notas</span>
