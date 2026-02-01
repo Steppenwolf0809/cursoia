@@ -94,8 +94,8 @@ export const MODULE_5 = {
                         title: "Prompts IA de Transformación Personal",
                         description: "Herramientas para transformarnos profundamente",
                         type: "PDF",
-                        downloadUrl: "https://siozkounmmfzypefjmyk.supabase.co/storage/v1/object/public/downloads/Prompts_IA_Transformacion_Personal.pdf"
-                    },
+                        downloadUrl: "https://siozkounmmfzypefjmyk.supabase.co/storage/v1/object/public/downloads/Prompts_deIA_Transformacion_Personal.pdf"
+                                    },
                     {
                         icon: "Link",
                         title: "Links a Todas las Herramientas",
