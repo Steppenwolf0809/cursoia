@@ -7,7 +7,9 @@ export function useSessionSync(isAdmin = false) {
         currentSlide: '1-0',
         isGalleryVisible: false,
         isFreeMode: false,
-        freeModuleId: null
+        freeModuleId: null,
+        whiteboardContent: '',
+        whiteboardVisible: false
     });
     const [loading, setLoading] = useState(true);
 
@@ -29,7 +31,9 @@ export function useSessionSync(isAdmin = false) {
                     currentSlide: payload.new.current_slide,
                     isGalleryVisible: payload.new.is_gallery_visible,
                     isFreeMode: payload.new.is_free_mode ?? false,
-                    freeModuleId: payload.new.free_module_id ?? null
+                    freeModuleId: payload.new.free_module_id ?? null,
+                    whiteboardContent: payload.new.whiteboard_content ?? '',
+                    whiteboardVisible: payload.new.whiteboard_visible ?? false
                 });
             })
             .subscribe();
@@ -66,7 +70,9 @@ export function useSessionSync(isAdmin = false) {
                 currentSlide: data.current_slide,
                 isGalleryVisible: data.is_gallery_visible,
                 isFreeMode: data.is_free_mode ?? false,
-                freeModuleId: data.free_module_id ?? null
+                freeModuleId: data.free_module_id ?? null,
+                whiteboardContent: data.whiteboard_content ?? '',
+                whiteboardVisible: data.whiteboard_visible ?? false
             });
         }
         setLoading(false);
@@ -131,12 +137,47 @@ export function useSessionSync(isAdmin = false) {
         }
     }
 
+    async function updateWhiteboard(content, visible) {
+        if (!isAdmin) return;
+
+        const { error } = await supabase
+            .from('session_state')
+            .update({
+                whiteboard_content: content,
+                whiteboard_visible: visible,
+                updated_at: new Date().toISOString()
+            })
+            .eq('session_code', SESSION_CODE);
+
+        if (error) {
+            console.error('[useSessionSync] updateWhiteboard error:', error);
+        }
+    }
+
+    async function toggleWhiteboardVisibility() {
+        if (!isAdmin) return;
+
+        const { error } = await supabase
+            .from('session_state')
+            .update({
+                whiteboard_visible: !sessionState.whiteboardVisible,
+                updated_at: new Date().toISOString()
+            })
+            .eq('session_code', SESSION_CODE);
+
+        if (error) {
+            console.error('[useSessionSync] toggleWhiteboardVisibility error:', error);
+        }
+    }
+
     return {
         sessionState,
         loading,
         setCurrentSlide,
         toggleGalleryVisibility,
         toggleFreeMode,
+        updateWhiteboard,
+        toggleWhiteboardVisibility,
         isAdmin
     };
 }

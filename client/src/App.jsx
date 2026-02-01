@@ -11,6 +11,8 @@ import ResourceLibrary from './components/ResourceLibrary';
 import ActionPanel from './components/ActionPanel';
 import GallerySubmit from './components/GallerySubmit';
 import GalleryDisplay from './components/GalleryDisplay';
+import FeedbackSubmit from './components/FeedbackSubmit';
+import FeedbackPanel from './components/FeedbackPanel';
 import { Settings } from 'lucide-react';
 
 // Supabase & Hooks
@@ -29,7 +31,8 @@ const COMPONENT_MAP = {
   action: ActionPanel,
   gallery: GallerySubmit,
   GallerySubmit: GallerySubmit,
-  GalleryDisplay: GalleryDisplay
+  GalleryDisplay: GalleryDisplay,
+  feedback: FeedbackSubmit
 };
 
 function App() {
@@ -193,12 +196,15 @@ function App() {
 
       {/* Admin Controls Overlay */}
       {isAdmin && (
-        <AdminPanel
-          modules={COURSE_MODULES}
-          currentModuleIndex={currentModuleIndex}
-          currentSlideIndex={currentSlideIndex}
-          onNavigate={handleNavigate}
-        />
+        <>
+          <AdminPanel
+            modules={COURSE_MODULES}
+            currentModuleIndex={currentModuleIndex}
+            currentSlideIndex={currentSlideIndex}
+            onNavigate={handleNavigate}
+          />
+          <FeedbackPanel />
+        </>
       )}
     </div>
   );

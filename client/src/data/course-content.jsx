@@ -16,6 +16,7 @@ import MODULE_2 from './MODULO_2';
 import MODULE_3 from './MODULO_3';
 import MODULE_4 from './MODULO_4';
 import MODULE_5 from './MODULO_5';
+import { WHITEBOARD_MODULE } from './WHITEBOARD_MODULE';
 
 export const COURSE_MODULES = [
     {
@@ -30,7 +31,7 @@ export const COURSE_MODULES = [
                 contentData: {
                     heading: "IA para todos",
                     paragraph: "Transformando el día a día con Inteligencia Artificial. Del miedo al control total.",
-                    image: "/images/promo-curso.png"
+                    image: "/images/portada_ia_basico.png"
                 }
             },
             // --- SECCIÓN 1: APERTURA E HISTORIA ---
@@ -260,6 +261,55 @@ export const COURSE_MODULES = [
                 }
             },
             {
+                id: "1-7b",
+                title: "🚀 IAs Recomendadas para Empezar",
+                type: "ai-recommendations",
+                contentData: {
+                    heading: "¿Por dónde comenzar?",
+                    subheading: "Estas son las herramientas de IA más accesibles para dar tus primeros pasos",
+                    tools: [
+                        {
+                            name: "ChatGPT",
+                            description: "El más popular y versátil. Excelente para empezar.",
+                            logo: "/images/chatgpt-logo.png",
+                            url: "https://chatgpt.com/",
+                            color: "#10A37F",
+                            level: "Principiante"
+                        },
+                        {
+                            name: "Gemini",
+                            description: "Potente integración con Google. Contexto masivo.",
+                            logo: "/images/gemini-logo.png",
+                            url: "https://gemini.google.com/",
+                            color: "#4285F4",
+                            level: "Principiante"
+                        },
+                        {
+                            name: "Copilot",
+                            description: "Perfecto para usuarios Microsoft. Integrado en Office.",
+                            logo: "/images/copilot-logo.png",
+                            url: "https://copilot.microsoft.com/",
+                            color: "#00A4EF",
+                            level: "Principiante"
+                        },
+                        {
+                            name: "Claude",
+                            description: "Muy poderosa pero requiere saber utilizarla correctamente.",
+                            logo: "/images/claude-logo.png",
+                            url: "https://claude.ai/",
+                            color: "#D97757",
+                            level: "Intermedio"
+                        }
+                    ],
+                    surprise: {
+                        name: "Kimi 2.5",
+                        description: "Modelo Open Source que compite con los grandes. ¡Gratis y muy potente!",
+                        logo: "/images/Kimi-logo-2025.png",
+                        url: "https://www.kimi.com/kimiplus/sale?activity_enter_method=h5_share&invitation_code=PCT855"
+                    }
+                }
+            },
+            {
                 id: "1-8",
                 title: "La Analogía del Auto",
                 type: "analogy",
@@ -371,5 +421,6 @@ export const COURSE_MODULES = [
     MODULE_2,
     MODULE_3,
     MODULE_4,
-    MODULE_5
+    MODULE_5,
+    WHITEBOARD_MODULE
 ];

@@ -1,5 +1,5 @@
 import React from 'react';
-import { GraduationCap, Download, MessageSquare, Lightbulb, Heart, ExternalLink, Mail, Star } from "lucide-react";
+import { GraduationCap, Download, MessageSquare, Lightbulb, Heart, ExternalLink, Mail, Star, Sparkles } from "lucide-react";
 
 export const MODULE_5 = {
     id: "module-5",
@@ -70,71 +70,40 @@ export const MODULE_5 = {
                 resources: [
                     {
                         icon: "FileText",
-                        title: "Kit Maestro de Prompts",
-                        description: "PDF con 30+ prompts organizados por categoría",
+                        title: "Guía de Prompts Estructurada",
+                        description: "PDF con prompts organizados por categoría",
                         type: "PDF",
-                        downloadUrl: "/downloads/kit-maestro-prompts.pdf"
+                        downloadUrl: "https://siozkounmmfzypefjmyk.supabase.co/storage/v1/object/public/downloads/guia_prompts_estructurada.pdf"
                     },
                     {
                         icon: "CheckSquare",
                         title: "Checklist de Verificación",
                         description: "Para asegurar que no publiques alucinaciones",
                         type: "PDF",
-                        downloadUrl: "/downloads/checklist-verificacion.pdf"
+                        downloadUrl: "/https://siozkounmmfzypefjmyk.supabase.co/storage/v1/object/public/downloads/checklist_verificacion.pdfdownloads/checklist_verificacion.pdf"
                     },
                     {
                         icon: "BookOpen",
                         title: "Glosario de Términos IA",
                         description: "Todas las palabras raras explicadas en simple",
                         type: "PDF",
-                        downloadUrl: "/downloads/glosario-ia.pdf"
+                        downloadUrl: "https://siozkounmmfzypefjmyk.supabase.co/storage/v1/object/public/downloads/glosario_terminos_ia.pdf"
+                    },
+                    {
+                        icon: "Sparkles",
+                        title: "Prompts IA de Transformación Personal",
+                        description: "Herramientas para transformarnos profundamente",
+                        type: "PDF",
+                        downloadUrl: "https://siozkounmmfzypefjmyk.supabase.co/storage/v1/object/public/downloads/Prompts_IA_Transformacion_Personal.pdf"
                     },
                     {
                         icon: "Link",
                         title: "Links a Todas las Herramientas",
                         description: "Acceso directo a cada herramienta mencionada",
                         type: "Web",
-                        downloadUrl: "/recursos"
+                        downloadUrl: "https://siozkounmmfzypefjmyk.supabase.co/storage/v1/object/public/downloads/links_herramientas.pdf"
                     }
                 ]
-            },
-            interaction: {
-                type: "ResourceLibrary",
-                data: {
-                    trackDownloads: true,
-                    resources: [
-                        {
-                            name: "Mega-Guía de Prompts Legales",
-                            type: "PDF",
-                            size: "2.4 MB",
-                            downloadUrl: "/downloads/prompts-legales.pdf"
-                        },
-                        {
-                            name: "Checklist de Verificación de IA",
-                            type: "Notion",
-                            size: "Link",
-                            downloadUrl: "/recursos"
-                        },
-                        {
-                            name: "Plantillas de Prompts para Imágenes",
-                            type: "PDF",
-                            size: "1.8 MB",
-                            downloadUrl: "/downloads/plantillas-imagenes.pdf"
-                        },
-                        {
-                            name: "Glosario de Términos IA",
-                            type: "PDF",
-                            size: "1.1 MB",
-                            downloadUrl: "/downloads/glosario-ia.pdf"
-                        },
-                        {
-                            name: "Links a Todas las Herramientas",
-                            type: "Web",
-                            size: "Link",
-                            downloadUrl: "/recursos"
-                        }
-                    ]
-                }
             }
         },
 
@@ -232,20 +201,20 @@ export const MODULE_5 = {
                 instructor: {
                     name: "José Luis Zapata",
                     role: "Abogado Notarial | Entusiasta de IA",
-                    image: "/images/perfil-joseluis.png"
+                    image: "/images/perfil-joseluis2.png"
                 },
                 channels: [
                     {
                         icon: "Mail",
                         label: "Email",
-                        value: "jlzapata@example.com",
-                        action: "mailto:jlzapata@example.com"
+                        value: "joseluiszapataec@gmail.com",
+                        action: "mailto:joseluiszapataec@gmail.com"
                     },
                     {
                         icon: "MessageSquare",
                         label: "WhatsApp",
-                        value: "+593 99 XXX XXXX",
-                        action: "https://wa.me/593XXXXXXXX"
+                        value: "+593 999 266015",
+                        action: "https://wa.me/593999266015"
                     },
                     {
                         icon: "Globe",
@@ -262,9 +231,24 @@ export const MODULE_5 = {
             }
         },
 
-        // --- SLIDE 5-8: AGRADECIMIENTO FINAL ---
+        // --- SLIDE 5-8: FEEDBACK ---
         {
             id: "5-8",
+            title: "Tu Opinión",
+            type: "feedback",
+            contentData: {
+                heading: "Tu opinión importa",
+                paragraph: "Ayúdanos a mejorar. Comparte tu experiencia y sugerencias de forma anónima."
+            },
+            interaction: {
+                type: "feedback",
+                data: {}
+            }
+        },
+
+        // --- SLIDE 5-9: AGRADECIMIENTO FINAL ---
+        {
+            id: "5-9",
             title: "¡Gracias!",
             type: "thank-you",
             contentData: {

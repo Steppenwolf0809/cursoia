@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
-import { FileText, Download, CheckCircle, Package, Video, Link as LinkIcon, Lock } from 'lucide-react';
+import { FileText, Download, CheckCircle, Package, Video, Link as LinkIcon, Lock, CheckSquare, BookOpen, Sparkles } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const ICON_MAP = {
     FileText,
     Package,
     Video,
-    Link: LinkIcon
+    Link: LinkIcon,
+    CheckSquare,
+    BookOpen,
+    Sparkles
 };
 
 const ResourcesDownload = ({ contentData }) => {

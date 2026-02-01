@@ -161,13 +161,13 @@ contentData: {
     heading: "3 opciones para practicar",
     tools: [
         {
-            name: "Sesame.ai",
+            name: "https://app.sesame.com/",
             icon: "Mic",
             description: "Voces ultra-realistas con emociones",
             pros: ["Voces más naturales", "Detecta tu nivel..."],
             cons: ["Requiere cuenta", "Puede tener esperas"],
             bestFor: "Práctica intensiva de pronunciación",
-            url: "sesame.ai"
+            url: "https://app.sesame.com/"
         },
         // más tools
     ]
@@ -189,10 +189,10 @@ Guía paso a paso para configurar una herramienta.
 **Estructura de datos:**
 ```javascript
 contentData: {
-    heading: "Cómo configurar Sesame.ai",
-    tool: "Sesame.ai",
+    heading: "Cómo configurar https://app.sesame.com/",
+    tool: "https://app.sesame.com/",
     steps: [
-        { step: 1, title: "Entra a sesame.ai", description: "Abre el navegador..." },
+        { step: 1, title: "Entra a https://app.sesame.com/", description: "Abre el navegador..." },
         { step: 2, title: "Permite el micrófono", description: "El navegador te pedirá..." },
         // más pasos
     ],

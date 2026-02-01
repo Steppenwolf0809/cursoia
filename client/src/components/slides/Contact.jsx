@@ -62,16 +62,16 @@ const Contact = ({ contentData }) => {
                                     href={channel.action}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="flex items-center gap-4 p-4 rounded-xl bg-slate-50 border border-slate-100 hover:bg-blue-50 hover:border-blue-200 hover:shadow-md transition-all duration-300 group"
+                                    className="flex items-center gap-4 p-4 rounded-xl bg-slate-50 border border-slate-100 hover:bg-blue-50 hover:border-blue-200 hover:shadow-md transition-all duration-300 group min-w-0"
                                 >
-                                    <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-slate-400 group-hover:text-blue-500 shadow-sm transition-colors">
+                                    <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-slate-400 group-hover:text-blue-500 shadow-sm transition-colors flex-shrink-0">
                                         <Icon size={20} />
                                     </div>
-                                    <div className="text-left">
+                                    <div className="text-left min-w-0 flex-1">
                                         <span className="block text-xs font-bold text-slate-400 uppercase tracking-widest">{channel.label}</span>
-                                        <span className="font-bold text-slate-700 group-hover:text-blue-700 transition-colors">{channel.value}</span>
+                                        <span className="font-bold text-slate-700 group-hover:text-blue-700 transition-colors break-all text-sm">{channel.value}</span>
                                     </div>
-                                    <ArrowRight className="ml-auto text-slate-300 group-hover:text-blue-400 transition-colors" />
+                                    <ArrowRight className="ml-auto text-slate-300 group-hover:text-blue-400 transition-colors flex-shrink-0" />
                                 </a>
                             );
                         })}

@@ -61,10 +61,14 @@ import GalleryView from './slides/GalleryView';
 import KeyPoints from './slides/KeyPoints';
 import ResourcesDownload from './slides/ResourcesDownload';
 import ToolSummary from './slides/ToolSummary';
+import AIRecommendations from './slides/AIRecommendations';
 import QuoteLarge from './slides/QuoteLarge';
 import NextSteps from './slides/NextSteps';
 import Contact from './slides/Contact';
 import ExerciseInteractive from './slides/ExerciseInteractive';
+import ThankYou from './slides/ThankYou';
+import FeedbackSlide from './slides/FeedbackSlide';
+import Whiteboard from './Whiteboard';
 
 const ICON_MAP = {
     Car,
@@ -95,7 +99,7 @@ const ICON_MAP = {
     Activity
 };
 
-const SlideRenderer = ({ slide, moduleId }) => {
+const SlideRenderer = ({ slide, moduleId, isAdmin }) => {
     if (!slide) return null;
     const { type, contentData, title } = slide;
 
@@ -188,7 +192,7 @@ const SlideRenderer = ({ slide, moduleId }) => {
                                         <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-blue-50 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors shadow-sm flex-shrink-0">
                                             <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6" />
                                         </div>
-                                        <span className="text-slate-700 font-bold text-base sm:text-lg pt-0.5 sm:pt-1">{bullet}</span>
+                                        <span className="text-slate-700 font-bold text-base sm:text-lg pt-0.5 sm:pt-1" dangerouslySetInnerHTML={{ __html: bullet }} />
                                     </div>
                                 ))}
                             </div>
@@ -208,7 +212,7 @@ const SlideRenderer = ({ slide, moduleId }) => {
                                         <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-blue-50 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors shadow-sm flex-shrink-0">
                                             <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6" />
                                         </div>
-                                        <span className="text-slate-700 font-bold text-base sm:text-lg pt-0.5 sm:pt-1">{bullet}</span>
+                                        <span className="text-slate-700 font-bold text-base sm:text-lg pt-0.5 sm:pt-1" dangerouslySetInnerHTML={{ __html: bullet }} />
                                     </div>
                                 ))}
                             </div>
@@ -494,6 +498,9 @@ const SlideRenderer = ({ slide, moduleId }) => {
             case 'tool-summary':
                 return <ToolSummary contentData={contentData} />;
 
+            case 'ai-recommendations':
+                return <AIRecommendations contentData={contentData} />;
+
             case 'quote-large':
                 return <QuoteLarge contentData={contentData} />;
 
@@ -529,6 +536,27 @@ const SlideRenderer = ({ slide, moduleId }) => {
                                 Activo Ahora
                             </div>
                         </div>
+                    </div>
+                );
+
+            case 'whiteboard':
+                return (
+                    <div className="h-[70vh] animate-in fade-in duration-500">
+                        <Whiteboard isAdmin={isAdmin} />
+                    </div>
+                );
+
+            case 'thank-you':
+                return (
+                    <div className="animate-in fade-in duration-700">
+                        <ThankYou contentData={contentData} />
+                    </div>
+                );
+
+            case 'feedback':
+                return (
+                    <div className="h-full animate-in fade-in duration-700">
+                        <FeedbackSlide contentData={contentData} />
                     </div>
                 );
 

@@ -94,7 +94,7 @@ export const MODULE_3 = {
             contentData: {
                 heading: "Proyectos = Memoria Persistente",
                 paragraph: "Claude puede recordar contexto de tu trabajo si usas la función Proyectos. Ideal para trabajo recurrente.",
-                image: "/images/claude-projects.png",
+                image: "/images/projects.png",
                 steps: [
                     "1. Crea un Proyecto (ej: 'Contratos Notaría')",
                     "2. Sube documentos de referencia",
@@ -407,7 +407,7 @@ export const MODULE_3 = {
             contentData: {
                 heading: "Convierte documentos en Podcasts",
                 paragraph: "NotebookLM genera conversaciones de audio donde dos 'hosts' discuten tu material. Perfecto para aprender mientras manejas o caminas.",
-                image: "/images/notebooklm-podcast.png",
+                image: "/images/podcast.png",
                 steps: [
                     "1. Sube tus documentos al cuaderno",
                     "2. Haz clic en 'Generate Audio Overview'",
@@ -449,26 +449,7 @@ export const MODULE_3 = {
             }
         },
 
-        // --- SLIDE 3-18: GENERACIÓN DE IMÁGENES ---
-        {
-            id: "3-18",
-            title: "Generación de Imágenes con IA",
-            type: "concept",
-            contentData: {
-                heading: "Crea imágenes desde texto",
-                paragraph: "La estructura de un prompt visual es diferente. Aquí está la fórmula:",
-                image: "/images/image-prompt-structure.png",
-                bullets: [
-                    "🎯 SUJETO: Qué aparece ('Un abogado profesional')",
-                    "🎬 ACCIÓN: Qué hace ('sonriendo, mirando a cámara')",
-                    "🏠 ENTORNO: Dónde está ('oficina moderna luminosa')",
-                    "🎨 ESTILO: Cómo se ve ('fotografía editorial, alta calidad')",
-                    "💡 ILUMINACIÓN: Tipo de luz ('luz natural cálida')",
-                    "📐 FORMATO: Dimensiones ('16:9, alta resolución')"
-                ]
-            }
-        },
-
+    
         // --- SLIDE 3-19: HERRAMIENTAS DE IMAGEN ---
         {
             id: "3-19",
@@ -480,7 +461,7 @@ export const MODULE_3 = {
                 rows: [
                     ["DALL-E 3 (ChatGPT)", "Sigue instrucciones complejas", "ChatGPT Plus"],
                     ["Gemini Imagen 3", "Buena calidad, gratis", "Gemini"],
-                    ["Ideogram", "Excelente con texto en imágenes", "Gratis"],
+                    ["KImi en modo agente", "Excelente con texto en imágenes", "Gratis"],
                     ["Adobe Firefly", "Seguro comercialmente (sin copyright)", "Gratis con límites"],
                     ["Midjourney", "Máxima calidad artística", "$10/mes"]
                 ],
@@ -520,27 +501,7 @@ export const MODULE_3 = {
             }
         },
 
-        // --- SLIDE 3-21: ENCUESTA ---
-        {
-            id: "3-21",
-            title: "¿Cuál te llamó más la atención?",
-            type: "poll",
-            interaction: {
-                type: "LivePoll",
-                data: {
-                    id: "poll-herramientas",
-                    question: "¿Qué herramienta vas a probar primero?",
-                    options: [
-                        "Claude (Análisis profundo)",
-                        "Perplexity (Investigación con fuentes)",
-                        "NotebookLM (Mis documentos + Podcasts)",
-                        "Gemini / AI Studio (Contexto masivo)",
-                        "ChatGPT (El todoterreno)"
-                    ]
-                }
-            }
-        },
-
+    
         // --- SLIDE 3-22: EJERCICIO ---
         {
             id: "3-22",
@@ -598,7 +559,8 @@ export const MODULE_3 = {
                     "⚙️ AI Studio → Control total, cero alucinaciones",
                     "🔍 Perplexity → Investigación con fuentes",
                     "📚 NotebookLM → Tus documentos, podcasts de estudio",
-                    "🏢 Copilot → Integración Microsoft Office"
+                    "🏢 Copilot → Integración Microsoft Office",
+                    "🌙 Kimi 2.5 → Modelo Open Source, gratis y potente"
                 ],
                 callToAction: "☕ DESCANSO 15 minutos → Luego: Taller Práctico con casos reales"
             }

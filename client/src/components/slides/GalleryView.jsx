@@ -3,8 +3,11 @@ import GalleryDisplay from '../GalleryDisplay'; // Ensure path is correct relati
 import { Users, Filter } from 'lucide-react';
 import { motion } from 'framer-motion';
 
-const GalleryView = ({ contentData, moduleId }) => {
+const GalleryView = ({ contentData, moduleId: moduleIdProp }) => {
     const exerciseId = contentData?.exerciseId || null;
+    // El moduleId puede venir como prop o desde contentData
+    const moduleId = moduleIdProp || contentData?.moduleId || null;
+    
     // Mostrar todos los envíos por defecto (no solo destacados) para grupos pequeños
     const [showHighlightedOnly, setShowHighlightedOnly] = useState(false);
     console.log('[GalleryView] Rendering with moduleId:', moduleId, 'exerciseId:', exerciseId);

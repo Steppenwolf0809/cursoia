@@ -303,7 +303,10 @@ const AppLayout = ({ modules, activeModuleId, activeSlideId, onNavigate, childre
                         const Icon = module.icon;
                         // Estudiantes solo pueden hacer clic en el módulo libre específico habilitado
                         const isFreeModule = sessionState?.isFreeMode && sessionState?.freeModuleId === module.id;
-                        const canClick = isAdmin || isFreeModule;
+                        // La pizarra es especial: admin siempre puede entrar, estudiantes solo cuando está visible
+                        const isWhiteboard = module.id === 'whiteboard';
+                        const canClickWhiteboard = isAdmin || sessionState?.whiteboardVisible;
+                        const canClick = isWhiteboard ? canClickWhiteboard : (isAdmin || isFreeModule);
                         return (
                             <button
                                 key={module.id}
@@ -330,6 +333,9 @@ const AppLayout = ({ modules, activeModuleId, activeSlideId, onNavigate, childre
                                 {isActive && <ChevronRight className="w-4 h-4 ml-auto text-blue-300" />}
                                 {isFreeModule && !isAdmin && (
                                     <span className="ml-auto text-[10px] text-emerald-400 font-medium uppercase tracking-wide">Libre</span>
+                                )}
+                                {isWhiteboard && isAdmin && sessionState?.whiteboardVisible && (
+                                    <span className="ml-auto w-2 h-2 bg-green-400 rounded-full animate-pulse" title="Pizarra visible para estudiantes" />
                                 )}
                             </button>
                         )
@@ -463,6 +469,8 @@ const AppLayout = ({ modules, activeModuleId, activeSlideId, onNavigate, childre
                         </div>
                     </aside>
                 )}
+
+
 
                 {!isAdmin && (
                     <>

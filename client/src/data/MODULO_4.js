@@ -121,6 +121,7 @@ Dame 3 versiones:
                 type: "GallerySubmit",
                 data: {
                     exerciseId: "caso-1-correo",
+                    moduleId: "module-4",
                     promptLabel: "Tu prompt",
                     resultLabel: "La mejor versión del correo",
                     allowImage: true
@@ -136,7 +137,8 @@ Dame 3 versiones:
             contentData: {
                 heading: "Correos del Grupo",
                 description: "Los prompts y correos que crearon tus compañeros.",
-                exerciseId: "caso-1-correo"
+                exerciseId: "caso-1-correo",
+                moduleId: "module-4"
             },
             interaction: {
                 type: "GalleryDisplay",
@@ -218,6 +220,7 @@ FORMATO:
                 type: "GallerySubmit",
                 data: {
                     exerciseId: "caso-2-investigacion",
+                    moduleId: "module-4",
                     promptLabel: "Tu pregunta de investigación",
                     resultLabel: "El hallazgo más útil (con fuente)",
                     allowImage: true
@@ -233,7 +236,8 @@ FORMATO:
             contentData: {
                 heading: "Hallazgos del Grupo",
                 description: "Las investigaciones y comparativas que realizaron tus compañeros.",
-                exerciseId: "caso-2-investigacion"
+                exerciseId: "caso-2-investigacion",
+                moduleId: "module-4"
             },
             interaction: {
                 type: "GalleryDisplay",
@@ -314,6 +318,7 @@ Las tareas deben estar en formato:
                 type: "GallerySubmit",
                 data: {
                     exerciseId: "caso-3-organizacion",
+                    moduleId: "module-4",
                     promptLabel: "Tus notas originales (caóticas)",
                     resultLabel: "Resultado organizado",
                     allowImage: true
@@ -329,7 +334,8 @@ Las tareas deben estar en formato:
             contentData: {
                 heading: "Transformaciones del Grupo",
                 description: "Las notas organizadas y estructuradas por tus compañeros.",
-                exerciseId: "caso-3-organizacion"
+                exerciseId: "caso-3-organizacion",
+                moduleId: "module-4"
             },
             interaction: {
                 type: "GalleryDisplay",
@@ -369,7 +375,7 @@ Las tareas deben estar en formato:
                 color: "#805AD5",
                 description: "Practica conversación en cualquier idioma con IA de voz. Sin vergüenza, sin límites de horario.",
                 duration: "20 minutos",
-                tools: ["Sesame.ai", "Gemini Live", "ChatGPT Voz"]
+                tools: ["https://app.sesame.com/", "Gemini Live", "ChatGPT Voz"]
             }
         },
         {
@@ -380,13 +386,13 @@ Las tareas deben estar en formato:
                 heading: "3 opciones para practicar",
                 tools: [
                     {
-                        name: "Sesame.ai",
+                        name: "https://app.sesame.com/",
                         icon: "Mic",
                         description: "Voces ultra-realistas con emociones",
                         pros: ["Voces más naturales del mercado", "Detecta tu nivel automáticamente", "Corrige pronunciación"],
                         cons: ["Requiere cuenta", "Puede tener esperas"],
                         bestFor: "Práctica intensiva de pronunciación",
-                        url: "sesame.ai"
+                        url: "https://app.sesame.com/"
                     },
                     {
                         name: "Gemini Live",
@@ -411,16 +417,16 @@ Las tareas deben estar en formato:
         },
         {
             id: "4-14",
-            title: "Configuración: Sesame.ai",
+            title: "Configuración: https://app.sesame.com/",
             type: "setup-guide",
             contentData: {
-                heading: "Cómo configurar Sesame.ai",
-                tool: "Sesame.ai",
+                heading: "Cómo configurar https://app.sesame.com/",
+                tool: "https://app.sesame.com/",
                 steps: [
                     {
                         step: 1,
-                        title: "Entra a sesame.ai",
-                        description: "Abre el navegador y ve a sesame.ai"
+                        title: "Entra a https://app.sesame.com/",
+                        description: "Abre el navegador y ve a https://app.sesame.com/"
                     },
                     {
                         step: 2,
@@ -481,7 +487,7 @@ Las tareas deben estar en formato:
                 duration: "10 minutos",
                 challenge: "Reto: Intenta que la IA te corrija al menos 3 errores",
                 steps: [
-                    "1. Elige: Sesame.ai, Gemini Live, o ChatGPT Voz",
+                    "1. Elige: https://app.sesame.com/, Gemini Live, o ChatGPT Voz",
                     "2. Usa uno de los prompts para tutores",
                     "3. Conversa por 5 minutos",
                     "4. Anota las correcciones que te hizo",
@@ -492,6 +498,7 @@ Las tareas deben estar en formato:
                 type: "GallerySubmit",
                 data: {
                     exerciseId: "caso-4-idiomas",
+                    moduleId: "module-4",
                     promptLabel: "¿Qué herramienta usaste y qué prompt?",
                     resultLabel: "¿Qué errores te corrigió? ¿Cómo fue la experiencia?",
                     allowImage: false
@@ -507,7 +514,8 @@ Las tareas deben estar en formato:
             contentData: {
                 heading: "Experiencias con Idiomas",
                 description: "Las conversaciones y correcciones que compartieron tus compañeros.",
-                exerciseId: "caso-4-idiomas"
+                exerciseId: "caso-4-idiomas",
+                moduleId: "module-4"
             },
             interaction: {
                 type: "GalleryDisplay",
@@ -593,6 +601,7 @@ Las tareas deben estar en formato:
                 type: "GallerySubmit",
                 data: {
                     exerciseId: "caso-5-tecnico",
+                    moduleId: "module-4",
                     promptLabel: "¿Qué problema intentaste resolver?",
                     resultLabel: "¿Lo resolviste? ¿Cómo fue la experiencia?",
                     allowImage: true
@@ -608,7 +617,8 @@ Las tareas deben estar en formato:
             contentData: {
                 heading: "Problemas Resueltos",
                 description: "Los problemas técnicos que tus compañeros resolvieron con IA.",
-                exerciseId: "caso-5-tecnico"
+                exerciseId: "caso-5-tecnico",
+                moduleId: "module-4"
             },
             interaction: {
                 type: "GalleryDisplay",
@@ -633,7 +643,7 @@ Las tareas deben estar en formato:
                 color: "#D53F8C",
                 description: "Técnica avanzada: alimenta NotebookLM con guías de prompting y pídele que genere el prompt perfecto para tu tarea.",
                 duration: "20 minutos",
-                tools: ["NotebookLM", "Perplexity", "Claude/ChatGPT"]
+                tools: ["NotebookLM", "Claude/ChatGPT"]
             }
         },
         {
@@ -646,8 +656,8 @@ Las tareas deben estar en formato:
                     {
                         number: 1,
                         title: "Busca fuentes sobre prompting",
-                        description: "Usa Perplexity para encontrar guías, artículos o papers sobre cómo escribir buenos prompts para tu tipo de tarea.",
-                        tool: "Perplexity",
+                        description: "Usa NotebookLM  para encontrar guías, artículos o papers sobre cómo escribir buenos prompts para tu tipo de tarea.",
+                        tool: "NotebookLM",
                         example: "\"mejores técnicas de prompting para análisis de documentos legales\""
                     },
                     {
@@ -690,6 +700,11 @@ El prompt que generes debe incluir:
 Cita qué técnicas de las fuentes estás aplicando y por qué.
 
 Dame el prompt listo para copiar y usar.`,
+                examples: [
+                    "Generar prompt para revisar contratos",
+                    "Crear prompt para análisis de documentos",
+                    "Prompt para redacción de correos profesionales"
+                ],
                 tip: "Este es el nivel más alto de prompting. Estás usando IA para mejorar tu uso de IA."
             }
         },
@@ -702,7 +717,7 @@ Dame el prompt listo para copiar y usar.`,
                 instructions: "Vamos a crear un prompt de alta calidad para una tarea que necesites resolver frecuentemente.",
                 duration: "15 minutos",
                 steps: [
-                    "1. Abre Perplexity y busca: 'mejores técnicas de prompting para [tu área]'",
+                    "1. Abre NotebookLM y busca: 'mejores técnicas de prompting para [tu área]'",
                     "2. Guarda 2-3 links de guías útiles",
                     "3. Abre NotebookLM y crea un cuaderno nuevo",
                     "4. Agrega los links como fuentes",
@@ -714,6 +729,7 @@ Dame el prompt listo para copiar y usar.`,
                 type: "GallerySubmit",
                 data: {
                     exerciseId: "caso-6-metaprompt",
+                    moduleId: "module-4",
                     promptLabel: "¿Para qué tarea generaste el prompt?",
                     resultLabel: "El mega-prompt que NotebookLM generó",
                     allowImage: true
@@ -729,7 +745,8 @@ Dame el prompt listo para copiar y usar.`,
             contentData: {
                 heading: "Prompts Profesionales",
                 description: "Los mega-prompts generados por tus compañeros con NotebookLM.",
-                exerciseId: "caso-6-metaprompt"
+                exerciseId: "caso-6-metaprompt",
+                moduleId: "module-4"
             },
             interaction: {
                 type: "GalleryDisplay",
@@ -753,7 +770,7 @@ Dame el prompt listo para copiar y usar.`,
                 icon: "Users",
                 color: "#319795",
                 description: "Es tu turno. Plantea un problema real que tengas y lo resolvemos juntos usando todo lo aprendido.",
-                duration: "30 minutos",
+                duration: "15 minutos",
                 tools: ["La que mejor se adapte a tu caso"]
             }
         },
@@ -778,6 +795,11 @@ FORMATO DE RESPUESTA:
 [Cómo quiero recibir la información]
 
 Antes de responder, hazme las preguntas necesarias para entender mi caso al 100%.`,
+                examples: [
+                    "Resolver conflicto laboral",
+                    "Planificar un proyecto complejo",
+                    "Aprender una habilidad nueva"
+                ],
                 tip: "Si no sabes qué rol asignar, pregúntale a la IA: '¿Qué tipo de experto sería el mejor para ayudarme con [tu problema]?'"
             }
         },
@@ -808,6 +830,7 @@ Antes de responder, hazme las preguntas necesarias para entender mi caso al 100%
                 type: "GallerySubmit",
                 data: {
                     exerciseId: "caso-7-libre",
+                    moduleId: "module-4",
                     promptLabel: "¿Qué problema resolviste?",
                     resultLabel: "Tu prompt y el resultado (o lo que aprendiste)",
                     allowImage: true
@@ -823,7 +846,8 @@ Antes de responder, hazme las preguntas necesarias para entender mi caso al 100%
             contentData: {
                 heading: "Problemas Reales Resueltos",
                 description: "Los desafíos personales que tus compañeros resolvieron con IA.",
-                exerciseId: "caso-7-libre"
+                exerciseId: "caso-7-libre",
+                moduleId: "module-4"
             },
             interaction: {
                 type: "GalleryDisplay",
@@ -834,31 +858,6 @@ Antes de responder, hazme las preguntas necesarias para entender mi caso al 100%
             }
         },
 
-        // =====================================================
-        // GALERÍA GENERAL DEL MÓDULO
-        // =====================================================
-        {
-            id: "4-27",
-            title: "🏆 Galería Completa del Módulo",
-            type: "gallery-view",
-            contentData: {
-                heading: "Los Mejores Prompts del Grupo",
-                description: "Aquí están los envíos de todos. Vamos a revisar los más destacados.",
-                adminOnly: {
-                    canHighlight: true,
-                    canDelete: true,
-                    canShowOnScreen: true
-                }
-            },
-            interaction: {
-                type: "GalleryDisplay",
-                data: {
-                    showAll: true,
-                    showHighlighted: false,
-                    allowVoting: true
-                }
-            }
-        },
 
         // =====================================================
         // CIERRE

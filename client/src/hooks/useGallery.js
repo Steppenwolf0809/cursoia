@@ -45,11 +45,12 @@ export function useGallery(exerciseId = null, moduleId = null) {
             .order('created_at', { ascending: false });
 
         // Usar stableModuleId y stableExerciseId que son los valores normalizados
+        // Si hay exerciseId, filtrar solo por exerciseId (es único en todo el sistema)
+        // Si solo hay moduleId, filtrar por moduleId
         if (stableExerciseId) {
             query = query.eq('exercise_id', stableExerciseId);
-        }
-
-        if (stableModuleId) {
+        } else if (stableModuleId) {
+            // Solo filtrar por moduleId si no hay exerciseId específico
             query = query.eq('module_id', stableModuleId);
         }
 
