@@ -12,6 +12,9 @@ const FeedbackSubmit = () => {
     const [hoverRating, setHoverRating] = useState(0);
     
     const { participant } = useParticipant();
+    
+    // Guardar el nombre real para la base de datos
+    const participantName = participant?.name || 'Participante';
 
     const ratingLabels = {
         1: 'Muy insatisfecho',
@@ -31,7 +34,7 @@ const FeedbackSubmit = () => {
             .insert({
                 session_code: SESSION_CODE,
                 participant_id: participant?.id || null,
-                participant_name: participant?.name || 'Anónimo',
+                participant_name: participantName, // Guardamos el nombre real
                 rating: rating,
                 comment: comment.trim(),
                 suggestion: suggestion.trim()

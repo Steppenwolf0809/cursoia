@@ -158,9 +158,14 @@ const FeedbackPanel = () => {
                                                             />
                                                         ))}
                                                     </div>
-                                                    <span className="text-sm text-slate-500">
-                                                        {feedback.participant_name}
-                                                    </span>
+                                                    <div className="flex items-center gap-2">
+                                                        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white font-bold text-sm">
+                                                            {feedback.participant_name?.charAt(0).toUpperCase() || '?'}
+                                                        </div>
+                                                        <span className="font-semibold text-slate-700">
+                                                            {feedback.participant_name}
+                                                        </span>
+                                                    </div>
                                                 </div>
                                                 <button
                                                     onClick={() => deleteFeedback(feedback.id)}
