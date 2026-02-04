@@ -254,22 +254,22 @@ const AppLayout = ({ modules, activeModuleId, activeSlideId, onNavigate, childre
                 />
             )}
 
-            {/* Mobile Header */}
-            <div className="lg:hidden fixed top-0 left-0 right-0 h-14 bg-primary text-white flex items-center justify-between px-4 z-20 shadow-lg">
+            {/* Mobile Header - Mejorado para táctil */}
+            <div className="lg:hidden fixed top-0 left-0 right-0 h-16 bg-primary text-white flex items-center justify-between px-4 z-30 shadow-lg safe-area-top">
                 <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 bg-gradient-to-br from-accent to-yellow-600 rounded-lg flex items-center justify-center shadow-lg">
-                        <span className="font-bold text-sm text-white">IA</span>
+                    <div className="w-10 h-10 bg-gradient-to-br from-accent to-yellow-600 rounded-xl flex items-center justify-center shadow-lg">
+                        <span className="font-bold text-lg text-white">IA</span>
                     </div>
-                    <span className="font-bold text-sm truncate max-w-[150px]">
+                    <span className="font-bold text-base truncate max-w-[200px]">
                         {activeModule?.title || 'Curso IA'}
                     </span>
                 </div>
                 <button
                     onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                    className="p-2 rounded-lg hover:bg-white/10 transition-colors"
+                    className="p-3 rounded-xl hover:bg-white/10 transition-colors active:scale-95"
                     aria-label="Menú"
                 >
-                    <Menu className="w-5 h-5" />
+                    <Menu className="w-6 h-6" />
                 </button>
             </div>
 
@@ -288,10 +288,10 @@ const AppLayout = ({ modules, activeModuleId, activeSlideId, onNavigate, childre
                         </div>
                         <button
                             onClick={() => setIsMobileMenuOpen(false)}
-                            className="lg:hidden p-2 rounded-lg hover:bg-white/10 transition-colors"
+                            className="lg:hidden p-3 rounded-xl hover:bg-white/10 transition-colors active:scale-95"
                             aria-label="Cerrar menú"
                         >
-                            <X className="w-5 h-5" />
+                            <X className="w-6 h-6" />
                         </button>
                     </div>
                 </div>
@@ -325,16 +325,16 @@ const AppLayout = ({ modules, activeModuleId, activeSlideId, onNavigate, childre
                                     }`}
                             >
                                 {isActive && (
-                                    <div className="absolute left-0 top-0 h-full w-1 bg-accent" />
+                                    <div className="absolute left-0 top-0 h-full w-1.5 lg:w-1 bg-accent" />
                                 )}
-                                <Icon className={`w-5 h-5 flex-shrink-0 transition-colors ${isActive ? 'text-accent' : canClick ? 'text-blue-400 group-hover:text-blue-200' : 'text-blue-500/40'}`} />
-                                <span className={`font-medium text-sm text-left truncate transition-transform ${isActive ? 'translate-x-1' : ''}`}>{module.title}</span>
-                                {isActive && <ChevronRight className="w-4 h-4 ml-auto text-blue-300" />}
+                                <Icon className={`w-6 h-6 lg:w-5 lg:h-5 flex-shrink-0 transition-colors ${isActive ? 'text-accent' : canClick ? 'text-blue-400 group-hover:text-blue-200' : 'text-blue-500/40'}`} />
+                                <span className={`font-medium text-base lg:text-sm text-left truncate transition-transform flex-1 ${isActive ? 'translate-x-1' : ''}`}>{module.title}</span>
+                                {isActive && <ChevronRight className="w-5 h-5 lg:w-4 lg:h-4 ml-auto text-blue-300" />}
                                 {isFreeModeActive && !isAdmin && (
-                                    <span className="ml-auto text-[10px] text-emerald-400 font-medium uppercase tracking-wide">Libre</span>
+                                    <span className="ml-auto text-xs lg:text-[10px] text-emerald-400 font-medium uppercase tracking-wide">Libre</span>
                                 )}
                                 {isWhiteboard && isAdmin && sessionState?.whiteboardVisible && (
-                                    <span className="ml-auto w-2 h-2 bg-green-400 rounded-full animate-pulse" title="Pizarra visible para estudiantes" />
+                                    <span className="ml-auto w-2.5 h-2.5 lg:w-2 lg:h-2 bg-green-400 rounded-full animate-pulse" title="Pizarra visible para estudiantes" />
                                 )}
                             </button>
                         )
@@ -366,7 +366,7 @@ const AppLayout = ({ modules, activeModuleId, activeSlideId, onNavigate, childre
             </aside>
 
             {/* Main Content + Right Panel wrapper to handle layout */}
-            <div className="flex-1 flex flex-col xl:flex-row min-w-0 pt-14 lg:pt-0">
+            <div className="flex-1 flex flex-col xl:flex-row min-w-0 pt-16 lg:pt-0 overflow-hidden">
 
                 {/* Main Content - Flexible */}
                 <main className="flex-1 flex flex-col relative bg-slate-50/50 min-w-0">
@@ -378,18 +378,18 @@ const AppLayout = ({ modules, activeModuleId, activeSlideId, onNavigate, childre
                         />
                     </div>
 
-                    <div className="flex-1 overflow-y-auto w-full">
-                        <div className="max-w-3xl mx-auto p-4 sm:p-6 lg:p-12 pb-32">
+                    <div className="flex-1 overflow-y-auto w-full overscroll-y-contain">
+                        <div className="max-w-3xl mx-auto p-4 sm:p-6 lg:p-12 pb-24 lg:pb-32">
                             <AnimatedSlide slideKey={activeSlide.id}>
-                                <span className="inline-flex items-center px-3 py-1 rounded-full bg-blue-100/80 text-primary text-xs font-bold tracking-wider mb-4 sm:mb-6 border border-blue-200 uppercase">
+                                <span className="inline-flex items-center px-3 py-1.5 rounded-full bg-blue-100/80 text-primary text-xs font-bold tracking-wider mb-4 sm:mb-6 border border-blue-200 uppercase">
                                     Módulo {safeModules.indexOf(activeModule) + 1}
                                 </span>
 
-                                <h2 className="text-xl sm:text-3xl lg:text-5xl font-bold text-slate-800 mb-6 sm:mb-8 leading-tight tracking-tight">
+                                <h2 className="text-2xl sm:text-3xl lg:text-5xl font-bold text-slate-800 mb-4 sm:mb-8 leading-tight tracking-tight">
                                     {activeSlide.title}
                                 </h2>
 
-                                <div className="h-1.5 w-24 bg-gradient-to-r from-accent to-yellow-300 rounded-full mb-8 sm:mb-10"></div>
+                                <div className="h-1.5 w-20 sm:w-24 bg-gradient-to-r from-accent to-yellow-300 rounded-full mb-6 sm:mb-10"></div>
 
                                 <SlideRenderer slide={activeSlide} isAdmin={isAdmin} sessionState={sessionState} moduleId={activeModuleId} />
                             </AnimatedSlide>
@@ -400,14 +400,14 @@ const AppLayout = ({ modules, activeModuleId, activeSlideId, onNavigate, childre
                         <button
                             type="button"
                             onClick={handleAddNote}
-                            className={`fixed right-6 z-40 flex items-center gap-2 rounded-full bg-primary text-white px-4 py-2 sm:px-5 sm:py-3 shadow-2xl shadow-blue-900/30 hover:bg-blue-800 transition-all active:scale-95 text-sm sm:text-base ${
+                            className={`fixed right-4 z-40 flex items-center gap-2 rounded-full bg-primary text-white px-4 py-3 sm:px-5 sm:py-3 shadow-2xl shadow-blue-900/30 hover:bg-blue-800 transition-all active:scale-95 text-sm sm:text-base min-h-[48px] ${
                                 // En modo libre, subir el botón para no tapar el footer de navegación
                                 sessionState?.isFreeMode
-                                    ? 'bottom-20 sm:bottom-24'
+                                    ? 'bottom-24 sm:bottom-24'
                                     : 'bottom-6'
                             } ${isNotesOpen ? 'translate-x-[-320px] sm:translate-x-[-360px] md:translate-x-[-420px]' : ''}`}
                         >
-                            <StickyNote className="w-4 h-4" />
+                            <StickyNote className="w-5 h-5" />
                             <span className="hidden sm:inline">Tomar notas</span>
                             <span className="sm:hidden">Notas</span>
                         </button>
@@ -415,7 +415,7 @@ const AppLayout = ({ modules, activeModuleId, activeSlideId, onNavigate, childre
 
                     {/* Footer Navigation - For Admins always, for students when free mode is active */}
                     {(isAdmin || sessionState?.isFreeMode) && (
-                        <div className={`${isAdmin ? 'absolute z-10' : 'fixed z-50'} bottom-0 left-0 w-full bg-white/95 backdrop-blur-md border-t border-slate-200 p-3 sm:p-4 px-4 sm:px-8 flex items-center justify-between`}>
+                        <div className={`${isAdmin ? 'absolute z-10' : 'fixed z-50'} bottom-0 left-0 w-full bg-white/95 backdrop-blur-md border-t border-slate-200 p-3 sm:p-4 px-4 sm:px-8 flex items-center justify-between safe-area-bottom`}>
                             <div className="text-xs sm:text-sm font-semibold text-slate-400 uppercase tracking-wider hidden sm:block">
                                 {activeSlideIndex + 1} <span className="text-slate-300">/</span> {totalSlides}
                                 {!isAdmin && sessionState?.isFreeMode && (
@@ -426,19 +426,19 @@ const AppLayout = ({ modules, activeModuleId, activeSlideId, onNavigate, childre
                                 <button
                                     onClick={handlePrev}
                                     disabled={activeSlideIndex === 0}
-                                    className="px-4 sm:px-6 py-2 sm:py-2.5 rounded-xl border border-slate-200 text-slate-600 font-medium hover:bg-slate-50 hover:border-slate-300 disabled:opacity-50 disabled:cursor-not-allowed transition-all active:scale-95 text-sm sm:text-base"
+                                    className="flex-1 sm:flex-none px-6 sm:px-6 py-3 sm:py-2.5 rounded-xl border border-slate-200 text-slate-600 font-medium hover:bg-slate-50 hover:border-slate-300 disabled:opacity-50 disabled:cursor-not-allowed transition-all active:scale-95 text-base sm:text-base min-h-[48px]"
                                 >
                                     <span className="hidden sm:inline">Anterior</span>
-                                    <span className="sm:hidden">←</span>
+                                    <span className="sm:hidden flex items-center justify-center">←</span>
                                 </button>
                                 <button
                                     onClick={handleNext}
                                     disabled={!isAdmin && activeSlideIndex === totalSlides - 1}
-                                    className="px-4 sm:px-8 py-2 sm:py-2.5 rounded-xl bg-primary text-white font-medium hover:bg-blue-800 shadow-lg shadow-blue-900/20 transition-all transform hover:-translate-y-0.5 active:scale-95 flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none text-sm sm:text-base"
+                                    className="flex-1 sm:flex-none px-6 sm:px-8 py-3 sm:py-2.5 rounded-xl bg-primary text-white font-medium hover:bg-blue-800 shadow-lg shadow-blue-900/20 transition-all transform hover:-translate-y-0.5 active:scale-95 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none text-base sm:text-base min-h-[48px]"
                                 >
                                     <span className="hidden sm:inline">{safeSlideIndex < totalSlides - 1 ? 'Siguiente' : (isAdmin ? 'Siguiente Módulo' : 'Fin del módulo')}</span>
                                     <span className="sm:hidden">{safeSlideIndex < totalSlides - 1 ? 'Sig.' : 'Fin'}</span>
-                                    <ChevronRight className="w-4 h-4" />
+                                    <ChevronRight className="w-5 h-5 sm:w-4 sm:h-4" />
                                 </button>
                             </div>
                         </div>
@@ -449,14 +449,14 @@ const AppLayout = ({ modules, activeModuleId, activeSlideId, onNavigate, childre
                 {/* No mostrar panel derecho para gallery-view (la galería va en el área principal) */}
                 {/* Tampoco para exercise-interactive (ya incluye su propio formulario) */}
                 {(activeSlide.type === 'poll' || (activeSlide.interaction && activeSlide.type !== 'gallery-view' && activeSlide.type !== 'exercise-interactive')) && (
-                    <aside className="w-full xl:w-[420px] bg-white border-t xl:border-t-0 xl:border-l border-slate-200 flex flex-col shadow-xl z-10 flex-shrink-0 order-first xl:order-last h-[300px] sm:h-[350px] xl:h-auto">
-                        <div className="p-4 sm:p-6 bg-slate-50 border-b border-slate-100">
+                    <aside className="w-full xl:w-[420px] bg-white border-t xl:border-t-0 xl:border-l border-slate-200 flex flex-col shadow-xl z-10 flex-shrink-0 order-first xl:order-last h-auto xl:h-auto max-h-[45vh] xl:max-h-none">
+                        <div className="p-3 sm:p-6 bg-slate-50 border-b border-slate-100">
                             <h3 className="font-bold text-slate-400 text-xs uppercase tracking-wider flex items-center gap-2">
                                 <div className="w-2 h-2 rounded-full bg-accent animate-pulse"></div>
                                 Interacción
                             </h3>
                         </div>
-                        <div className="flex-1 overflow-y-auto p-4 sm:p-6 bg-slate-50/30">
+                        <div className="flex-1 overflow-y-auto overscroll-y-contain p-4 sm:p-6 bg-slate-50/30 min-h-[150px]">
                             {rightPanel}
                         </div>
                     </aside>
@@ -470,7 +470,7 @@ const AppLayout = ({ modules, activeModuleId, activeSlideId, onNavigate, childre
                             className={`fixed top-0 right-0 h-full w-full sm:max-w-sm bg-white border-l border-slate-200 shadow-2xl z-50 transform transition-transform duration-300 ${isNotesOpen ? 'translate-x-0' : 'translate-x-full'}`}
                             aria-hidden={!isNotesOpen}
                         >
-                            <div className="flex items-center justify-between px-5 py-4 border-b border-slate-200 bg-slate-50">
+                            <div className="flex items-center justify-between px-5 py-4 border-b border-slate-200 bg-slate-50 safe-area-top">
                                 <div>
                                     <p className="text-xs uppercase tracking-wider text-slate-400 font-semibold">Notas del estudiante</p>
                                     <p className="text-sm text-slate-600">Guarda tus ideas por módulo</p>
@@ -478,10 +478,10 @@ const AppLayout = ({ modules, activeModuleId, activeSlideId, onNavigate, childre
                                 <button
                                     type="button"
                                     onClick={() => setIsNotesOpen(false)}
-                                    className="p-2 rounded-lg hover:bg-slate-100 text-slate-500"
+                                    className="p-3 rounded-xl hover:bg-slate-100 text-slate-500 active:scale-95"
                                     aria-label="Cerrar notas"
                                 >
-                                    <X className="w-4 h-4" />
+                                    <X className="w-5 h-5" />
                                 </button>
                             </div>
                             <div className="flex items-center justify-between px-5 py-3 border-b border-slate-200">

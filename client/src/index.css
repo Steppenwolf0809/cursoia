@@ -110,10 +110,11 @@
    UTILIDADES RESPONSIVE - MOBILE FIRST
    ============================================ */
 
-/* Prevenir zoom en inputs en iOS */
+/* Prevenir zoom en inputs en iOS - CRÍTICO para móvil */
 @media screen and (max-width: 768px) {
   input, textarea, select {
     font-size: 16px !important;
+    min-height: 44px;
   }
 }
 
@@ -146,11 +147,11 @@
 /* Safe area para dispositivos con notch */
 @supports (padding-top: env(safe-area-inset-top)) {
   .safe-area-top {
-    padding-top: env(safe-area-inset-top);
+    padding-top: max(env(safe-area-inset-top), 0.5rem);
   }
   
   .safe-area-bottom {
-    padding-bottom: env(safe-area-inset-bottom);
+    padding-bottom: max(env(safe-area-inset-bottom), 0.75rem);
   }
 }
 
@@ -172,4 +173,72 @@
 button, a {
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
+}
+
+/* ============================================
+   MEJORAS TÁCTILES PARA MÓVIL
+   ============================================ */
+
+/* Asegurar que los elementos interactivos sean lo suficientemente grandes */
+@media (max-width: 1024px) {
+  /* Botones y elementos clickeables mínimo 44px */
+  button:not(.exclude-min-touch),
+  [role="button"],
+  input[type="submit"],
+  input[type="button"],
+  a.btn,
+  .clickable {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Inputs más fáciles de tocar */
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="number"],
+  input[type="tel"],
+  input[type="url"],
+  textarea,
+  select {
+    min-height: 44px;
+    padding: 0.625rem 0.875rem;
+  }
+  
+  /* Checkbox y radio más grandes */
+  input[type="checkbox"],
+  input[type="radio"] {
+    width: 22px;
+    height: 22px;
+  }
+}
+
+/* Prevenir selección de texto en elementos interactivos */
+button, [role="button"] {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Mejorar momentum scroll en iOS */
+.scroll-momentum {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Overscroll behavior para prevenir pull-to-refresh accidental */
+.no-overscroll {
+  overscroll-behavior: none;
+}
+
+/* Ajustes específicos para dispositivos muy pequeños */
+@media (max-width: 380px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+/* Ajustes para landscape en móviles */
+@media (max-height: 500px) and (orientation: landscape) {
+  .landscape-short {
+    max-height: 60vh;
+  }
 }
