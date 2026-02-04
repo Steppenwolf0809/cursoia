@@ -47,15 +47,14 @@ const AppLayout = ({ modules, activeModuleId, activeSlideId, onNavigate, childre
         if (!activeModule || !activeModule.slides?.length) return;
         if (safeSlideIndex < totalSlides - 1) {
             onNavigate(activeModuleId, activeModule.slides[safeSlideIndex + 1].id);
-        } else if (isAdmin) {
-            // Solo el admin puede pasar al siguiente módulo
+        } else if (isAdmin || sessionState?.isFreeMode) {
+            // Admin o modo libre: puede pasar al siguiente módulo
             const currentModuleIndex = safeModules.indexOf(activeModule);
             if (currentModuleIndex < safeModules.length - 1) {
                 const nextModule = safeModules[currentModuleIndex + 1];
                 onNavigate(nextModule.id, nextModule.slides[0].id);
             }
         }
-        // En modo libre, el estudiante no puede pasar al siguiente módulo
     };
 
     const handlePrev = () => {
@@ -301,12 +300,12 @@ const AppLayout = ({ modules, activeModuleId, activeSlideId, onNavigate, childre
                     {modules.map(module => {
                         const isActive = module.id === activeModuleId;
                         const Icon = module.icon;
-                        // Estudiantes solo pueden hacer clic en el módulo libre específico habilitado
-                        const isFreeModule = sessionState?.isFreeMode && sessionState?.freeModuleId === module.id;
+                        // Modo libre global: todos los módulos son accesibles cuando está activo
+                        const isFreeModeActive = sessionState?.isFreeMode;
                         // La pizarra es especial: admin siempre puede entrar, estudiantes solo cuando está visible
                         const isWhiteboard = module.id === 'whiteboard';
                         const canClickWhiteboard = isAdmin || sessionState?.whiteboardVisible;
-                        const canClick = isWhiteboard ? canClickWhiteboard : (isAdmin || isFreeModule);
+                        const canClick = isWhiteboard ? canClickWhiteboard : (isAdmin || isFreeModeActive);
                         return (
                             <button
                                 key={module.id}
@@ -331,7 +330,7 @@ const AppLayout = ({ modules, activeModuleId, activeSlideId, onNavigate, childre
                                 <Icon className={`w-5 h-5 flex-shrink-0 transition-colors ${isActive ? 'text-accent' : canClick ? 'text-blue-400 group-hover:text-blue-200' : 'text-blue-500/40'}`} />
                                 <span className={`font-medium text-sm text-left truncate transition-transform ${isActive ? 'translate-x-1' : ''}`}>{module.title}</span>
                                 {isActive && <ChevronRight className="w-4 h-4 ml-auto text-blue-300" />}
-                                {isFreeModule && !isAdmin && (
+                                {isFreeModeActive && !isAdmin && (
                                     <span className="ml-auto text-[10px] text-emerald-400 font-medium uppercase tracking-wide">Libre</span>
                                 )}
                                 {isWhiteboard && isAdmin && sessionState?.whiteboardVisible && (
@@ -403,7 +402,7 @@ const AppLayout = ({ modules, activeModuleId, activeSlideId, onNavigate, childre
                             onClick={handleAddNote}
                             className={`fixed right-6 z-40 flex items-center gap-2 rounded-full bg-primary text-white px-4 py-2 sm:px-5 sm:py-3 shadow-2xl shadow-blue-900/30 hover:bg-blue-800 transition-all active:scale-95 text-sm sm:text-base ${
                                 // En modo libre, subir el botón para no tapar el footer de navegación
-                                (sessionState?.isFreeMode && sessionState?.freeModuleId === activeModule?.id)
+                                sessionState?.isFreeMode
                                     ? 'bottom-20 sm:bottom-24'
                                     : 'bottom-6'
                             } ${isNotesOpen ? 'translate-x-[-320px] sm:translate-x-[-360px] md:translate-x-[-420px]' : ''}`}
@@ -415,7 +414,7 @@ const AppLayout = ({ modules, activeModuleId, activeSlideId, onNavigate, childre
                     )}
 
                     {/* Footer Navigation - For Admins always, for students when free mode is active */}
-                    {(isAdmin || (sessionState?.isFreeMode && sessionState?.freeModuleId === activeModule?.id)) && (
+                    {(isAdmin || sessionState?.isFreeMode) && (
                         <div className={`${isAdmin ? 'absolute z-10' : 'fixed z-50'} bottom-0 left-0 w-full bg-white/95 backdrop-blur-md border-t border-slate-200 p-3 sm:p-4 px-4 sm:px-8 flex items-center justify-between`}>
                             <div className="text-xs sm:text-sm font-semibold text-slate-400 uppercase tracking-wider hidden sm:block">
                                 {activeSlideIndex + 1} <span className="text-slate-300">/</span> {totalSlides}
@@ -432,18 +431,6 @@ const AppLayout = ({ modules, activeModuleId, activeSlideId, onNavigate, childre
                                     <span className="hidden sm:inline">Anterior</span>
                                     <span className="sm:hidden">←</span>
                                 </button>
-                                {isAdmin && activeSlideIndex === totalSlides - 1 && (
-                                    <button
-                                        onClick={() => onToggleFreeMode?.(activeModule?.id)}
-                                        className={`hidden sm:block px-6 py-2.5 rounded-xl border font-medium transition-all active:scale-95 ${sessionState?.isFreeMode && sessionState?.freeModuleId === activeModule?.id
-                                            ? 'border-emerald-200 text-emerald-700 bg-emerald-50'
-                                            : 'border-slate-200 text-slate-600 hover:bg-slate-50 hover:border-slate-300'}`}
-                                    >
-                                        {sessionState?.isFreeMode && sessionState?.freeModuleId === activeModule?.id
-                                            ? 'Desactivar modo libre'
-                                            : 'Activar modo libre'}
-                                    </button>
-                                )}
                                 <button
                                     onClick={handleNext}
                                     disabled={!isAdmin && activeSlideIndex === totalSlides - 1}

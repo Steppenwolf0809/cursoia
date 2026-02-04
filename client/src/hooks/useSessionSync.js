@@ -96,22 +96,22 @@ export function useSessionSync(isAdmin = false) {
         }
     }
 
-    async function toggleFreeMode(moduleId) {
+    async function toggleFreeMode() {
         if (!isAdmin) return;
-        const enable = !sessionState.isFreeMode || sessionState.freeModuleId !== moduleId;
+        const enable = !sessionState.isFreeMode;
 
         // Optimistic update so UI reacts instantly even if realtime update is delayed
         setSessionState(prev => ({
             ...prev,
             isFreeMode: enable,
-            freeModuleId: enable ? moduleId : null
+            freeModuleId: enable ? 'all' : null
         }));
 
         const { error } = await supabase
             .from('session_state')
             .update({
                 is_free_mode: enable,
-                free_module_id: enable ? moduleId : null,
+                free_module_id: enable ? 'all' : null,
                 updated_at: new Date().toISOString()
             })
             .eq('session_code', SESSION_CODE);

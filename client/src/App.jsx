@@ -99,8 +99,8 @@ function App() {
       setActiveModuleId(moduleId);
       setActiveSlideId(slideId);
     } else {
-      // Estudiante: permitir navegación solo dentro del módulo libre habilitado
-      if (sessionState.isFreeMode && moduleId === sessionState.freeModuleId) {
+      // Estudiante: permitir navegación libre en todos los módulos cuando está activo
+      if (sessionState.isFreeMode) {
         setActiveModuleId(moduleId);
         setActiveSlideId(slideId);
       }

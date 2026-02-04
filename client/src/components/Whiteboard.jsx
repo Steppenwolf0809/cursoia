@@ -220,8 +220,8 @@ export function Whiteboard({ isAdmin = false }) {
             <div className="flex-1 flex flex-col overflow-hidden">
                 {isAdmin ? (
                     // Vista del instructor - Editor
-                    <div className="flex-1 flex flex-col">
-                        <div className="flex-1 p-4">
+                    <div className="flex-1 flex flex-col min-h-0">
+                        <div className="flex-1 p-4 min-h-0">
                             <textarea
                                 value={content}
                                 onChange={(e) => handleContentChange(e.target.value)}
@@ -230,7 +230,7 @@ export function Whiteboard({ isAdmin = false }) {
                                 className="w-full h-full resize-none p-4 rounded-xl border border-slate-200 
                                          focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none
                                          text-sm leading-relaxed text-slate-700
-                                         bg-slate-50/50"
+                                         bg-slate-50/50 overflow-y-auto"
                             />
                         </div>
                         
@@ -274,11 +274,11 @@ export function Whiteboard({ isAdmin = false }) {
                     </div>
                 ) : (
                     // Vista del estudiante - Solo lectura con botón de copiar
-                    <div className="flex-1 flex flex-col">
-                        <div className="flex-1 p-4 overflow-y-auto">
+                    <div className="flex-1 flex flex-col min-h-0">
+                        <div className="flex-1 p-4 overflow-y-auto min-h-0">
                             {content ? (
                                 <div className="bg-slate-50 rounded-xl p-4 border border-slate-200">
-                                    <pre className="text-sm text-slate-700 whitespace-pre-wrap font-sans leading-relaxed">
+                                    <pre className="text-sm text-slate-700 whitespace-pre-wrap break-words font-sans leading-relaxed">
                                         {content}
                                     </pre>
                                 </div>

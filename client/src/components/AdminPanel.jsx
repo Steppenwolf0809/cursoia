@@ -46,8 +46,7 @@ export function AdminPanel({ modules, currentModuleIndex, currentSlideIndex, onN
     }, [currentModuleId, submissions]);
 
     const totalSlides = currentModule?.slides?.length || 0;
-    const isLastSlide = currentSlideIndex === totalSlides - 1;
-    const isFreeModeActiveForCurrentModule = sessionState.isFreeMode && sessionState.freeModuleId === currentModule?.id;
+    const isFreeModeActive = sessionState.isFreeMode;
 
     // Separar envíos con y sin imagen
     const submissionsWithImage = submissions.filter(sub => sub.image_url);
@@ -315,25 +314,20 @@ export function AdminPanel({ modules, currentModuleIndex, currentSlideIndex, onN
                 <div className="flex items-center gap-4">
                     <div className="h-8 w-px bg-slate-700 mx-2"></div>
 
-                    {/* Botón Modo Libre - Solo visible en última slide del módulo */}
-                    {isLastSlide && (
-                        <button
-                            onClick={async () => {
-                                if (!currentModule?.id) return;
-                                await toggleFreeMode(currentModule.id);
-                            }}
-                            disabled={!currentModule?.id}
-                            className={`px-4 py-2 rounded-lg flex items-center gap-2 transition-all font-medium text-sm
-                                        ${isFreeModeActiveForCurrentModule
-                                    ? 'bg-emerald-600 hover:bg-emerald-500 text-white shadow-lg shadow-emerald-900/20'
-                                    : 'bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700'}
-                                        disabled:opacity-50 disabled:cursor-not-allowed`}
-                            title={isFreeModeActiveForCurrentModule ? "Desactivar navegación libre para alumnos" : "Permitir a alumnos navegar libremente en este módulo"}
-                        >
-                            {isFreeModeActiveForCurrentModule ? <Lock className="w-4 h-4" /> : <Unlock className="w-4 h-4" />}
-                            {isFreeModeActiveForCurrentModule ? 'Modo Libre ON' : 'Modo Libre'}
-                        </button>
-                    )}
+                    {/* Botón Modo Libre - Siempre visible */}
+                    <button
+                        onClick={async () => {
+                            await toggleFreeMode();
+                        }}
+                        className={`px-4 py-2 rounded-lg flex items-center gap-2 transition-all font-medium text-sm
+                                    ${isFreeModeActive
+                                ? 'bg-emerald-600 hover:bg-emerald-500 text-white shadow-lg shadow-emerald-900/20'
+                                : 'bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700'}`}
+                        title={isFreeModeActive ? "Desactivar navegación libre para alumnos" : "Permitir a alumnos navegar libremente en todos los módulos"}
+                    >
+                        {isFreeModeActive ? <Lock className="w-4 h-4" /> : <Unlock className="w-4 h-4" />}
+                        {isFreeModeActive ? 'Modo Libre ON' : 'Modo Libre'}
+                    </button>
 
                     <button
                         onClick={toggleGalleryVisibility}
