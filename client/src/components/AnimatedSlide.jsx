@@ -9,7 +9,7 @@ const slideVariants = {
 const AnimatedSlide = ({ children, slideKey }) => {
     // Temporarily removed AnimatePresence due to crash
     return (
-        <div key={slideKey} className="h-full w-full animate-in fade-in duration-500">
+        <div key={slideKey} className="w-full animate-in fade-in duration-500">
             {children}
         </div>
     );
