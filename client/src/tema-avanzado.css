@@ -39,6 +39,33 @@
 .tema-avanzado .av-html strong { font-weight: 600; color: rgb(var(--av-texto)); }
 .tema-avanzado .av-html a { color: rgb(var(--av-acento-2)); text-decoration: underline; text-underline-offset: 3px; }
 
+/* Pizarra: Whiteboard.jsx es del básico y no se toca; aquí se recolorea solo dentro del avanzado.
+   Cada regla nombra la clase del básico que reemplaza. Los hover van aparte porque la regla base pesa más. */
+.tema-avanzado .av-pizarra .bg-white { background: rgb(var(--av-panel)); border: 1px solid rgb(var(--av-linea)); border-radius: 0.75rem; overflow: hidden; }
+.tema-avanzado .av-pizarra .from-blue-600 { background: rgb(var(--av-fondo-2)); border-bottom: 1px solid rgb(var(--av-linea)); color: rgb(var(--av-acento)); }
+.tema-avanzado .av-pizarra .bg-slate-50,
+.tema-avanzado .av-pizarra .bg-slate-50\/50 { background: rgb(var(--av-fondo-2)); }
+.tema-avanzado .av-pizarra .bg-slate-100 { background: rgb(var(--av-panel)); }
+.tema-avanzado .av-pizarra .border-slate-200 { border-color: rgb(var(--av-linea)); }
+.tema-avanzado .av-pizarra .border-blue-500 { border-color: rgb(var(--av-acento)); }
+.tema-avanzado .av-pizarra .text-slate-600,
+.tema-avanzado .av-pizarra .text-slate-700 { color: rgb(var(--av-texto)); }
+.tema-avanzado .av-pizarra .text-slate-300,
+.tema-avanzado .av-pizarra .text-slate-400,
+.tema-avanzado .av-pizarra .text-slate-500 { color: rgb(var(--av-texto-2)); }
+.tema-avanzado .av-pizarra .text-amber-600 { color: rgb(var(--av-acento)); }
+.tema-avanzado .av-pizarra .hover\:bg-slate-200:hover { background: rgb(255 255 255 / 0.05); }
+.tema-avanzado .av-pizarra .focus\:border-blue-500:focus { border-color: rgb(var(--av-acento)); }
+.tema-avanzado .av-pizarra .focus\:ring-blue-200:focus { --tw-ring-color: rgb(var(--av-acento) / 0.3); }
+.tema-avanzado .av-pizarra .bg-blue-600 { background: rgb(var(--av-acento)); color: rgb(var(--av-sobre-acento)); box-shadow: none; }
+.tema-avanzado .av-pizarra .hover\:bg-blue-700:hover { background: rgb(var(--av-acento-2)); }
+.tema-avanzado .av-pizarra .bg-blue-100 { background: rgb(var(--av-acento) / 0.15); }
+.tema-avanzado .av-pizarra .hover\:bg-blue-200:hover { background: rgb(var(--av-acento) / 0.25); }
+.tema-avanzado .av-pizarra .text-blue-700 { color: rgb(var(--av-acento-2)); }
+.tema-avanzado .av-pizarra .bg-green-100 { background: rgb(74 222 128 / 0.12); }
+.tema-avanzado .av-pizarra .hover\:bg-green-200:hover { background: rgb(74 222 128 / 0.2); }
+.tema-avanzado .av-pizarra .text-green-700 { color: rgb(134 239 172); }
+
 /* Portada: anillos que giran muy despacio y puntos que laten. */
 @keyframes av-girar { to { transform: rotate(360deg); } }
 @keyframes av-latir {

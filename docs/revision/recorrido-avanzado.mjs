@@ -111,6 +111,41 @@ if (!solo) {
     if (pedidosGuion.length) problemas.push(`alumno: descargó el guion (${pedidosGuion.join(', ')})`);
     await paginaAlumno.screenshot({ path: `${salida}/00-alumno-escritorio.png` });
     await alumno.close();
+
+    // 5. Pizarra, como admin y como alumno: Supabase simulado con la pizarra visible y con texto.
+    //    Sin fondos blancos ni azules del básico, y el botón de copiar en el acento.
+    const estado = (esAlumno) => ({
+        session_code: 'main', current_module: esAlumno ? 'whiteboard' : 'module-1', current_slide: esAlumno ? 'wb-0' : '1-0',
+        is_gallery_visible: false, is_free_mode: false, free_module_id: null,
+        whiteboard_content: 'Prompt del día:\nRevisa esta demanda como abogado litigante.', whiteboard_visible: true,
+    });
+    const BASICO = ['rgb(255, 255, 255)', 'rgb(248, 250, 252)', 'rgb(37, 99, 235)', 'rgb(29, 78, 216)'];
+    for (const esAlumno of [false, true]) {
+        const rol = esAlumno ? 'alumno' : 'admin';
+        const c = await navegador.newContext({ ...TAMANOS.escritorio, reducedMotion: 'reduce' });
+        await c.addInitScript((a) => localStorage.setItem(a ? 'course_participant' : 'course_admin_auth', a ? JSON.stringify({ id: 'prueba', name: 'Prueba' }) : 'true'), esAlumno);
+        await c.route(/supabase\.co/, (ruta) => (ruta.request().method() === 'GET' && ruta.request().url().includes('/rest/v1/session_state')
+            ? ruta.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(estado(esAlumno)) })
+            : ruta.abort()));
+        const p = await c.newPage();
+        await p.goto(url);
+        await p.evaluate(() => document.fonts.ready);
+        if (!esAlumno) {
+            await p.waitForSelector('[data-slide-id]');
+            await p.getByRole('button', { name: /Pizarra/ }).first().click();
+        }
+        const ok = await p.waitForSelector('[data-slide-id="wb-0"] .av-pizarra :is(textarea, pre)', { timeout: 10000 }).then(() => true).catch(() => false);
+        if (!ok) { problemas.push(`pizarra ${rol}: no se ve el contenido`); await c.close(); continue; }
+        const fondos = await p.$$eval('[data-slide-id="wb-0"] .av-pizarra *', (els) => els.map((e) => getComputedStyle(e).backgroundColor));
+        const claros = fondos.filter((f) => BASICO.includes(f));
+        if (claros.length) problemas.push(`pizarra ${rol}: fondos del básico (${[...new Set(claros)].join(', ')})`);
+        if (esAlumno) {
+            const copiar = await p.getByRole('button', { name: /Copiar contenido/ }).evaluate((b) => getComputedStyle(b).backgroundColor);
+            if (copiar !== 'rgb(242, 184, 75)') problemas.push(`pizarra alumno: el botón de copiar no va en el acento (${copiar})`);
+        }
+        await p.screenshot({ path: `${salida}/00-pizarra-${rol}-escritorio.png` });
+        await c.close();
+    }
 }
 
 await navegador.close();

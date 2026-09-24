@@ -49,7 +49,7 @@ const SlideAvanzado = ({ slide, modulo, indice, total, isAdmin }) => {
             {Tipo ? (
                 <Tipo slide={slide} modulo={modulo} indice={indice} total={total} />
             ) : (
-                <Item>
+                <Item className={slide.type === 'whiteboard' ? 'av-pizarra' : undefined}>
                     <SlideRenderer slide={slide} isAdmin={isAdmin} moduleId={modulo.id} />
                 </Item>
             )}
