@@ -809,3 +809,89 @@ Fuente: [GPT-5.1 Prompting Guide — OpenAI Cookbook](https://cookbook.openai.co
 14. Recomendación oficial de OpenAI equivalente a la de Anthropic sobre evitar markdown/emojis en el prompting (no la encontré).
 
 Antes de usar cualquiera de estos 14 puntos en el material del curso, confirmarlos a mano abriendo la página en un navegador (varias devolvieron 403 a la lectura automática, lo que no significa que el dato sea falso — solo que no lo pude verificar yo mismo hoy).
+
+---
+
+## Parte E · AA-Omniscience (benchmark de alucinación)
+
+- **URL:** https://artificialanalysis.ai/evaluations/omniscience
+- **Fecha de consulta:** 24 de septiembre de 2026.
+- **Método:** los tres valores por modelo (precisión, tasa de alucinación, índice) no están solo en
+  el tooltip de las barras: la página los trae también como datos estructurados JSON-LD embebidos
+  en el HTML (claves `omniscienceAccuracy`, `omniscienceHallucinationRate`, `omniscienceIndex`,
+  confirmadas presentes) y, con más detalle todavía, en el payload interno de Next.js
+  (`omniscienceBreakdown: {accuracy, hallucinationRate, byDomain: {..., "Law": ...}}` por modelo).
+  Se leyeron ambos directamente con Playwright, sin necesidad de pasar el mouse barra por barra.
+- **Vista usada:** general, todos los dominios (es la que trae `omniscienceIndex`/`omniscienceAccuracy`/
+  `omniscienceHallucinationRate` a nivel de modelo completo).
+
+### Hallazgo importante antes de la tabla
+
+El sitio **no tiene una variante etiquetada "(high)" para Claude Opus 5.5 ni para Grok 4.7**.
+Verificado revisando la lista completa de modelos del payload de la página (`initialModels`):
+
+- Para **Claude Opus 5.5** solo existen dos variantes evaluadas: "(max with fallback)" y "(xhigh
+  with fallback)". No existe ningún modelo con slug o nombre que incluya "Claude Opus 5.5 (high)".
+- Para **Grok 4.7** solo existe la variante "(xhigh)" (slug `grok-4-7`). La variante "(high)" que
+  sí existe en el sitio es de otra versión: **Grok 4.6 (high)** (slug `grok-4-6`).
+
+Esto significa que las filas "Claude Opus 5.5 (high)" y "Grok 4.7 (high)" del archivo del usuario
+no corresponden a ninguna barra real del sitio con ese nombre exacto — quedan **NO VERIFICADO**
+como modelo, aunque se anota abajo el valor de la variante más parecida que sí existe, para que se
+vea que tampoco coincide en los tres números a la vez.
+
+### Tabla de resultados (precisión %, tasa de alucinación %, índice)
+
+| Modelo (cifra del usuario) | Precisión | Alucinación | Índice | ¿Coincide con el archivo del usuario? |
+|---|---|---|---|---|
+| Claude Opus 5.5 (high): 65, 68, 41 | — | — | — | **NO VERIFICADO** — no existe esa variante en el sitio. La más cercana, Claude Opus 5.5 (xhigh with fallback), da 65 / 66 / 43 — la precisión coincide, alucinación e índice no. |
+| GPT-6 Astra (high): 61, 45, 44 | 61.13 % | 44.77 % | 43.73 → 44 | **SÍ**, los tres valores redondean exacto. |
+| Claude Opus 5.5 (max): 66, 59, índice 46 ya confirmado | 66.22 % | 58.61 % | 46.42 → 46 | **SÍ**, los tres valores redondean exacto. |
+| GPT-6 Astra (max): 63, 51, ? | 62.60 % → 63 | 51.34 % → 51 | 43.40 → 43 | **SÍ** en precisión y alucinación; el índice que faltaba (el "?") es **43**. |
+| Claude Fable 5.1 (max): 67, 73, índice 43 ya confirmado | 67.23 % | 72.58 % → 73 | 43.45 → 43 | **SÍ**, los tres valores redondean exacto. |
+| Grok 4.7 (high): 48, 32, ? | — | — | — | **NO VERIFICADO** — no existe esa variante. Grok 4.7 (xhigh), la única que sí existe con ese número de versión, da 47 / 29 / 32 (el 32 del usuario coincide con el índice, no con la alucinación). Grok 4.6 (high), que sí trae la etiqueta "(high)", da 48 / 34 / 30 (la precisión sí coincide). Ninguna de las dos combina los tres números del usuario a la vez. |
+| GLM-5.3 (max): 34, 30, ? | 33.85 % → 34 | 29.55 % → 30 | 14.30 → 14 | **SÍ** en precisión y alucinación; el índice que faltaba (el "?") es **14**. |
+
+### Valor del dominio «Law» (Legal) por modelo
+
+La página no usa la etiqueta "Legal": el dominio se llama **"Law"** tanto en el gráfico "Detailed
+Domain Score" como en el desglose interno (`byDomain`). Es una variante del **índice** (no hay
+precisión ni alucinación desglosadas por dominio), en la misma escala −100 a 100 del índice
+general — se comprobó que el promedio de los 6 dominios de cada modelo reproduce exacto su índice
+general (p. ej. Claude Opus 5.5 max: promedio de sus 6 dominios = 46.42, igual al índice general).
+
+| Modelo | Índice en "Law" |
+|---|---|
+| Claude Opus 5.5 (max with fallback) | 48.1 |
+| Claude Opus 5.5 (xhigh with fallback) | 43.2 |
+| GPT-6 Astra (max) | 46.7 |
+| GPT-6 Astra (high) | 48.5 |
+| GPT-6 Astra (xhigh) | 46.6 |
+| Claude Fable 5.1 (max with fallback) | 47.7 |
+| Claude Fable 5.1 (xhigh with fallback) | 50.1 |
+| Grok 4.7 (xhigh) | 35.8 |
+| Grok 4.6 (high) | 32.7 |
+| GLM-5.3 (max) | 0.7 |
+
+### Definiciones (en palabras propias) y la cita exacta pedida
+
+- **Precisión (AA-Omniscience Accuracy):** de todas las preguntas del examen, qué porcentaje
+  contestó bien el modelo — cuenta también como fallo cualquier respuesta incorrecta o en la que
+  el modelo se abstuvo de contestar, no solo las que contestó mal con confianza.
+- **Índice (AA-Omniscience Index):** una nota combinada de −100 a 100 que suma puntos por acertar,
+  resta puntos por alucinar (responder mal con aplomo) y no castiga ni premia abstenerse ("no sé");
+  0 significa que acertó lo mismo que falló, negativo significa que falló más de lo que acertó.
+- **Tasa de alucinación (AA-Omniscience Hallucination Rate):** de todas las respuestas que *no*
+  fueron correctas (incorrectas, parciales o no intentadas), qué porcentaje fueron directamente
+  incorrectas en vez de una abstención — mide si el modelo prefiere inventar antes que admitir que
+  no sabe.
+  - **Cita exacta de la página** (menos de 15 palabras): *"measures how often the model answers
+    incorrectly when it should have refused"*.
+  - **URL:** https://artificialanalysis.ai/evaluations/omniscience#aa-omniscience-hallucination-rate
+  - Nota: busqué también en la página de metodología separada
+    (https://artificialanalysis.ai/methodology/intelligence-benchmarking#aa-omniscience) — ahí solo
+    define el **índice** general y menciona que la "Non-Hallucination Rate" (1 − tasa de
+    alucinación) pesa 5% del Intelligence Index; no trae una oración propia y corta que defina
+    "Hallucination Rate" en sí. La cita exacta de arriba es la que aparece junto al gráfico de
+    Hallucination Rate en la propia página de evaluación (`/evaluations/omniscience`), que es la
+    definición oficial de esa métrica específica.

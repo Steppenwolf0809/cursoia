@@ -10,6 +10,16 @@ Un estudio de OpenAI, «Why Language Models Hallucinate» (Kalai, Nachum, Vempal
 
 La idea central de Holly Cope: no le pidas a la IA que acierte; pídele que sea transparente sobre lo que no sabe.
 
+Los modelos actuales también lo hacen. En el benchmark AA-Omniscience de Artificial Analysis (https://artificialanalysis.ai/evaluations/omniscience, consultado el 24 de septiembre de 2026), el modelo responde de memoria, sin documentos, y cada respuesta es correcta, inventada o «no sé»:
+
+| | Aciertos | De lo que no sabe, cuánto inventa |
+|---|---|---|
+| Claude Fable 5.1 (max) | 67 % | 73 % |
+| Claude Opus 5.5 (max) | 66 % | 59 % |
+| GPT-6 Astra (high) | 61 % | 45 % |
+
+Saber más no significa inventar menos: nunca leas una sola cifra. Y el benchmark mide la memoria del modelo, no su trabajo con los documentos que le entregas. Por eso la regla práctica es no usar su memoria como fuente de artículos, fechas o requisitos: dale la norma y pídele que cite de ahí. Las cifras se actualizan con frecuencia; revísalas antes de citarlas.
+
 ## 2. Cómo se equivoca
 
 Según Holly Cope, las alucinaciones más comunes en trabajo jurídico son: fuentes inventadas (casos que no existen), falta de contexto, falsa certeza, análisis incompleto (pides cuatro casos y te da tres o diez), malinterpretar la pregunta y distorsionar la información.

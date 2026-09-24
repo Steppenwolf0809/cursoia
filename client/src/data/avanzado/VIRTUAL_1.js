@@ -207,6 +207,21 @@ export const VIRTUAL_1 = {
             }
         },
         {
+            id: "v1-3-5b",
+            title: "Tutorial: los modelos de hoy también inventan",
+            type: "comparison",
+            contentData: {
+                heading: "Los modelos de hoy también inventan",
+                paragraph: "Benchmark AA-Omniscience de Artificial Analysis, consultado el 24 de septiembre de 2026: preguntas de conocimiento que el modelo responde de memoria, sin documentos. Saber más no significa inventar menos. Y mide la memoria del modelo, no su trabajo con la norma que tú le entregas: por eso se la entregas.",
+                headers: ["", "Claude Fable 5.1 (max)", "Claude Opus 5.5 (max)", "GPT-6 Astra (high)"],
+                rows: [
+                    ["Aciertos", "67 %", "66 %", "61 %"],
+                    ["De lo que no sabe, cuánto inventa", "73 %", "59 %", "45 %"],
+                    ["De cada 100 preguntas", "67 bien, 24 inventadas, 9 «no sé»", "66 bien, 20 inventadas, 14 «no sé»", "61 bien, 17 inventadas, 22 «no sé»"]
+                ]
+            }
+        },
+        {
             id: "v1-3-6",
             title: "Tutorial 1: marco de confianza",
             type: "narrative",
