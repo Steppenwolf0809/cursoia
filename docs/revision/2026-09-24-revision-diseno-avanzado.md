@@ -12,7 +12,16 @@ Revisor: `claude-opus-5-5` / `medium`. Scripts de verificación fuera del repo:
   `al abrir, foco en «Cerrar | dentro del diálogo: true»; tras Escape, foco en «Ampliar: …»` y
   `Tab … «Cerrar | dentro del diálogo: true»; tras Enter en Cerrar, foco en «Ampliar: …»`.
 
-## Listado, sin arreglar (necesita decisión)
+## Decididos por José Luis y hechos
+
+- **Pizarra oscura.** Sin tocar `Whiteboard.jsx`: `SlideAvanzado` le pone `av-pizarra` y
+  `tema-avanzado.css` recolorea sus clases solo bajo `.tema-avanzado .av-pizarra`. El recorrido
+  ahora la visita como admin y como alumno (paso 5) y falla si queda un fondo blanco o azul del
+  básico, o si «Copiar contenido» no va en el acento.
+- **`rctf-formula.png` de 7,2 MB a 1,05 MB**: 1536×1512, 256 colores con tramado, mismo nombre y
+  formato (no cambia ningún archivo de código). Afecta también al básico, con su visto bueno.
+
+## Listado, sin arreglar (necesita decisión) — ya resuelto, arriba
 
 1. **La pizarra se ve con los colores del básico** sobre el fondo oscuro: tarjeta blanca con barra
    azul `from-blue-600` y botón «Copiar contenido» azul. Funciona bien como admin (edita, el texto
