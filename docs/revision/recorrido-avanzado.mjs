@@ -15,8 +15,19 @@ const problemas = [];
 mkdirSync(salida, { recursive: true });
 const navegador = await chromium.launch();
 
+// Supabase Realtime (WebSocket) no llega al servidor real. Si llega un mensaje suyo, se escapó.
+let tiempoRealEscapado = false;
+async function sinTiempoReal(contexto) {
+    // Sin connectToServer(): el socket nunca se conecta al servidor; se cierra al abrir.
+    await contexto.routeWebSocket(/supabase\.co/, (ws) => ws.close());
+    contexto.on('page', (p) => p.on('websocket', (ws) => {
+        if (/supabase\.co/.test(ws.url())) ws.on('framereceived', () => { tiempoRealEscapado = true; });
+    }));
+}
+
 async function abrir(opciones, admin = true) {
     const contexto = await navegador.newContext(opciones);
+    await sinTiempoReal(contexto);
     if (admin) await contexto.addInitScript(() => localStorage.setItem('course_admin_auth', 'true'));
     await contexto.route(/supabase\.co/, (ruta) => ruta.abort());
     const pagina = await contexto.newPage();
@@ -100,6 +111,7 @@ if (!solo) {
     // 4. Vista de alumno: no ve el guion ni descarga su archivo.
     const alumno = await navegador.newContext(TAMANOS.escritorio);
     await alumno.addInitScript(() => localStorage.setItem('course_participant', JSON.stringify({ id: 'prueba', name: 'Prueba' })));
+    await sinTiempoReal(alumno);
     await alumno.route(/supabase\.co/, (ruta) => ruta.abort());
     const paginaAlumno = await alumno.newPage();
     const pedidosGuion = [];
@@ -124,6 +136,7 @@ if (!solo) {
         const rol = esAlumno ? 'alumno' : 'admin';
         const c = await navegador.newContext({ ...TAMANOS.escritorio, reducedMotion: 'reduce' });
         await c.addInitScript((a) => localStorage.setItem(a ? 'course_participant' : 'course_admin_auth', a ? JSON.stringify({ id: 'prueba', name: 'Prueba' }) : 'true'), esAlumno);
+        await sinTiempoReal(c);
         await c.route(/supabase\.co/, (ruta) => (ruta.request().method() === 'GET' && ruta.request().url().includes('/rest/v1/session_state')
             ? ruta.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(estado(esAlumno)) })
             : ruta.abort()));
@@ -149,5 +162,6 @@ if (!solo) {
 }
 
 await navegador.close();
+if (tiempoRealEscapado) problemas.push('Supabase Realtime: llegaron mensajes del servidor real');
 console.log(problemas.length ? problemas.join('\n') : 'Sin problemas.');
 process.exit(problemas.length ? 1 : 0);
