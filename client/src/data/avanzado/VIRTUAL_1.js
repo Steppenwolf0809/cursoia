@@ -81,22 +81,6 @@ export const VIRTUAL_1 = {
             }
         },
         {
-            id: "v1-1-6",
-            title: "El hilo de hoy: las 4D",
-            type: "comparison",
-            contentData: {
-                heading: "El hilo de hoy: las 4D de la fluidez en IA",
-                paragraph: "Marco AI Fluency, de Rick Dakan y Joseph Feller con Anthropic (aifluencyframework.org).",
-                headers: ["Competencia", "La pregunta", "Dónde la trabajamos hoy"],
-                rows: [
-                    ["Delegación", "¿Qué hago yo y qué hace la IA?", "Harness y agentes"],
-                    ["Descripción", "¿Cómo le digo lo que necesito?", "R.C.T.F. y Configura tu IA"],
-                    ["Discernimiento", "¿Cómo evalúo lo que me entrega?", "Alucinaciones y verificación"],
-                    ["Diligencia", "¿Cómo lo hago de forma responsable?", "Confidencialidad y LOPDP"]
-                ]
-            }
-        },
-        {
             id: "v1-2-1",
             title: "Tokens: la moneda de la IA",
             type: "analogy",
@@ -153,6 +137,22 @@ export const VIRTUAL_1 = {
                     "Empiezas una tarea distinta: pide antes un resumen y llévalo al chat nuevo"
                 ],
                 highlight: { type: "success", text: "Demo en vivo: el mismo pedido en un chat largo y en uno nuevo." }
+            }
+        },
+        {
+            id: "v1-2-5",
+            title: "Lo que sigue: las 4D",
+            type: "comparison",
+            contentData: {
+                heading: "Lo que sigue: las 4D de la fluidez en IA",
+                paragraph: "Marco AI Fluency, de Rick Dakan y Joseph Feller con Anthropic (aifluencyframework.org).",
+                headers: ["Competencia", "La pregunta", "Dónde la trabajamos hoy"],
+                rows: [
+                    ["Discernimiento", "¿Cómo evalúo lo que me entrega?", "Alucinaciones y verificación"],
+                    ["Delegación", "¿Qué hago yo y qué hace la IA?", "Harness y agentes"],
+                    ["Diligencia", "¿Cómo lo hago de forma responsable?", "Confidencialidad y LOPDP"],
+                    ["Descripción", "¿Cómo le digo lo que necesito?", "Mi despacho y Configura tu IA"]
+                ]
             }
         },
         delBasico(MODULO_1, "1-4", "v1-3-1"),
@@ -524,21 +524,20 @@ Si para algún punto el documento no alcanza, responde exactamente: "la informac
             title: "Ejemplo real",
             type: "prompt-template",
             contentData: {
-                heading: "Ejemplo real: así configuró José Luis su IA",
-                template: `Español de Ecuador, tuteo con tildes. Nunca voseo.
+                heading: "Ejemplo real: las instrucciones de una notaría",
+                template: `Rol: asistente legal senior de una notaría en Quito. Preparas matrices, actas y concuerdos.
 
-Estilo de respuesta:
-- La acción o la respuesta va en la primera línea. Contexto después, solo si hace falta.
-- Una cosa por mensaje. Si hay un segundo tema, una línea al final.
-- Sin resumen de cierre. Cerrar con un solo siguiente paso concreto.
-- Listas de hasta 5 puntos.
-- Análisis largo o varias opciones solo cuando los pida.
+Reglas que no se negocian:
+- Dos fases. Primero analizas, validas y me dices qué falta. Puedes adelantar un BORRADOR INTERNO con campos [PENDIENTE: ...], pero no pasa a versión final hasta que yo confirme los datos.
+- Fuente ilegible = alto total. Si un PDF no devuelve texto, está escaneado: léelo como imagen. Prohibido rellenar con lo que "suele traer" ese tipo de trámite.
+- Fidelidad de la minuta: el texto del abogado se respeta palabra por palabra. Solo corriges números a letras, abreviaturas, tildes y ortografía obvia. No resumas ni añadas.
+- La descripción del inmueble se transcribe del certificado de gravamen; no se redacta.
+- Verifica cada número escrito en letras antes de entregar y dime qué no pudiste verificar.
+- Un documento firmado no se modifica: cualquier diferencia se informa.
 
-Verificar antes de afirmar:
-- No afirmar nada sobre un archivo, un número o un estado sin haberlo mirado.
-- Si no se puede verificar ahora, decir «no lo sé» y qué haría falta para saberlo.`,
-                examples: ["Respuesta primero", "Una cosa por mensaje", "Sin resumen de cierre", "Si no puede verificar, lo dice"],
-                tip: "Extracto de mi archivo de instrucciones de Claude Code (~/.claude/CLAUDE.md). Úsalo de modelo y escribe el tuyo."
+Cómo comunicarte: directo y honesto. Prefiero que me contradigas con fundamento a que me des la razón en silencio. Sin emojis.`,
+                examples: ["Borrador y versión final", "Si no puede leer, se detiene", "No inventa lo que «suele traer»", "Contradice con fundamento"],
+                tip: "Extracto adaptado de las instrucciones que uso en la notaría, sin nombres, trámites ni rutas internas. Úsalo de modelo y escribe las tuyas."
             }
         },
         {
