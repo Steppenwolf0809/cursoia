@@ -1,0 +1,60 @@
+/* Tema del curso avanzado, dirección B «Despacho nocturno».
+   Todo cuelga de .tema-avanzado, que main.jsx pone en <html> solo con VITE_COURSE=avanzado.
+   Los colores van como tripletes RGB para que Tailwind pueda aplicarles opacidad (bg-av-acento/15).
+   Un segundo tema (la dirección A) sería otro bloque con los mismos nombres y otros valores. */
+.tema-avanzado {
+  --av-fondo: 15 18 22;          /* #0F1216 */
+  --av-fondo-2: 22 27 33;        /* #161B21 */
+  --av-panel: 28 34 42;          /* #1C222A */
+  --av-linea: 42 50 60;          /* #2A323C */
+  --av-texto: 232 230 225;       /* #E8E6E1 */
+  --av-texto-2: 154 163 173;     /* #9AA3AD */
+  --av-acento: 242 184 75;       /* #F2B84B */
+  --av-acento-2: 247 211 138;    /* #F7D38A */
+  --av-sobre-acento: 26 20 6;    /* #1A1406, texto sobre el acento */
+  --av-alerta: 240 123 107;      /* #F07B6B */
+  --av-fuente-titulo: 'Bricolage Grotesque', sans-serif;
+  --av-fuente-texto: 'IBM Plex Sans', sans-serif;
+  --av-fuente-mono: 'IBM Plex Mono', monospace;
+  color-scheme: dark;
+}
+
+.tema-avanzado body {
+  background: rgb(var(--av-fondo));
+  color: rgb(var(--av-texto));
+  font-family: var(--av-fuente-texto);
+}
+
+/* Fondo de la muestra: halo del acento arriba a la derecha y cuadrícula de 48 px. */
+.tema-avanzado .av-lienzo {
+  background:
+    radial-gradient(1200px 600px at 85% -10%, rgb(var(--av-acento) / 0.10), transparent 60%),
+    linear-gradient(rgb(255 255 255 / 0.025) 1px, transparent 1px) 0 0 / 48px 48px,
+    linear-gradient(90deg, rgb(255 255 255 / 0.025) 1px, transparent 1px) 0 0 / 48px 48px,
+    rgb(var(--av-fondo));
+}
+
+/* Texto con HTML de los datos (negritas y enlaces en las viñetas de narrative). */
+.tema-avanzado .av-html b,
+.tema-avanzado .av-html strong { font-weight: 600; color: rgb(var(--av-texto)); }
+.tema-avanzado .av-html a { color: rgb(var(--av-acento-2)); text-decoration: underline; text-underline-offset: 3px; }
+
+/* Portada: anillos que giran muy despacio y puntos que laten. */
+@keyframes av-girar { to { transform: rotate(360deg); } }
+@keyframes av-latir {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.55; transform: scale(0.8); }
+}
+.tema-avanzado .av-orbita-giro { animation: av-girar 120s linear infinite; }
+.tema-avanzado .av-orbita-giro-inverso { animation: av-girar 90s linear infinite reverse; }
+.tema-avanzado .av-latido { animation: av-latir 3.2s ease-in-out infinite; }
+
+/* Con movimiento reducido no se anima nada: tampoco el fundido de AnimatedSlide (animate-in). */
+@media (prefers-reduced-motion: reduce) {
+  .tema-avanzado .av-orbita-giro,
+  .tema-avanzado .av-orbita-giro-inverso,
+  .tema-avanzado .av-latido,
+  .tema-avanzado .animate-in {
+    animation: none !important;
+  }
+}
