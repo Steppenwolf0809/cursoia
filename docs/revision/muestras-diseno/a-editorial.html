@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dirección A · Editorial jurídico</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,800&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --papel:#F6F1E7; --papel-2:#EFE7D8; --tinta:#1C1A17; --tinta-2:#55504A;
+    --vino:#7A1F2B; --vino-2:#A23B47; --regla:#D9CDB8; --lateral:#1E1B18;
+  }
+  *{box-sizing:border-box;margin:0}
+  body{background:#ccc;font-family:'Public Sans',sans-serif;color:var(--tinta)}
+  .slide{position:relative;display:flex;min-height:100vh;background:var(--papel);overflow:hidden}
+  .slide + .slide{margin-top:24px}
+  /* barra lateral */
+  aside{width:260px;flex:none;background:var(--lateral);color:#EDE6D8;padding:28px 24px;display:flex;flex-direction:column;gap:28px}
+  .marca{display:flex;gap:12px;align-items:center}
+  .sello{width:44px;height:44px;border:1.5px solid #C9A96A;border-radius:50%;display:grid;place-items:center;font-family:Fraunces;font-weight:600;color:#C9A96A;font-size:17px}
+  .marca b{font-family:Fraunces;font-weight:600;font-size:18px;display:block}
+  .marca small{font-size:10.5px;letter-spacing:.18em;color:#C9A96A;font-weight:600}
+  .nav{font-size:13px;border-left:2px solid #C9A96A;padding:8px 12px;background:#2A2622}
+  .nav span{display:block;color:#9C9387;font-size:11px;margin-top:2px}
+  main{flex:1;padding:56px 80px 64px;position:relative}
+  .kicker{display:flex;align-items:center;gap:14px;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--vino);font-weight:600}
+  .kicker::after{content:"";flex:1;height:1px;background:var(--regla)}
+  .kicker .n{font-family:Fraunces;letter-spacing:0;font-size:15px;color:var(--tinta-2);text-transform:none;font-weight:400;order:2}
+  h1{font-family:Fraunces;font-weight:600;font-size:clamp(30px,4.2vw,52px);line-height:1.08;letter-spacing:-.015em;margin:26px 0 18px;max-width:22ch;font-variation-settings:"opsz" 144}
+  .lead{font-size:clamp(16px,1.5vw,19px);line-height:1.6;color:var(--tinta-2);max-width:62ch}
+
+  /* portada */
+  .portada main{display:flex;flex-direction:column;justify-content:space-between;padding:64px 88px}
+  .portada .num{position:absolute;right:-30px;bottom:-110px;font-family:Fraunces;font-weight:800;font-size:520px;line-height:1;color:var(--papel-2);z-index:0;user-select:none}
+  .portada .contenido{position:relative;z-index:1}
+  .portada h1{font-size:clamp(44px,7vw,96px);max-width:11ch;margin:0 0 28px;font-weight:800}
+  .portada h1 em{font-style:italic;font-weight:400;color:var(--vino)}
+  .portada .sub{font-family:Fraunces;font-size:clamp(19px,2vw,26px);line-height:1.35;max-width:26ch}
+  .portada .fecha{margin-top:20px;font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:var(--tinta-2);font-weight:600}
+  .portada .pie{position:relative;z-index:1;display:flex;gap:40px;border-top:1px solid var(--tinta);padding-top:16px;font-size:13px;color:var(--tinta-2)}
+  .portada .pie b{display:block;color:var(--tinta);font-weight:600;font-size:14px}
+
+  /* tabla */
+  table{width:100%;border-collapse:collapse;margin-top:34px;font-size:15.5px;line-height:1.5}
+  thead th{text-align:left;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--vino);font-weight:700;padding:0 18px 12px 0;border-bottom:2px solid var(--tinta)}
+  tbody td{padding:18px 18px 18px 0;border-bottom:1px solid var(--regla);vertical-align:top}
+  tbody td:first-child{font-family:Fraunces;font-weight:600;font-size:17px;width:28%}
+  tbody td:last-child{font-weight:600;color:var(--vino);width:22%}
+
+  /* narrativa */
+  .dos{display:grid;grid-template-columns:1.25fr 1fr;gap:56px;margin-top:30px}
+  .dos h2{font-family:Fraunces;font-weight:600;font-size:22px;margin-bottom:12px}
+  ol.hechos{list-style:none;padding:0;margin-top:22px;counter-reset:h}
+  ol.hechos li{counter-increment:h;display:grid;grid-template-columns:38px 1fr;padding:14px 0;border-top:1px solid var(--regla);font-size:15.5px;line-height:1.55}
+  ol.hechos li::before{content:counter(h,upper-roman);font-family:Fraunces;color:var(--vino);font-weight:600}
+  .sancion{background:var(--papel-2);padding:26px 28px;border-top:3px solid var(--vino)}
+  .sancion .monto{font-family:Fraunces;font-weight:800;font-size:54px;line-height:1;color:var(--vino);margin:6px 0 12px}
+  .sancion p{font-size:15px;line-height:1.6;color:var(--tinta-2)}
+  .remate{margin-top:40px;font-family:Fraunces;font-style:italic;font-size:clamp(22px,2.4vw,30px);padding-left:22px;border-left:3px solid var(--vino);max-width:30ch}
+
+  /* móvil */
+  @media (max-width:700px){
+    aside{display:none}
+    main,.portada main{padding:28px 16px 40px}
+    .kicker{font-size:10.5px}
+    .portada .num{font-size:300px;right:-40px;bottom:-60px}
+    .portada .pie{flex-direction:column;gap:10px}
+    .dos{grid-template-columns:1fr;gap:28px}
+    thead{display:none}
+    table,tbody,tr,td{display:block;width:auto!important}
+    tbody tr{padding:16px 0;border-bottom:1px solid var(--regla)}
+    tbody td{border:0;padding:3px 0}
+    tbody td:first-child{font-size:16px;margin-bottom:4px}
+    tbody td:last-child::before{content:"Consecuencia · ";color:var(--tinta-2);font-weight:500;font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+  }
+</style>
+</head>
+<body>
+
+<section class="slide portada" id="s1">
+  <aside>
+    <div class="marca"><div class="sello">IA</div><div><b>IA para abogados</b><small>CURSO AVANZADO</small></div></div>
+    <div class="nav">Virtual 1<span>Fundamentos exprés y confidencialidad</span></div>
+  </aside>
+  <main>
+    <div class="num">1</div>
+    <div class="kicker">Virtual 1 <span class="n">1 / 44</span></div>
+    <div class="contenido">
+      <h1>IA avanzada para abogados</h1>
+      <p class="sub">Virtual 1 · Fundamentos exprés y confidencialidad. Martes 13 de octubre de 2026.</p>
+    </div>
+    <div class="pie"><div><b>Curso avanzado</b>IA para abogados</div><div><b>44</b>diapositivas</div></div>
+  </main>
+</section>
+
+<section class="slide" id="s2">
+  <aside>
+    <div class="marca"><div class="sello">IA</div><div><b>IA para abogados</b><small>CURSO AVANZADO</small></div></div>
+    <div class="nav">Virtual 1<span>Fundamentos exprés y confidencialidad</span></div>
+  </aside>
+  <main>
+    <div class="kicker">Bloque 3 <span class="n">14 / 44</span></div>
+    <h1>No es un problema de otros países</h1>
+    <p class="lead">La base pública de Damien Charlotin registraba 2077 casos en el mundo al 24 de septiembre de 2026. En Ecuador no encontramos ningún caso confirmado todavía.</p>
+    <table>
+      <thead><tr><th>Dónde</th><th>Qué pasó</th><th>Consecuencia</th></tr></thead>
+      <tbody>
+        <tr><td>Colombia · Corte Suprema, auto AC739-2026 (13 feb 2026)</td><td>Un abogado incluyó diez citas jurisprudenciales inexistentes, generadas con IA, en un recurso de revisión</td><td>Multa de 15 salarios mínimos</td></tr>
+        <tr><td>Colombia · Corte Suprema, STC17832-2025 (5 nov 2025)</td><td>El Tribunal Superior de Sincelejo citó apartes inexistentes de las sentencias STC13560-2023 y STC4734-2025</td><td>Se anuló el fallo</td></tr>
+        <tr><td>Chile · Corte Suprema (22 abr 2026)</td><td>Una abogada citó doctrina inexistente en un recurso de casación</td><td>Un mes de suspensión y multa de 5 UTM</td></tr>
+        <tr><td>Argentina · Cámara Civil y Comercial de Rosario (21 ago 2025)</td><td>Un escrito citó fallos inexistentes generados con ChatGPT</td><td>Reprensión y oficio al Colegio de Abogados</td></tr>
+      </tbody>
+    </table>
+  </main>
+</section>
+
+<section class="slide" id="s3">
+  <aside>
+    <div class="marca"><div class="sello">IA</div><div><b>IA para abogados</b><small>CURSO AVANZADO</small></div></div>
+    <div class="nav">Virtual 1<span>Fundamentos exprés y confidencialidad</span></div>
+  </aside>
+  <main>
+    <div class="kicker">Bloque 3 <span class="n">13 / 44</span></div>
+    <h1>Mata v. Avianca: seis sentencias que nunca existieron</h1>
+    <div class="dos">
+      <div>
+        <p class="lead">Nueva York, 2023. En un juicio contra Avianca, los abogados del demandante presentaron un escrito con seis resoluciones judiciales inventadas por ChatGPT, con citas y fragmentos de sentencias que no existen.</p>
+        <ol class="hechos">
+          <li><span>Corte de Distrito de EE. UU. para el Distrito Sur de Nueva York. Juez P. Kevin Castel. Expediente 1:22-cv-01461</span></li>
+          <li><span>Casos inventados, entre otros: <em>Varghese v. China Southern Airlines</em> y <em>Shaboon v. Egyptair</em></span></li>
+          <li><span>Sancionados: Steven A. Schwartz y Peter LoDuca, y su firma, Levidow, Levidow &amp; Oberman</span></li>
+        </ol>
+      </div>
+      <div>
+        <div class="sancion">
+          <h2>La sanción: orden del 22 de junio de 2023</h2>
+          <p>Multa de 5000 dólares, solidaria entre los dos abogados y la firma. Además, el juez ordenó enviar cartas al cliente y a cada juez que aparecía falsamente como autor de las sentencias inventadas.</p>
+        </div>
+        <p class="remate">La IA no firmó el escrito. Lo firmaron ellos.</p>
+      </div>
+    </div>
+  </main>
+</section>
+
+</body>
+</html>
