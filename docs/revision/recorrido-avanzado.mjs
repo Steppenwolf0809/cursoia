@@ -52,6 +52,7 @@ for (const [nombre, opciones] of Object.entries(TAMANOS)) {
             if (await pagina.evaluate(() => document.documentElement.scrollWidth > window.innerWidth)) {
                 problemas.push(`${nombre} ${id}: desborde horizontal`);
             }
+            await pagina.waitForFunction(() => [...document.images].every((i) => i.complete), null, { timeout: 15000 }).catch(() => problemas.push(`${nombre} ${id}: una imagen no terminó de cargar`));
             await pagina.screenshot({ path: `${salida}/${n}-${id}-${nombre}.png` });
             const zona = pagina.locator('main .overflow-y-auto').first();
             if (await zona.evaluate((z) => z.scrollHeight > z.clientHeight + 4)) {
