@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import AppLayout from './components/layout/AppLayout';
-import { COURSE_MODULES } from './data/course-content';
+import { COURSE_MODULES } from './data/cursos';
 
 // Import Components
 import PromptBuilder from './components/PromptBuilder';

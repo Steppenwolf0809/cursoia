@@ -1,0 +1,4 @@
+import { VIRTUAL_1 } from './VIRTUAL_1.js';
+import { WHITEBOARD_MODULE } from '../WHITEBOARD_MODULE';
+
+export const COURSE_MODULES = [VIRTUAL_1, WHITEBOARD_MODULE];
