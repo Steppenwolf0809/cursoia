@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { UserCircle, ShieldCheck } from 'lucide-react';
+import { ES_AVANZADO } from '../data/cursos';
 
 export function WelcomeScreen({ onComplete, onAdminClick, onRegister }) {
     const [name, setName] = useState('');
@@ -27,6 +28,57 @@ export function WelcomeScreen({ onComplete, onAdminClick, onRegister }) {
         } finally {
             setSubmitting(false);
         }
+    }
+
+    if (ES_AVANZADO) {
+        return (
+            <div className="av-lienzo flex min-h-screen flex-col items-center justify-center p-4 text-av-texto">
+                <div className="w-full max-w-md rounded-2xl border border-av-linea bg-av-fondo-2 p-8">
+                    <div className="mb-8">
+                        <div className="mb-6 flex items-center gap-3">
+                            <div className="flex h-11 w-11 items-center justify-center rounded-[10px] bg-av-acento font-av-titulo text-lg font-extrabold text-av-sobre-acento">IA</div>
+                            <span className="font-av-mono text-[11px] uppercase tracking-[0.12em] text-av-acento">Curso avanzado</span>
+                        </div>
+                        <h1 className="font-av-titulo text-3xl font-semibold leading-tight tracking-tight">IA avanzada para abogados</h1>
+                        <p className="mt-2 text-av-texto-2">Ingresa tu nombre para unirte a la sesión.</p>
+                    </div>
+
+                    <form onSubmit={handleSubmit} className="space-y-4">
+                        <input
+                            type="text"
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                            placeholder="Tu nombre completo"
+                            className="w-full rounded-xl border border-av-linea bg-av-panel px-4 py-3 text-lg text-av-texto placeholder:text-av-texto-2 focus:border-av-acento focus:outline-none"
+                            autoFocus
+                        />
+                        <button
+                            type="submit"
+                            disabled={!name.trim() || submitting}
+                            className="w-full rounded-xl bg-av-acento py-3 font-av-titulo text-lg font-semibold text-av-sobre-acento transition-colors hover:bg-av-acento-2 disabled:cursor-not-allowed disabled:opacity-50"
+                        >
+                            {submitting ? 'Ingresando...' : 'Comenzar'}
+                        </button>
+                    </form>
+
+                    {error && (
+                        <div className="mt-4 rounded-lg border border-av-alerta/50 bg-av-alerta/10 p-3 text-center text-sm text-av-alerta">
+                            {error}
+                        </div>
+                    )}
+
+                    <div className="mt-8 border-t border-av-linea pt-6 text-center">
+                        <button
+                            onClick={onAdminClick}
+                            className="mx-auto flex items-center justify-center gap-2 text-sm text-av-texto-2 transition-colors hover:text-av-texto"
+                        >
+                            <ShieldCheck className="h-4 w-4" />
+                            Soy Instructor
+                        </button>
+                    </div>
+                </div>
+            </div>
+        );
     }
 
     return (
