@@ -69,6 +69,7 @@ if (!solo) {
     // 2. Con movimiento: la órbita gira, la cifra cuenta y el remate entra al final.
     const { contexto, pagina } = await abrir(TAMANOS.escritorio);
     await pagina.waitForSelector('[data-slide-id="v1-1-1"]');
+    if (!(await pagina.locator('[data-guion]').count())) problemas.push('admin: no ve el guion');
     const giro = () => pagina.$eval('.av-orbita-giro', (o) => getComputedStyle(o).transform);
     const g1 = await giro();
     await pagina.waitForTimeout(1500);
@@ -94,6 +95,21 @@ if (!solo) {
         await p.screenshot({ path: `${salida}/00-bienvenida-${nombre}.png` });
         await c.close();
     }
+
+    // 4. Vista de alumno: no ve el guion ni descarga su archivo.
+    const alumno = await navegador.newContext(TAMANOS.escritorio);
+    await alumno.addInitScript(() => localStorage.setItem('course_participant', JSON.stringify({ id: 'prueba', name: 'Prueba' })));
+    await alumno.route(/supabase\.co/, (ruta) => ruta.abort());
+    const paginaAlumno = await alumno.newPage();
+    const pedidosGuion = [];
+    paginaAlumno.on('request', (r) => { if (/guion/i.test(r.url())) pedidosGuion.push(r.url()); });
+    await paginaAlumno.goto(url);
+    await paginaAlumno.waitForSelector('[data-slide-id]', { timeout: 10000 }).catch(() => problemas.push('alumno: no cargó el slide'));
+    await paginaAlumno.waitForTimeout(1000);
+    if (await paginaAlumno.locator('[data-guion]').count()) problemas.push('alumno: ve el guion');
+    if (pedidosGuion.length) problemas.push(`alumno: descargó el guion (${pedidosGuion.join(', ')})`);
+    await paginaAlumno.screenshot({ path: `${salida}/00-alumno-escritorio.png` });
+    await alumno.close();
 }
 
 await navegador.close();

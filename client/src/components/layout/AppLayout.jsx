@@ -3,6 +3,7 @@ import { ChevronRight, FileDown, Save, StickyNote, Trash2, PencilLine, RefreshCw
 import SlideRenderer from '../SlideRenderer';
 import AnimatedSlide from '../AnimatedSlide';
 import SlideAvanzado from '../avanzado/SlideAvanzado';
+import GuionProfesor from '../avanzado/GuionProfesor';
 import { partir } from '../avanzado/rotulos';
 import { ES_AVANZADO } from '../../data/cursos';
 
@@ -360,7 +361,7 @@ const AppLayout = ({ modules, activeModuleId, activeSlideId, onNavigate, childre
             </div>
 
             {/* Sidebar - Fixed width on desktop, sliding on mobile */}
-            <aside className={`${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0 fixed lg:static inset-y-0 left-0 w-72 ${M.lateralColor} flex flex-col z-40 flex-shrink-0 transition-transform duration-300`}>
+            <aside className={`${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0 fixed lg:static inset-y-0 left-0 ${ES_AVANZADO && isAdmin ? 'w-80' : 'w-72'} ${M.lateralColor} flex flex-col z-40 flex-shrink-0 transition-transform duration-300`}>
                 <div className={M.lateralCabecera}>
                     <div className="flex items-center justify-between">
                         <div className="flex items-center gap-4">
@@ -382,7 +383,7 @@ const AppLayout = ({ modules, activeModuleId, activeSlideId, onNavigate, childre
                     </div>
                 </div>
 
-                <nav className="flex-1 overflow-y-auto py-6 px-4 space-y-2 scrollbar-thin scrollbar-thumb-blue-700 scrollbar-track-transparent">
+                <nav className={`${ES_AVANZADO && isAdmin ? 'flex-none' : 'flex-1'} overflow-y-auto py-6 px-4 space-y-2 scrollbar-thin scrollbar-thumb-blue-700 scrollbar-track-transparent`}>
                     {modules.map(module => {
                         const isActive = module.id === activeModuleId;
                         const Icon = module.icon;
@@ -435,6 +436,10 @@ const AppLayout = ({ modules, activeModuleId, activeSlideId, onNavigate, childre
                         )
                     })}
                 </nav>
+
+                {ES_AVANZADO && isAdmin && (
+                    <GuionProfesor slide={activeSlide} indice={safeSlideIndex} total={totalSlides} />
+                )}
 
                 <div className={M.pie}>
                     <div className="flex items-center gap-3 px-2 py-2">
