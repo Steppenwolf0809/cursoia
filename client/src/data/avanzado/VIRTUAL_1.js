@@ -86,7 +86,7 @@ export const VIRTUAL_1 = {
             type: "comparison",
             contentData: {
                 heading: "El hilo de hoy: las 4D de la fluidez en IA",
-                paragraph: "Marco AI Fluency, de Rick Dakan y Joseph Feller con Anthropic (aifluencyframework.org). Lo citamos y lo aplicamos con nuestras palabras.",
+                paragraph: "Marco AI Fluency, de Rick Dakan y Joseph Feller con Anthropic (aifluencyframework.org).",
                 headers: ["Competencia", "La pregunta", "Dónde la trabajamos hoy"],
                 rows: [
                     ["Delegación", "¿Qué hago yo y qué hace la IA?", "Harness y agentes"],
@@ -115,7 +115,7 @@ export const VIRTUAL_1 = {
                 heading: "La ventana de contexto creció",
                 statSecondary: "200K",
                 statPrimary: "1M",
-                label: "Tokens: la cifra del curso básico frente a Claude Opus 5.5, Sonnet 5 y Fable 5.1 hoy",
+                label: "Tokens: Claude Opus 5.5, Sonnet 5 y Fable 5.1 hoy",
                 quote: "Más grande no significa infalible: la ventana sigue siendo finita y la IA sigue pudiendo inventar."
             }
         },
@@ -125,12 +125,11 @@ export const VIRTUAL_1 = {
             type: "comparison",
             contentData: {
                 heading: "Modelos vigentes, septiembre de 2026",
-                paragraph: "Actualiza lo que viste en el curso básico: Claude 3.5 Sonnet y GPT-4o ya no son la referencia.",
                 headers: ["IA", "Modelos", "Ventana de contexto"],
                 rows: [
                     ["Claude", "Fable 5.1, Opus 5.5, Sonnet 5 y Haiku 4.5", "1M tokens (Haiku 4.5: 200K)"],
-                    ["ChatGPT", "GPT-6 Astra; por API, también GPT-6 Sol y Luna (desde el 22 de septiembre)", "GPT-6 Sol por API: 1 050 000 tokens. En la app no hay una cifra oficial que hayamos podido confirmar"],
-                    ["Gemini", "Gemini 3.1 Pro y Gemini 3 Flash", "Sin cifra oficial confirmada"]
+                    ["ChatGPT", "GPT-6 Astra; por API, también GPT-6 Sol y Luna (desde el 22 de septiembre)", "GPT-6 Sol por API: 1 050 000 tokens"],
+                    ["Gemini", "Gemini 3.1 Pro y Gemini 3 Flash", "—"]
                 ]
             }
         },
@@ -235,7 +234,7 @@ export const VIRTUAL_1 = {
                     "<b>Confianza no es exactitud:</b> que suene seguro no lo hace correcto.",
                     "<b>Tú verificas:</b> la última revisión es humana, siempre."
                 ],
-                highlight: { type: "info", text: "Marco de confianza de Holly Cope, en nuestras palabras." }
+                highlight: { type: "info", text: "Marco de confianza de Holly Cope." }
             }
         },
         {
