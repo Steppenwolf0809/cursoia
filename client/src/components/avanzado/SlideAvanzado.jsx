@@ -1,9 +1,44 @@
 import SlideRenderer from '../SlideRenderer';
 import { Escalonado, Item } from './Movimiento';
 import Encabezado from './Encabezado';
+import Portada from './tipos/Portada';
+import Perfil from './tipos/Perfil';
+import Encuesta from './tipos/Encuesta';
+import Analogia from './tipos/Analogia';
+import Cifras from './tipos/Cifras';
+import Tabla from './tipos/Tabla';
+import Narrativa from './tipos/Narrativa';
+import Advertencia from './tipos/Advertencia';
+import Plantilla from './tipos/Plantilla';
+import Listas from './tipos/Listas';
+import Descanso from './tipos/Descanso';
+import Destacado from './tipos/Destacado';
+import Ejercicio from './tipos/Ejercicio';
+import Galeria from './tipos/Galeria';
+import Resumen from './tipos/Resumen';
+import Tarea from './tipos/Tarea';
+import Materiales from './tipos/Materiales';
 
 // Tipo de slide → variante del avanzado. Lo que no está aquí (la pizarra) usa el SlideRenderer del básico.
 const TIPOS = {
+    hero: Portada,
+    profile: Perfil,
+    poll: Encuesta,
+    analogy: Analogia,
+    'stat-comparison': Cifras,
+    comparison: Tabla,
+    narrative: Narrativa,
+    warning: Advertencia,
+    'prompt-template': Plantilla,
+    'list-comparison': Listas,
+    break: Descanso,
+    'feature-highlight': Destacado,
+    concept: Destacado,
+    'exercise-interactive': Ejercicio,
+    'gallery-view': Galeria,
+    summary: Resumen,
+    'next-steps': Tarea,
+    'resources-download': Materiales,
 };
 
 const SlideAvanzado = ({ slide, modulo, indice, total, isAdmin }) => {
