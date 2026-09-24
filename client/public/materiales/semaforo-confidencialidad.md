@@ -21,7 +21,7 @@ IA Avanzada para Abogados · Virtual 1. Propuesta del curso, no norma. Ante la d
 ## Los cuatro niveles de protección
 | Nivel | ¿Entrena con tus datos? | Cuánto se guardan |
 |---|---|---|
-| 1. Plan personal (Claude Free, Pro o Max; ChatGPT Free, Plus o Pro) | Claude: tú decides. ChatGPT: «Mejorar el modelo para todos» viene activado en la mayoría de cuentas; desactívalo en Controles de datos | Claude, entrenamiento desactivado: lo borrado se elimina en 30 días; activado: hasta 5 años |
+| 1. Plan personal (Claude Free, Pro o Max; ChatGPT Free, Plus o Pro) | Claude: tú decides. ChatGPT: entrena con tus chats salvo que lo desactives (opt-out), según chatgpt.com/pricing | Claude, entrenamiento desactivado: lo borrado se elimina en 30 días; activado: hasta 5 años |
 | 2. Equipo o empresa (Claude Team o Enterprise) | No | Lo borrado sale en 30 días; Enterprise configura la retención |
 | 3. API de Claude con Zero Data Retention | No | Nada tras responder, salvo lo marcado por seguridad (hasta 2 años); Fable y Mythos exigen 30 días |
 | 4. Claude en Amazon Bedrock o Google Vertex AI | Según tu contrato con AWS o Google, que son los encargados | Según la nube; Bedrock no tiene región garantizada en Sudamérica |

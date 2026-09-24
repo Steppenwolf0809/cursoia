@@ -895,3 +895,8 @@ general (p. ej. Claude Opus 5.5 max: promedio de sus 6 dominios = 46.42, igual a
     "Hallucination Rate" en sí. La cita exacta de arriba es la que aparece junto al gráfico de
     Hallucination Rate en la propia página de evaluación (`/evaluations/omniscience`), que es la
     definición oficial de esa métrica específica.
+
+### Nota del controlador (24 sep 2026)
+
+- La página https://artificialanalysis.ai/evaluations/omniscience describe el benchmark como «A benchmark measuring factual recall and hallucination across various economically relevant domains»: mide lo que el modelo recuerda. Lo que no acierta incluye respuestas incorrectas, parciales o no intentadas, por eso en los slides «no sé» va como «no sé o incompletas».
+- ChatGPT y el entrenamiento: la única fuente leída es https://chatgpt.com/pricing («Content is used to train our models: Opt-out available»). El nombre del interruptor y su ubicación quedan NO VERIFICADO (help.openai.com dio 403) y salieron de los slides.

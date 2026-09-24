@@ -2,7 +2,7 @@
 
 IA Avanzada para Abogados · Virtual 1.
 
-Este tutorial adapta a Ecuador el método de **Holly Cope**, abogada inglesa, en su video «Reducing AI Hallucinations in Legal Work» (24 de junio de 2026): https://www.youtube.com/watch?v=Q-nA44oxXp0. El caso, los prompts y las fuentes son ecuatorianos y están escritos por nosotros; el método y el recorrido de prompt malo, mejor y aún mejor son de ella. Te recomendamos ver el video completo.
+Este tutorial adapta a Ecuador el método de **Holly Cope**, exabogada inglesa, en su video «Reducing AI Hallucinations in Legal Work» (24 de junio de 2026): https://www.youtube.com/watch?v=Q-nA44oxXp0. El caso, los prompts y las fuentes son ecuatorianos y están escritos por nosotros; el método y el recorrido de prompt malo, mejor y aún mejor son de ella. Te recomendamos ver el video completo.
 
 ## 1. Por qué la IA adivina
 
@@ -10,7 +10,7 @@ Un estudio de OpenAI, «Why Language Models Hallucinate» (Kalai, Nachum, Vempal
 
 La idea central de Holly Cope: no le pidas a la IA que acierte; pídele que sea transparente sobre lo que no sabe.
 
-Los modelos actuales también lo hacen. En el benchmark AA-Omniscience de Artificial Analysis (https://artificialanalysis.ai/evaluations/omniscience, consultado el 24 de septiembre de 2026), el modelo responde de memoria, sin documentos, y cada respuesta es correcta, inventada o «no sé»:
+Los modelos actuales también lo hacen. En el benchmark AA-Omniscience de Artificial Analysis (https://artificialanalysis.ai/evaluations/omniscience, consultado el 24 de septiembre de 2026), se mide lo que el modelo recuerda (conocimiento factual), y cada respuesta es correcta, inventada, o «no sé» o incompleta:
 
 | | Aciertos | De lo que no sabe, cuánto inventa |
 |---|---|---|

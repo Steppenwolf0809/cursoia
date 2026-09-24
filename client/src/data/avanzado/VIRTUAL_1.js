@@ -129,7 +129,7 @@ export const VIRTUAL_1 = {
                 headers: ["IA", "Modelos", "Ventana de contexto"],
                 rows: [
                     ["Claude", "Fable 5.1, Opus 5.5, Sonnet 5 y Haiku 4.5", "1M tokens (Haiku 4.5: 200K)"],
-                    ["ChatGPT", "GPT-6 Astra; GPT-6 Sol y Luna desde el 22 de septiembre", "GPT-6 Sol por API: 1 050 000 tokens. En la app no hay una cifra oficial que hayamos podido confirmar"],
+                    ["ChatGPT", "GPT-6 Astra; por API, también GPT-6 Sol y Luna (desde el 22 de septiembre)", "GPT-6 Sol por API: 1 050 000 tokens. En la app no hay una cifra oficial que hayamos podido confirmar"],
                     ["Gemini", "Gemini 3.1 Pro y Gemini 3 Flash", "Sin cifra oficial confirmada"]
                 ]
             }
@@ -184,8 +184,8 @@ export const VIRTUAL_1 = {
                 paragraph: "La base pública de Damien Charlotin registraba 2077 casos en el mundo al 24 de septiembre de 2026. En Ecuador no encontramos ningún caso confirmado todavía.",
                 headers: ["Dónde", "Qué pasó", "Consecuencia"],
                 rows: [
-                    ["Colombia · Corte Suprema, auto AC739-2026 (13 feb 2026)", "Un abogado citó diez sentencias inexistentes generadas con IA en un recurso de revisión", "Multa de 15 salarios mínimos"],
-                    ["Colombia · Corte Suprema, STC17832-2025 (5 nov 2025)", "Un tribunal de Sincelejo citó apartes de sentencias que no existían", "Se anuló el fallo"],
+                    ["Colombia · Corte Suprema, auto AC739-2026 (13 feb 2026)", "Un abogado incluyó diez citas jurisprudenciales inexistentes, generadas con IA, en un recurso de revisión", "Multa de 15 salarios mínimos"],
+                    ["Colombia · Corte Suprema, STC17832-2025 (5 nov 2025)", "El Tribunal Superior de Sincelejo citó apartes inexistentes de las sentencias STC13560-2023 y STC4734-2025", "Se anuló el fallo"],
                     ["Chile · Corte Suprema (22 abr 2026)", "Una abogada citó doctrina inexistente en un recurso de casación", "Un mes de suspensión y multa de 5 UTM"],
                     ["Argentina · Cámara Civil y Comercial de Rosario (21 ago 2025)", "Un escrito citó fallos inexistentes generados con ChatGPT", "Reprensión y oficio al Colegio de Abogados"]
                 ]
@@ -197,7 +197,7 @@ export const VIRTUAL_1 = {
             type: "narrative",
             contentData: {
                 Heading1: "Tutorial: cómo evitar que la IA alucine",
-                paragraph1: "Este tutorial adapta a Ecuador el método de Holly Cope, abogada inglesa, en su video «Reducing AI Hallucinations in Legal Work» (junio de 2026). El caso, las fuentes y los prompts son nuestros; el método y el recorrido son de ella.",
+                paragraph1: "Este tutorial adapta a Ecuador el método de Holly Cope, exabogada inglesa, en su video «Reducing AI Hallucinations in Legal Work» (junio de 2026). El caso, las fuentes y los prompts son nuestros; el método y el recorrido son de ella.",
                 bullets1: [
                     "Video completo: <a href='https://www.youtube.com/watch?v=Q-nA44oxXp0' target='_blank' rel='noopener noreferrer' class='underline'>youtube.com/watch?v=Q-nA44oxXp0</a>"
                 ],
@@ -212,12 +212,12 @@ export const VIRTUAL_1 = {
             type: "comparison",
             contentData: {
                 heading: "Los modelos de hoy también inventan",
-                paragraph: "Benchmark AA-Omniscience de Artificial Analysis, consultado el 24 de septiembre de 2026: preguntas de conocimiento que el modelo responde de memoria, sin documentos. Saber más no significa inventar menos. Y mide la memoria del modelo, no su trabajo con la norma que tú le entregas: por eso se la entregas.",
+                paragraph: "Benchmark AA-Omniscience de Artificial Analysis, consultado el 24 de septiembre de 2026: preguntas de conocimiento factual: mide lo que el modelo recuerda. Saber más no significa inventar menos. Y mide la memoria del modelo, no su trabajo con la norma que tú le entregas: por eso se la entregas.",
                 headers: ["", "Claude Fable 5.1 (max)", "Claude Opus 5.5 (max)", "GPT-6 Astra (high)"],
                 rows: [
                     ["Aciertos", "67 %", "66 %", "61 %"],
                     ["De lo que no sabe, cuánto inventa", "73 %", "59 %", "45 %"],
-                    ["De cada 100 preguntas", "67 bien, 24 inventadas, 9 «no sé»", "66 bien, 20 inventadas, 14 «no sé»", "61 bien, 17 inventadas, 22 «no sé»"]
+                    ["De cada 100 preguntas", "67 bien, 24 inventadas, 9 «no sé» o incompletas", "66 bien, 20 inventadas, 14 «no sé» o incompletas", "61 bien, 17 inventadas, 22 «no sé» o incompletas"]
                 ]
             }
         },
@@ -412,10 +412,10 @@ Si para algún punto el documento no alcanza, responde exactamente: "la informac
             type: "comparison",
             contentData: {
                 heading: "Niveles de protección: qué pasa con tus datos",
-                paragraph: "Según la documentación oficial de Anthropic y OpenAI, septiembre de 2026.",
+                paragraph: "Según la documentación oficial de Anthropic y la página de precios de OpenAI, septiembre de 2026.",
                 headers: ["Nivel", "¿Entrena con tus datos?", "Cuánto se guardan", "¿Realista para un despacho pequeño?"],
                 rows: [
-                    ["1. Plan personal: Claude Free, Pro o Max; ChatGPT Free, Plus o Pro", "Claude: tú decides con un interruptor. ChatGPT: «Mejorar el modelo para todos» viene activado en la mayoría de cuentas; se desactiva en Controles de datos", "Claude con entrenamiento desactivado: lo que borras se elimina en 30 días. Activado: hasta 5 años, desidentificado", "Sí, para el color verde. Claude Pro y ChatGPT Plus cuestan 20 dólares al mes"],
+                    ["1. Plan personal: Claude Free, Pro o Max; ChatGPT Free, Plus o Pro", "Claude: tú decides con un interruptor. ChatGPT: entrena con tus chats salvo que lo desactives (opt-out), según chatgpt.com/pricing", "Claude con entrenamiento desactivado: lo que borras se elimina en 30 días. Activado: hasta 5 años, desidentificado", "Sí, para el color verde. Claude Pro y ChatGPT Plus cuestan 20 dólares al mes"],
                     ["2. Plan de equipo o empresa: Claude Team o Enterprise", "No", "Lo que borras sale del sistema en 30 días; Enterprise permite configurar la retención", "Team, sí. Enterprise: precio a consultar con ventas"],
                     ["3. API de Claude con Zero Data Retention", "No", "Nada después de responder, salvo lo que marquen los filtros de seguridad (hasta 2 años). Fable y Mythos exigen 30 días", "Solo con desarrollo propio; se pide al equipo de ventas de Anthropic"],
                     ["4. Claude en Amazon Bedrock o Google Vertex AI", "Según tu contrato con AWS o Google, que son los encargados", "Según la política de esa nube", "Poco: Bedrock no tiene región garantizada en Sudamérica y es complejo"]
