@@ -622,7 +622,7 @@ Formato de entrega:
             contentData: {
                 heading: "Tarea para la Virtual 2",
                 steps: [
-                    { day: "Hoy", action: "Termina tu Proyecto «Mi despacho»", tip: "Pega la plantilla 2 y pruébalo con una consulta que puedas verificar." },
+                    { day: "Hoy", action: "Termina tu Proyecto «Mi despacho»", tip: "Pídele que te entreviste y redacte tus instrucciones con la plantilla 2; pruébalo con una consulta que puedas verificar." },
                     { day: "Antes del jueves", action: "Baja el Anonimizador del enlace de Drive, comprueba que abre y elige un contrato propio en .docx", tip: "No lo subas a ninguna IA todavía." },
                     { day: "Jueves 15 oct", action: "Trae el contrato .docx sin anonimizar", tip: "Lo anonimizamos juntos al empezar y con él haces la matriz de riesgos." }
                 ],

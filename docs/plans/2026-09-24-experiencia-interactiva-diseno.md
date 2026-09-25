@@ -470,5 +470,5 @@ Estimado aparte, sin medir: 4 a 6 h.
 ## Aprobación
 
 - [ ] Diseño aprobado por José Luis: fecha ____
-- [ ] Lista A aprobada (total o por puntos): fecha ____
+- [x] Lista A aprobada completa (los 5 puntos, −10 min): 24 sep 2026. Con los 8 min del Anonimizador, la Virtual 1 queda en 142 min
 - [ ] Datos 6 y 7 del semáforo aprobados: fecha ____
