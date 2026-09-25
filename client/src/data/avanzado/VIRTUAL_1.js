@@ -118,6 +118,41 @@ export const VIRTUAL_1 = {
             }
         },
         {
+            id: "v1-2-4a",
+            title: "¿Qué recuerda la IA?",
+            type: "decide-revela",
+            contentData: {
+                heading: "¿Qué recuerda la IA de este chat?",
+                paragraph: "Mira cómo crece un chat de trabajo. Después responde.",
+                rotulo: "Esquema: la ventana real es mucho más grande, pero funciona igual.",
+                animacion: "ventana-contexto",
+                ventana: 4,
+                mensajes: [
+                    { de: "tu", texto: "Caso [CLIENTE_1]: arriendo de un local en Cuenca. El canon es de 800 dólares." },
+                    { de: "ia", texto: "Entendido. ¿Qué necesitas revisar?" },
+                    { de: "tu", texto: "Revisa la cláusula de terminación anticipada." },
+                    { de: "ia", texto: "La cláusula novena permite terminar con 30 días de aviso…" },
+                    { de: "tu", texto: "Redacta la carta de aviso." },
+                    { de: "ia", texto: "Borrador de la carta…" },
+                    { de: "tu", texto: "Otra cosa: resume esta sentencia de 40 páginas." },
+                    { de: "ia", texto: "Resumen de la sentencia…" },
+                    { de: "tu", texto: "Volviendo al arriendo: ¿cuál era el canon?" }
+                ],
+                items: [
+                    {
+                        id: "primer-mensaje",
+                        texto: "¿La IA todavía ve el primer mensaje, donde le diste el canon?",
+                        opciones: [
+                            "Sí: todo el chat queda en su memoria",
+                            "No: ese mensaje ya salió de la ventana"
+                        ],
+                        correcta: 1,
+                        porque: "La ventana de contexto es finita. Lo que no cabe, el modelo no lo ve, aunque tú lo sigas viendo en tu pantalla. Si ahora le preguntas el canon, puede inventarlo con total seguridad."
+                    }
+                ]
+            }
+        },
+        {
             id: "v1-2-4",
             title: "Por qué la IA «olvida»",
             type: "narrative",
@@ -135,8 +170,7 @@ export const VIRTUAL_1 = {
                     "Cambias de caso o de cliente",
                     "La IA repite errores que ya corregiste o retoma ideas que descartaste",
                     "Empiezas una tarea distinta: pide antes un resumen y llévalo al chat nuevo"
-                ],
-                highlight: { type: "success", text: "Demo en vivo: el mismo pedido en un chat largo y en uno nuevo." }
+                ]
             }
         },
         {
@@ -155,7 +189,6 @@ export const VIRTUAL_1 = {
                 ]
             }
         },
-        delBasico(MODULO_1, "1-4", "v1-3-1"),
         delBasico(MODULO_1, "1-4b", "v1-3-2"),
         {
             id: "v1-3-3",
@@ -239,43 +272,44 @@ export const VIRTUAL_1 = {
         },
         {
             id: "v1-3-7",
-            title: "Tutorial 2: el prompt malo",
-            type: "narrative",
+            title: "Tutorial 2: caza la alucinación",
+            type: "decide-revela",
             contentData: {
-                Heading1: "Paso 2: el prompt malo",
-                paragraph1: "«¿Cuál es el plazo de prescripción de una deuda en Ecuador?»",
-                bullets1: [
-                    "No dice si es una acción ejecutiva u ordinaria",
-                    "No entrega la fuente ni pide que la cite",
-                    "No le permite decir «no sé»"
+                heading: "Paso 2: caza la alucinación",
+                paragraph: "Este es el prompt malo y una respuesta como la que suele dar. Una de las frases es falsa. Tócala.",
+                rotulo: "Ejemplo sintético: respuesta escrita para el curso, no generada por una IA.",
+                pregunta: "¿Cuál es el plazo de prescripción de una deuda en Ecuador?",
+                items: [
+                    {
+                        id: "frase-falsa",
+                        texto: "¿Qué frase es falsa?",
+                        opciones: [
+                            "En Ecuador, la prescripción extintiva de las deudas está regulada en el Código Civil.",
+                            "El plazo se cuenta desde que la obligación se hizo exigible, según el artículo 2414.",
+                            "El artículo 2415 lo dice textualmente: «la acción ejecutiva prescribe en tres años y la ordinaria en cinco».",
+                            "Vencido el plazo de la acción ejecutiva, la deuda todavía puede reclamarse por la vía ordinaria."
+                        ],
+                        correcta: 2,
+                        porque: "El artículo 2415 fija 5 años para la acción ejecutiva y 10 para la ordinaria; vencidos los 5, la ejecutiva se convierte en ordinaria y dura 5 años más. La cita entre comillas no existe: la IA la armó con plazos equivocados y la presentó como textual. Las otras tres frases son ciertas."
+                    }
                 ],
-                Heading2: "Qué hace la IA con eso",
-                paragraph2: "Asume lo que falta y responde con total seguridad. Puede darte un artículo o un plazo inventado, o mezclarlo con otro país o con una versión anterior de la ley.",
-                highlight: { type: "info", text: "Pruébalo en vivo y anota qué artículo te da. Lo verificamos en el paso 5." }
-            }
-        },
-        {
-            id: "v1-3-8",
-            title: "Tutorial 3: el prompt mejor",
-            type: "prompt-template",
-            contentData: {
-                heading: "Paso 3: el prompt mejor",
-                template: `Eres mi asistente de investigación jurídica en Ecuador. Te adjunto el texto vigente del Código Civil ecuatoriano [ADJUNTAR ARCHIVO O PEGAR EL TEXTO OFICIAL].
-
-Usa ÚNICAMENTE ese documento, no tu conocimiento general. Dime:
-1. ¿Cuál es el plazo de prescripción extintiva de una acción ejecutiva y de una acción ordinaria, según el texto que te di?
-2. Si el documento no trae esa información completa, dilo explícitamente: no la inventes ni la completes con lo que "sueles saber" de otros países o de versiones anteriores de la ley.
-3. Señala qué supuestos estás haciendo (por ejemplo, si asumes que la deuda no tiene un plazo especial distinto al general).`,
-                examples: ["Solo el documento que le das", "Si falta algo, lo dice", "Declara sus supuestos"],
-                tip: "Resultado esperado: declara sus supuestos y dice qué no trae el documento, en vez de inventarlo. Recorrido adaptado de Holly Cope."
+                cierre: {
+                    titulo: "Por qué pasó y cómo se verifica",
+                    puntos: [
+                        "El prompt no dijo si era acción ejecutiva u ordinaria, no dio la fuente y no le permitió decir «no sé».",
+                        "Abre el Código Civil en la fuente oficial: Codificación 10, Registro Oficial Suplemento 46 de 24 de junio de 2005.",
+                        "Busca el artículo que te citó y compáralo palabra por palabra.",
+                        "Unas comillas no prueban nada: si la cita no está en la fuente, no existe."
+                    ]
+                }
             }
         },
         {
             id: "v1-3-9",
-            title: "Tutorial 4: el prompt aún mejor",
+            title: "Tutorial 3: el prompt mejor",
             type: "prompt-template",
             contentData: {
-                heading: "Paso 4: el prompt aún mejor",
+                heading: "Paso 3: el prompt mejor",
                 template: `Eres mi asistente de investigación jurídica en Ecuador. Te adjunto el texto vigente del Código Civil ecuatoriano [ADJUNTAR ARCHIVO O PEGAR EL TEXTO OFICIAL] y el enlace del Registro Oficial donde se publicó la última reforma relevante: [URL].
 
 Usa ÚNICAMENTE estos documentos, no tu conocimiento general ni supuestos de otras jurisdicciones. Para cada punto de tu respuesta sobre el plazo de prescripción de una acción ejecutiva y de una ordinaria, dame:
@@ -291,25 +325,18 @@ Si para algún punto el documento no alcanza, responde exactamente: "la informac
         },
         {
             id: "v1-3-10",
-            title: "Tutorial 5: verifica y protocolo",
+            title: "Tutorial 4: verifica y protocolo",
             type: "narrative",
             contentData: {
-                Heading1: "Paso 5: contrasta con la fuente oficial",
-                paragraph1: "La respuesta está en el Código Civil (Codificación 10, Registro Oficial Suplemento 46 de 24 de junio de 2005):",
+                Heading1: "Paso 4: verifica y protocolo",
+                paragraph1: "Pide la cita exacta, ábrela en la fuente oficial y pasa el checklist.",
                 bullets1: [
-                    "<b>Art. 2414:</b> el plazo se cuenta desde que la obligación se hizo exigible.",
-                    "<b>Art. 2415:</b> 5 años para la acción ejecutiva y 10 para la ordinaria.",
-                    "La acción ejecutiva, vencidos sus 5 años, se convierte en ordinaria y dura 5 años más."
-                ],
-                Heading2: "Protocolo antes de entregar",
-                paragraph2: "Pide la cita exacta, ábrela en la fuente oficial y pasa el checklist.",
-                bullets2: [
                     "Registro Oficial: <a href='https://www.registroficial.gob.ec/' target='_blank' rel='noopener noreferrer' class='underline'>registroficial.gob.ec</a>",
                     "Corte Nacional de Justicia: <a href='https://busquedasentencias.cortenacional.gob.ec/' target='_blank' rel='noopener noreferrer' class='underline'>busquedasentencias.cortenacional.gob.ec</a>",
                     "Corte Constitucional: <a href='https://buscador.corteconstitucional.gob.ec/' target='_blank' rel='noopener noreferrer' class='underline'>buscador.corteconstitucional.gob.ec</a>",
                     "Descarga el <a href='/materiales/checklist-verificacion.md' target='_blank' rel='noopener noreferrer' class='underline'>checklist de verificación</a> y el <a href='/materiales/tutorial-evitar-alucinaciones.md' target='_blank' rel='noopener noreferrer' class='underline'>tutorial completo</a>"
                 ],
-                highlight: { type: "success", text: "¿Acertó la IA en el paso 2? Compara su artículo con el 2415." }
+                highlight: { type: "success", text: "La frase inventada del paso 2 no resiste esta comprobación." }
             }
         },
         {
@@ -424,16 +451,42 @@ Si para algún punto el documento no alcanza, responde exactamente: "la informac
         {
             id: "v1-6-4",
             title: "Semáforo",
-            type: "comparison",
+            type: "decide-revela",
             contentData: {
-                heading: "Semáforo: qué dato va a dónde",
-                paragraph: "Propuesta del curso, no norma. Ante la duda, sube un color.",
-                headers: ["Color", "Qué incluye", "Dónde puede ir"],
-                rows: [
-                    ["🟢 Verde", "Leyes, fallos públicos, doctrina, plantillas sin datos reales, material de capacitación", "Cualquier plan pago con el entrenamiento desactivado"],
-                    ["🟡 Amarillo", "Documentos de clientes: contratos, demandas, minutas, con [COMPRADOR_1] en lugar del nombre", "Plan pago con entrenamiento desactivado, solo después de seudonimizar en tu computadora o con consentimiento informado del cliente. Mejor en un plan de equipo"],
-                    ["🔴 Rojo", "Salud, niñas, niños y adolescentes, procesos penales, cuentas bancarias, y casos conocidos que se identifican aunque cambies el nombre", "No subir. Por excepción: API con Zero Data Retention o nube empresarial, y siempre con consentimiento expreso del cliente"]
-                ]
+                heading: "Semáforo: ¿qué color le toca a cada dato?",
+                paragraph: "Clasifica los diez. Propuesta del curso, no norma. Ante la duda, sube un color.",
+                opciones: ["🟢 Verde", "🟡 Amarillo", "🔴 Rojo"],
+                boton: "Ver respuestas",
+                items: [
+                    { id: "plantilla", texto: "Tu plantilla de minuta de compraventa, sin datos reales", correcta: 0,
+                      porque: "Plantilla sin datos reales: verde." },
+                    { id: "certificado-medico", texto: "El certificado médico de un cliente", correcta: 2,
+                      porque: "Datos de salud: rojo. Son datos sensibles." },
+                    { id: "minuta-etiquetada", texto: "La minuta de un cliente con las partes cambiadas por [VENDEDOR_1] y [COMPRADOR_1] en tu computadora", correcta: 1,
+                      porque: "Documento de cliente ya seudonimizado: amarillo. Puede ir a un plan pago con el entrenamiento desactivado; mejor, a un plan de equipo." },
+                    { id: "sentencia-publica", texto: "Una sentencia publicada en el buscador de la Corte Nacional", correcta: 0,
+                      porque: "Fallo público: verde." },
+                    { id: "salida-menor", texto: "La autorización de salida del país de un menor", correcta: 2,
+                      porque: "Datos de niñas, niños y adolescentes: rojo." },
+                    { id: "contrato-crudo", texto: "El contrato de arrendamiento de un cliente, tal como te lo mandó, con nombres y cédulas", correcta: [1, 2],
+                      porque: "Es un documento de cliente: amarillo. Pero así como está no se sube: primero se seudonimiza en tu computadora o se pide el consentimiento informado del cliente. Si elegiste rojo, vas bien: ante la duda, sube un color." },
+                    { id: "penal-seudonimizado", texto: "Un expediente penal, ya seudonimizado", correcta: 2,
+                      porque: "Los procesos penales son rojo aunque cambies los nombres. Solo por excepción: API con Zero Data Retention o nube empresarial, y con consentimiento expreso del cliente." },
+                    { id: "lopdp", texto: "El texto de la LOPDP descargado del Registro Oficial", correcta: 0,
+                      porque: "Ley pública: verde." },
+                    { id: "sociedad-conyugal", texto: "Una liquidación de sociedad conyugal con las partes etiquetadas", correcta: 1,
+                      porque: "Documento de cliente seudonimizado: amarillo." },
+                    { id: "caso-conocido", texto: "Un caso muy conocido en tu ciudad, con los nombres cambiados", correcta: 2,
+                      porque: "Rojo: la combinación de hechos identifica a la persona aunque cambies el nombre." }
+                ],
+                cierre: {
+                    titulo: "Dónde puede ir cada color",
+                    puntos: [
+                        "🟢 Verde: cualquier plan pago con el entrenamiento desactivado.",
+                        "🟡 Amarillo: plan pago con el entrenamiento desactivado, solo después de seudonimizar en tu computadora o con consentimiento informado del cliente. Mejor en un plan de equipo.",
+                        "🔴 Rojo: no subir. Por excepción, API con Zero Data Retention o nube empresarial, y siempre con consentimiento expreso del cliente."
+                    ]
+                }
             }
         },
         {
@@ -454,23 +507,6 @@ Si para algún punto el documento no alcanza, responde exactamente: "la informac
             }
         },
         delBasico(MODULE_2, "2-2", "v1-7-2"),
-        {
-            id: "v1-7-3",
-            title: "Configura tu IA: qué dejar fijo",
-            type: "narrative",
-            contentData: {
-                Heading1: "Configura tu IA: qué instrucciones dejar fijas",
-                paragraph1: "Lo que repites en cada chat, escríbelo una vez. Y explica el porqué: la guía de Anthropic recomienda dar el motivo en vez de solo la orden.",
-                bullets1: [
-                    "<b>Que no te dé la razón en todo:</b> «Si mi planteamiento tiene un error, dilo primero y explica por qué. No me des la razón para complacerme.»",
-                    "<b>Crítica con fundamento:</b> «Señala riesgos y puntos débiles citando la norma o el hecho que los sustenta.»",
-                    "<b>Tono:</b> «Español de Ecuador, registro profesional, con tuteo. Nunca voseo.»",
-                    "<b>Formato:</b> «Sin emojis. Prosa clara; listas solo para elementos separados; tablas cuando compares.»",
-                    "<b>Contra las alucinaciones (Holly Cope):</b> «Si no sabes, dilo. Califica tu confianza. Declara tus supuestos.»"
-                ],
-                highlight: { type: "success", text: "Así ya no dependes de acordarte de pedirlo cada vez." }
-            }
-        },
         {
             id: "v1-7-4",
             title: "Ejemplo real",
@@ -537,7 +573,7 @@ Cómo trabajar:
 Formato de entrega:
 - [Por ejemplo: minutas con la estructura de nuestra plantilla; informes de máximo una página.]`,
                 examples: ["Claude: instrucciones del Proyecto", "ChatGPT: instrucciones del Proyecto", "Gemini: instrucciones de un Gem"],
-                tip: "Se aplica solo a los chats de este Proyecto. Aquí quedan fijas las reglas del prompt aún mejor."
+                tip: "Se aplica solo a los chats de este Proyecto. Aquí quedan fijas las reglas del prompt mejor del paso 3."
             }
         },
         {
@@ -598,6 +634,62 @@ Formato de entrega:
             interaction: {
                 type: "GalleryDisplay",
                 data: { showAll: true, showHighlighted: false }
+            }
+        },
+        {
+            id: "v1-8-0",
+            title: "Repaso",
+            type: "decide-revela",
+            contentData: {
+                heading: "Repaso: cuatro decisiones de todos los días",
+                paragraph: "Responde las cuatro y después mira las respuestas.",
+                boton: "Ver respuestas",
+                items: [
+                    {
+                        id: "chat-largo",
+                        texto: "Llevas dos horas en el mismo chat, con tres casos distintos. ¿Qué haces?",
+                        opciones: [
+                            "Sigo ahí: la IA recuerda todo lo que le dije",
+                            "Pido un resumen del caso que me interesa y lo llevo a un chat nuevo",
+                            "Le pido que olvide los otros dos casos"
+                        ],
+                        correcta: 1,
+                        porque: "La ventana es finita y un chat que mezcla casos mezcla también sus datos. Resumen y chat nuevo."
+                    },
+                    {
+                        id: "confianza-alta",
+                        texto: "La IA te da un artículo con cita textual y dice que su confianza es alta. ¿Qué haces antes de usarlo?",
+                        opciones: [
+                            "Nada: si la confianza es alta, está bien",
+                            "Le pregunto si está segura",
+                            "Abro la fuente oficial y comparo la cita"
+                        ],
+                        correcta: 2,
+                        porque: "Confianza no es exactitud. La última revisión es humana: la cita se contrasta con la fuente oficial."
+                    },
+                    {
+                        id: "entrenamiento",
+                        texto: "Desactivaste el entrenamiento en tu plan pago. ¿Ya puedes pegar el contrato de un cliente con nombres y cédulas?",
+                        opciones: [
+                            "No: los datos igual salen de tu computadora y se guardan; seudonimiza antes",
+                            "Sí: ya es confidencial",
+                            "Sí, si después borro el chat"
+                        ],
+                        correcta: 0,
+                        porque: "Desactivar el entrenamiento no es confidencialidad. Seudonimiza en tu computadora antes de subir."
+                    },
+                    {
+                        id: "delegar",
+                        texto: "¿Qué no le delegas a la IA?",
+                        opciones: [
+                            "El primer borrador de una minuta",
+                            "El resumen de un expediente que tú cargaste",
+                            "La conclusión jurídica final y la firma"
+                        ],
+                        correcta: 2,
+                        porque: "La IA hace borradores, resume y ordena. La conclusión y la firma son tuyas."
+                    }
+                ]
             }
         },
         {

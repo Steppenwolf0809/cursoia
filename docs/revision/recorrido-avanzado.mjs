@@ -1,7 +1,7 @@
-// Recorre los 44 slides de la Virtual 1 en modo admin, con Supabase bloqueado, y guarda capturas.
+// Recorre los 40 slides de la Virtual 1 en modo admin, con Supabase bloqueado, y guarda capturas.
 // Uso (desde D:\tmp\pw-curso, donde está instalado playwright):
 //   node recorrido-avanzado.mjs <url> <carpeta-salida> [ids,separados,por,coma]
-// Sin ids: captura los 44 y hace además la prueba de movimiento y la bienvenida.
+// Sin ids: captura los 40 y hace además la prueba de movimiento y la bienvenida.
 import { chromium } from 'playwright';
 import { mkdirSync } from 'node:fs';
 
@@ -45,11 +45,11 @@ async function avanzar(pagina) {
     await pagina.waitForFunction((id) => document.querySelector('[data-slide-id]')?.getAttribute('data-slide-id') !== id, antes);
 }
 
-// 1. Los 44 slides, con movimiento reducido (capturas con todo ya en su lugar).
+// 1. Los 40 slides, con movimiento reducido (capturas con todo ya en su lugar).
 for (const [nombre, opciones] of Object.entries(TAMANOS)) {
     const { contexto, pagina } = await abrir({ ...opciones, reducedMotion: 'reduce' });
     await pagina.waitForSelector('[data-slide-id]');
-    for (let i = 1; i <= 44; i++) {
+    for (let i = 1; i <= 40; i++) {
         const id = await idActual(pagina);
         // Con movimiento reducido el slide aparece completo: el H1 y todos sus ancestros con opacidad 1.
         const completo = await pagina.$eval('[data-slide-id] h1', (h) => {
@@ -57,6 +57,8 @@ for (const [nombre, opciones] of Object.entries(TAMANOS)) {
             return true;
         }).catch(() => false);
         if (!completo) problemas.push(`${nombre} ${id}: con movimiento reducido el H1 no está completo (o no hay H1)`);
+        // Solo en desarrollo: validar() pinta esta caja si el contentData de decide-revela está mal.
+        if (await pagina.locator('[data-decide-errores]').count()) problemas.push(`${nombre} ${id}: decide-revela con errores de contenido`);
 
         if (!solo || solo.has(id)) {
             const n = String(i).padStart(2, '0');
@@ -72,7 +74,8 @@ for (const [nombre, opciones] of Object.entries(TAMANOS)) {
                 await zona.evaluate((z) => { z.scrollTop = 0; });
             }
         }
-        if (i < 44) await avanzar(pagina);
+        if (i === 40 && id !== 'v1-8-3') problemas.push(`${nombre}: el slide 40 es ${id}, no v1-8-3 (la Virtual 1 debe tener 40)`);
+        if (i < 40) await avanzar(pagina);
     }
     await contexto.close();
 }
@@ -159,6 +162,95 @@ if (!solo) {
         await p.screenshot({ path: `${salida}/00-pizarra-${rol}-escritorio.png` });
         await c.close();
     }
+}
+
+// 6. decide-revela: elegir, recargar y volver sin perder lo marcado, revelar con el foco en el resultado.
+{
+    const { contexto, pagina } = await abrir({ ...TAMANOS.escritorio, reducedMotion: 'reduce' });
+    const ir = async (destino) => {
+        await pagina.waitForSelector('[data-slide-id]');
+        for (let n = 0; n < 45 && (await idActual(pagina)) !== destino; n++) {
+            try { await avanzar(pagina); } catch { break; }
+        }
+        return (await idActual(pagina)) === destino;
+    };
+    const estado = () => pagina.getAttribute('[data-decide]', 'data-estado').catch(() => null);
+    const foco = () => pagina.evaluate(() => document.activeElement?.hasAttribute('data-resultado') ?? false);
+
+    // Semáforo: elegir, recargar, salir y volver, revelar.
+    if (!(await ir('v1-6-4'))) problemas.push('decide: no se llegó a v1-6-4');
+    else {
+        try {
+            if (await estado() !== 'sin-responder') problemas.push(`decide v1-6-4: empieza en ${await estado()}, no sin-responder`);
+            await pagina.locator('[data-decide] label').first().click({ timeout: 5000 });
+            if (await estado() !== 'respondido') problemas.push('decide v1-6-4: al elegir no pasa a respondido');
+            if (!(await pagina.textContent('[data-contador]'))?.includes('1 de 10')) problemas.push('decide v1-6-4: el contador no dice 1 de 10');
+
+            await pagina.reload();
+            await ir('v1-6-4');
+            if (!(await pagina.locator('[data-decide] input[type="radio"]').first().isChecked())) problemas.push('decide v1-6-4: al recargar se pierde lo marcado');
+
+            await avanzar(pagina);
+            // Pequeña espera: handleNavigate es async (guarda en Supabase antes de moverse) y
+            // dos flechas pegadas pueden ganarle a esa promesa. Un usuario real nunca las pega así.
+            await pagina.waitForTimeout(300);
+            await pagina.keyboard.press('ArrowLeft');
+            await pagina.waitForSelector('[data-slide-id="v1-6-4"]');
+            if (await estado() !== 'respondido') problemas.push('decide v1-6-4: al salir y volver se pierde lo marcado');
+
+            await pagina.getByRole('button', { name: 'Ver respuestas' }).click({ timeout: 5000 });
+            if (await estado() !== 'revelado') problemas.push('decide v1-6-4: el botón no revela');
+            if ((await pagina.textContent('[data-resultado]'))?.trim() !== 'Coincidiste en 1 de 10') problemas.push(`decide v1-6-4: el resultado dice «${await pagina.textContent('[data-resultado]')}»`);
+            if (!(await foco())) problemas.push('decide v1-6-4: el foco no pasa al resultado');
+            if (await pagina.locator('[data-decide] input[type="radio"]:not(:disabled)').count()) problemas.push('decide v1-6-4: quedan opciones activas después de revelar');
+            if (!(await pagina.getByText('Dónde puede ir cada color').isVisible())) problemas.push('decide v1-6-4: no aparece el cierre');
+            await pagina.screenshot({ path: `${salida}/decide-v1-6-4-escritorio.png`, fullPage: true });
+            await pagina.setViewportSize(TAMANOS.movil.viewport);
+            if (await pagina.evaluate(() => document.documentElement.scrollWidth > window.innerWidth)) problemas.push('decide v1-6-4: desborde horizontal a 375 px');
+            await pagina.screenshot({ path: `${salida}/decide-v1-6-4-movil.png`, fullPage: true });
+            await pagina.setViewportSize(TAMANOS.escritorio.viewport);
+        } catch (e) {
+            problemas.push(`decide v1-6-4: ${e.message.split('\n')[0]}`);
+        }
+    }
+    await contexto.close();
+
+    // Caza la alucinación y ventana de contexto, en un contexto nuevo (sessionStorage vacío).
+    const c2 = await abrir({ ...TAMANOS.escritorio, reducedMotion: 'reduce' });
+    const p2 = c2.pagina;
+    const ir2 = async (destino) => {
+        await p2.waitForSelector('[data-slide-id]');
+        for (let n = 0; n < 45 && (await idActual(p2)) !== destino; n++) {
+            try { await avanzar(p2); } catch { break; }
+        }
+        return (await idActual(p2)) === destino;
+    };
+    if (!(await ir2('v1-2-4a'))) problemas.push('decide: no se llegó a v1-2-4a');
+    else {
+        try {
+            if (!(await p2.locator('[data-ventana-contexto]').count())) problemas.push('decide v1-2-4a: no se pinta la ventana');
+            await p2.getByRole('button', { name: 'Ver respuesta' }).click({ timeout: 5000 });
+            if (!(await p2.getByText('Fuera de la ventana').isVisible())) problemas.push('decide v1-2-4a: al revelar no se marca lo que quedó fuera');
+            if (!(await p2.getByText('Ventana de contexto', { exact: true }).isVisible())) problemas.push('decide v1-2-4a: al revelar no aparece el marco');
+            await p2.screenshot({ path: `${salida}/decide-v1-2-4a-escritorio.png`, fullPage: true });
+        } catch (e) {
+            problemas.push(`decide v1-2-4a: ${e.message.split('\n')[0]}`);
+        }
+    }
+    if (!(await ir2('v1-3-7'))) problemas.push('decide: no se llegó a v1-3-7');
+    else {
+        try {
+            await p2.locator('[data-decide] label').nth(2).click({ timeout: 5000 });
+            await p2.getByRole('button', { name: 'Ver respuesta' }).click({ timeout: 5000 });
+            if ((await p2.textContent('[data-resultado]'))?.trim() !== 'Coincide') problemas.push(`decide v1-3-7: el resultado dice «${await p2.textContent('[data-resultado]')}»`);
+            if (await p2.getByText('Inventada', { exact: true }).count() !== 1) problemas.push('decide v1-3-7: no hay exactamente una frase «Inventada»');
+            if (await p2.getByText('Cierta', { exact: true }).count() !== 3) problemas.push('decide v1-3-7: no hay tres frases «Cierta»');
+            await p2.screenshot({ path: `${salida}/decide-v1-3-7-escritorio.png`, fullPage: true });
+        } catch (e) {
+            problemas.push(`decide v1-3-7: ${e.message.split('\n')[0]}`);
+        }
+    }
+    await c2.contexto.close();
 }
 
 await navegador.close();

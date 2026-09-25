@@ -18,6 +18,7 @@ import Galeria from './tipos/Galeria';
 import Resumen from './tipos/Resumen';
 import Tarea from './tipos/Tarea';
 import Materiales from './tipos/Materiales';
+import DecideRevela from './tipos/DecideRevela';
 
 // Tipo de slide → variante del avanzado. Lo que no está aquí (la pizarra) usa el SlideRenderer del básico.
 const TIPOS = {
@@ -39,6 +40,7 @@ const TIPOS = {
     summary: Resumen,
     'next-steps': Tarea,
     'resources-download': Materiales,
+    'decide-revela': DecideRevela,
 };
 
 const SlideAvanzado = ({ slide, modulo, indice, total, isAdmin }) => {
