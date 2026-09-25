@@ -1,14 +1,13 @@
 # Diseño: «decide y después revela» en la Virtual 1
 
 Encargo: `docs/prompts/2026-09-24-experiencia-interactiva.md` (reescrito el 24 sep 2026).
-Estado: **pendiente de aprobación de José Luis.** No se escribe código ni se borra ningún slide
-antes de eso. La lista A (§3) ya no está en espera: el 24 sep 2026 el Anonimizador salió de la
-Virtual 1 (`docs/plans/2026-09-24-temario-anonimizador.md`), que queda en 41 slides y libera 8
-minutos. Basta recortar 2 minutos de la lista A, no 10; cuáles, se decide aquí.
+Estado: **aprobado por José Luis el 24 sep 2026**, con la lista A completa y los datos 6 y 7 del
+semáforo (ver «Aprobación»). El Anonimizador salió antes de la Virtual 1
+(`docs/plans/2026-09-24-temario-anonimizador.md`): la sesión parte de 41 slides y 142 minutos.
 
 Resumen: un tipo de slide nuevo, `decide-revela`, sin backend, con cuatro usos en la Virtual 1.
 Estimado: 10 h de 12 h de tope. Para que quepa en 2 h 30 min se proponen 3 slides menos y 2 más
-(de 44 a 43).
+(de 41 a 40).
 
 ---
 
@@ -383,8 +382,9 @@ sobrecargado: 11 slides en 20 minutos.
 | 4 | `v1-3-10`: quitar la primera mitad (los arts. 2414 y 2415) y retitularlo «Paso 4: verifica y protocolo»; su recuadro final pasa a «La frase inventada del paso 2 no resiste esta comprobación» | La Caza ya revela los artículos | 1 min |
 | 5 | Fusionar `v1-7-3` y `v1-7-5`: queda la plantilla 1 | La plantilla 1 ya trae las mismas reglas que enumera `v1-7-3` | 2 min |
 
-Con la lista A la sesión queda en 43 slides: 44, más `v1-2-4a` y `v1-8-0`, menos `v1-3-1`, `v1-3-8` y
-`v1-7-3`. Los bloques pasarían a 10, 14, 16, 15, 10, 33, 33 y 19 minutos (suman 150).
+Con la lista A la sesión queda en 40 slides: 41, más `v1-2-4a` y `v1-8-0`, menos `v1-3-1`, `v1-3-8` y
+`v1-7-3`. Los bloques pasarían a 10, 14, 16, 15, 10, 25, 33 y 19 minutos (suman 142: el bloque 6
+bajó de 30 a 22 al salir el Anonimizador; quedan 8 de margen).
 
 ### Lista B: reserva, si en el ensayo no alcanza
 
@@ -423,7 +423,7 @@ estados fijos, antes y después (−1 h); (2) se quita el contador «Coincidiste
 3. **Dos datos del semáforo son discutibles a propósito** (el 6 y el 7). José Luis debe estar de
    acuerdo con su respuesta antes de cargarlos.
 4. **El guion del profesor** (`docs/prompts/2026-09-24-guion-virtual-1.md`) cuenta 44 slides y los
-   minutos por bloque de antes. Si se aprueba la lista A, ese encargo debe actualizarse a 43 slides
+   minutos por bloque de antes. Si se aprueba la lista A, ese encargo debe actualizarse a 40 slides
    y a los minutos nuevos antes de escribir el guion.
 5. **Orden con el tema nocturno.** Este trabajo va encima de sus tokens y de `Movimiento.jsx`. En
    `git status` aparece `SlideAvanzado.jsx` en stage sin diferencias visibles; confirmar que el plan
@@ -470,6 +470,6 @@ Estimado aparte, sin medir: 4 a 6 h.
 
 ## Aprobación
 
-- [ ] Diseño aprobado por José Luis: fecha ____
+- [x] Diseño aprobado por José Luis: 24 sep 2026
 - [x] Lista A aprobada completa (los 5 puntos, −10 min): 24 sep 2026. Con los 8 min del Anonimizador, la Virtual 1 queda en 142 min
 - [x] Datos 6 y 7 del semáforo aprobados: 24 sep 2026. En el 6 coinciden amarillo y rojo (`correcta: [1, 2]`)
