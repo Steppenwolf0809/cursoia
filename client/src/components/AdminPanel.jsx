@@ -31,6 +31,8 @@ export function AdminPanel({ modules, currentModuleIndex, currentSlideIndex, onN
     const [showSubmissions, setShowSubmissions] = useState(false);
     const [selectedImage, setSelectedImage] = useState(null);
     const [selectedSubmission, setSelectedSubmission] = useState(null);
+    // Lo que se escribe en el número del slide; null muestra el slide actual.
+    const [numeroEscrito, setNumeroEscrito] = useState(null);
 
     // Refetch submissions when module changes
     useEffect(() => {
@@ -240,7 +242,21 @@ export function AdminPanel({ modules, currentModuleIndex, currentSlideIndex, onN
                         
                         {/* Slider de slides */}
                         <div className="flex items-center gap-2 mt-1">
-                            <span className="text-xs text-slate-400 w-8">{currentSlideIndex + 1}</span>
+                            <input
+                                type="text"
+                                inputMode="numeric"
+                                aria-label="Ir al slide número"
+                                title="Escribe el número y pulsa Enter"
+                                className="w-10 rounded-md border border-slate-600 bg-slate-800 py-0.5 text-center text-xs text-slate-200 focus:border-blue-500 focus:outline-none"
+                                value={numeroEscrito ?? String(currentSlideIndex + 1)}
+                                onFocus={(e) => e.target.select()}
+                                onChange={(e) => setNumeroEscrito(e.target.value.replace(/\D/g, ''))}
+                                onKeyDown={(e) => {
+                                    if (e.key === 'Enter' && numeroEscrito) jumpToSlideIndex(Number(numeroEscrito) - 1);
+                                    if (e.key === 'Enter' || e.key === 'Escape') e.currentTarget.blur();
+                                }}
+                                onBlur={() => setNumeroEscrito(null)}
+                            />
                             <div 
                                 className="flex-1 h-2 bg-slate-700 rounded-full cursor-pointer relative group"
                                 onClick={slider.handleClick}
