@@ -385,7 +385,7 @@ Si para algún punto el documento no alcanza, responde exactamente: "la informac
                     "Subir datos de salud, de menores, penales o bancarios a un plan personal",
                     "Darle a un agente la carpeta real de clientes sin revisar qué contiene"
                 ],
-                highlight: { type: "danger", text: "Seudonimiza en tu computadora antes de subir." }
+                highlight: { type: "danger", text: "Seudonimiza en tu computadora antes de subir. El jueves lo haces con el Anonimizador." }
             }
         },
         {
@@ -434,54 +434,6 @@ Si para algún punto el documento no alcanza, responde exactamente: "la informac
                     ["🟡 Amarillo", "Documentos de clientes: contratos, demandas, minutas, con [COMPRADOR_1] en lugar del nombre", "Plan pago con entrenamiento desactivado, solo después de seudonimizar en tu computadora o con consentimiento informado del cliente. Mejor en un plan de equipo"],
                     ["🔴 Rojo", "Salud, niñas, niños y adolescentes, procesos penales, cuentas bancarias, y casos conocidos que se identifican aunque cambies el nombre", "No subir. Por excepción: API con Zero Data Retention o nube empresarial, y siempre con consentimiento expreso del cliente"]
                 ]
-            }
-        },
-        {
-            id: "v1-6-5",
-            title: "Anonimizador 1: abre y revisa",
-            type: "feature-highlight",
-            contentData: {
-                heading: "Anonimiza antes de pegar",
-                paragraph: "El Anonimizador es una página que se abre en tu computadora. Lee tu documento Word, te propone los datos personales y los cambia por etiquetas. El documento nunca sale de tu máquina.",
-                image: "/images/avanzado/anonimizador-1-candidatos.png",
-                steps: [
-                    "Abre tu documento .docx",
-                    "Revisa la lista de la derecha: nombres, cédulas, RUC, teléfonos, correos y direcciones",
-                    "Un clic marca todas las apariciones del mismo dato"
-                ],
-                tip: "Captura hecha con un documento sintético de prueba, nunca con uno real."
-            }
-        },
-        {
-            id: "v1-6-6",
-            title: "Anonimizador 2: etiqueta",
-            type: "feature-highlight",
-            contentData: {
-                heading: "Ponle a cada persona su etiqueta",
-                paragraph: "Eliges el papel de cada parte: demandante, demandado, comprador, vendedor, mandante, o una etiqueta tuya.",
-                image: "/images/avanzado/anonimizador-2-etiquetar.png",
-                steps: [
-                    "Haz clic en el nombre",
-                    "Elige la etiqueta o escribe otra",
-                    "Asigna cada dato a su persona: la cédula del demandante queda como [CEDULA_DEMANDANTE]"
-                ],
-                tip: "Anota aparte, en tu computadora, qué etiqueta corresponde a cada persona real."
-            }
-        },
-        {
-            id: "v1-6-7",
-            title: "Anonimizador 3: revisa y exporta",
-            type: "feature-highlight",
-            contentData: {
-                heading: "Revisa y exporta",
-                paragraph: "«Anonimizar» te muestra el texto con etiquetas. Revisa que no quede nada identificable y exporta: ese archivo es el que subes a la IA.",
-                image: "/images/avanzado/anonimizador-3-resultado.png",
-                steps: [
-                    "Pulsa «Anonimizar»",
-                    "Compara con «Ver el original»",
-                    "Exporta a .docx o .md"
-                ],
-                tip: "Revisa también encabezados, pies de página y notas: ahí suelen quedar datos."
             }
         },
         {
@@ -613,7 +565,7 @@ Formato de entrega:
                 duration: "10 minutos",
                 steps: [
                     "1. Crea el Proyecto «Mi despacho»",
-                    "2. Pega la plantilla 2 y complétala con tus datos",
+                    "2. Pídele que te entreviste, una pregunta a la vez, y que redacte tus instrucciones con la plantilla 2",
                     "3. Sube el texto oficial de una norma que uses a diario",
                     "4. Hazle una consulta real, sin datos de clientes",
                     "5. Verifica una cita contra la fuente oficial",
@@ -660,7 +612,7 @@ Formato de entrega:
                     "Discernimiento: pide la cita, contrasta con la fuente oficial y pasa el checklist.",
                     "Diligencia: seudonimiza en tu computadora antes de subir; el semáforo te dice a dónde va cada dato."
                 ],
-                callToAction: "Virtual 2 · jueves 15 de octubre: revisión de contratos"
+                callToAction: "Virtual 2 · jueves 15 de octubre: anonimiza tu contrato y revísalo con IA"
             }
         },
         {
@@ -671,10 +623,10 @@ Formato de entrega:
                 heading: "Tarea para la Virtual 2",
                 steps: [
                     { day: "Hoy", action: "Termina tu Proyecto «Mi despacho»", tip: "Pega la plantilla 2 y pruébalo con una consulta que puedas verificar." },
-                    { day: "Antes del jueves", action: "Seudonimiza un contrato tuyo con el Anonimizador", tip: "Abre el .docx, etiqueta partes, cédulas, RUC, correos y direcciones, y exporta. El original no sale de tu computadora." },
-                    { day: "Jueves 15 oct", action: "Trae el contrato seudonimizado", tip: "Con él haremos la matriz de riesgos. Guarda en tu computadora qué etiqueta corresponde a cada persona." }
+                    { day: "Antes del jueves", action: "Baja el Anonimizador del enlace de Drive, comprueba que abre y elige un contrato propio en .docx", tip: "No lo subas a ninguna IA todavía." },
+                    { day: "Jueves 15 oct", action: "Trae el contrato .docx sin anonimizar", tip: "Lo anonimizamos juntos al empezar y con él haces la matriz de riesgos." }
                 ],
-                challenge: "Antes de subirlo, revisa el archivo exportado: ¿quedó algún dato que identifique a tu cliente?"
+                challenge: "Elige un contrato con dos partes o más y datos como cédulas, RUC o direcciones."
             }
         },
         {
@@ -688,7 +640,7 @@ Formato de entrega:
                     { title: "Tutorial: cómo evitar que la IA alucine", type: "MD", description: "El recorrido completo, con los tres prompts y las fuentes oficiales.", downloadUrl: "/materiales/tutorial-evitar-alucinaciones.md", icon: "BookOpen" },
                     { title: "Semáforo de confidencialidad", type: "MD", description: "Qué dato va a qué nivel de protección, con ejemplos notariales y de abogacía.", downloadUrl: "/materiales/semaforo-confidencialidad.md", icon: "FileText" },
                     { title: "Instrucciones personalizadas", type: "MD", description: "Plantillas para tu cuenta y tu despacho, y dónde pegarlas en cada IA.", downloadUrl: "/materiales/instrucciones-personalizadas.md", icon: "Sparkles" },
-                    { title: "Tarea para la Virtual 2", type: "MD", description: "Seudonimiza tu contrato con el Anonimizador.", downloadUrl: "/materiales/tarea-virtual-2.md", icon: "Package" }
+                    { title: "Tarea para la Virtual 2", type: "MD", description: "Elige tu contrato y prueba el Anonimizador.", downloadUrl: "/materiales/tarea-virtual-2.md", icon: "Package" }
                 ]
             }
         }

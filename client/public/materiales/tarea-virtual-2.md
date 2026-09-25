@@ -1,32 +1,28 @@
-﻿# Tarea para la Virtual 2: seudonimiza tu contrato
+﻿# Tarea para la Virtual 2: elige tu contrato y prueba el Anonimizador
 
-IA Avanzada para Abogados · entrega el jueves 15 de octubre de 2026, al inicio de la Virtual 2 (revisión de contratos).
+IA Avanzada para Abogados · antes del jueves 15 de octubre de 2026, día de la Virtual 2 (anonimiza tu contrato y revísalo con IA).
 
 ## Qué vas a hacer
-Tomar un contrato real de tu práctica y dejarlo sin datos que identifiquen a las personas, usando el Anonimizador en tu propia computadora. Con ese archivo haremos la matriz de riesgos en la Virtual 2.
+Dejar listo el Anonimizador en tu computadora y elegir un contrato real de tu práctica. En la Virtual 2 lo anonimizamos juntos al empezar, y con ese archivo haces la matriz de riesgos.
 
 ## Qué necesitas
-- Un contrato tuyo en Word (.docx): compraventa, promesa, arrendamiento, prestación de servicios u otro.
-- El Anonimizador: una página que se abre en tu navegador, sin internet. El documento nunca sale de tu computadora. Recibirás el archivo y las instrucciones para abrirlo antes de la tarea.
+- Un contrato tuyo en Word (.docx), con dos partes o más y datos como cédulas, RUC o direcciones: compraventa, promesa, arrendamiento, prestación de servicios u otro.
+- El Anonimizador: un solo archivo, `index.html`, que se abre en tu navegador sin internet. El documento nunca sale de tu computadora. Se baja de aquí: [ENLACE DE DRIVE]
 
 ## Pasos
-1. Abre el Anonimizador y carga tu contrato.
-2. Revisa la lista de la derecha: nombres, cédulas, RUC, teléfonos, correos y direcciones. Un clic marca todas las apariciones del mismo dato.
-3. Ponle a cada persona su etiqueta (por ejemplo VENDEDOR, COMPRADOR, ARRENDADOR) y asigna cada dato a su persona: la cédula del vendedor queda como `[CEDULA_VENDEDOR]`.
-4. Pulsa «Anonimizar» y compara con «Ver el original».
-5. Busca lo que el programa no marca: claves catastrales, números de matrícula o de predio, linderos con nombres de vecinos, nombres de la notaría o del notario si identifican el caso, fechas y cuantías que hagan reconocible la operación. Cámbialos a mano por etiquetas (`[CLAVE_CATASTRAL]`, `[INMUEBLE_1]`).
-6. Revisa encabezados, pies de página y notas.
-7. Exporta a .docx o .md.
-8. Anota aparte, en tu computadora, qué etiqueta corresponde a cada persona real. Esa tabla nunca se sube.
+1. Baja `index.html` del enlace de Drive y guárdalo en tu computadora.
+2. Ábrelo con doble clic: se abre en tu navegador.
+3. Comprueba que funciona con el contrato de ejemplo de la misma carpeta de Drive.
+4. Elige tu contrato en .docx. No lo subas a ninguna IA todavía, ni para resumirlo ni para anonimizarlo.
+5. El jueves, tráelo tal como está, sin anonimizar. Al empezar la clase bajas otra vez el Anonimizador del mismo enlace, por si tiene mejoras.
 
-## Antes de traerlo, comprueba
-- [ ] No queda ningún nombre, cédula, RUC, teléfono, correo ni dirección real.
-- [ ] Un tercero no podría reconocer la operación por el inmueble, la fecha o la cuantía.
-- [ ] El original sigue guardado solo en tu computadora.
+## Antes del jueves, comprueba
+- [ ] El Anonimizador abre en tu navegador y funciona con el contrato de ejemplo.
+- [ ] Tienes tu contrato en .docx, con dos partes o más.
+- [ ] No lo subiste a ninguna IA.
 
 ## Lo que no debes hacer
 - Pedirle a la IA que anonimice el contrato: los datos ya habrían salido.
-- Anonimizar solo los nombres.
 - Traer un contrato con datos de salud, de menores, penales o bancarios (color rojo del semáforo). Si es tu único contrato, elige otro.
 
 Ver también: `semaforo-confidencialidad.md`.

@@ -55,7 +55,7 @@ Contenido base: `Claude outputs/04-privacidad-y-confidencialidad.md`.
 |---|---|---|---|
 | 15 | Reglas de oro de seguridad | M1 Seguridad: Reglas de Oro (warning) | A |
 | 16 | Semáforo verde / amarillo / rojo | — | N |
-| 17 | Anonimizar antes de pegar: demo del Anonimizador (`D:\anonimizador`) | — | N |
+| ~~17~~ | ~~Anonimizar antes de pegar: demo del Anonimizador~~. Sale: pasa a la Virtual 2 (24 sep 2026, `2026-09-24-temario-anonimizador.md`) | — | — |
 | 18 | LOPDP y transferencia internacional de datos | — | N |
 | 18b | Niveles de protección: plan de consumo, empresa, API con ZDR, Bedrock | — | N |
 
@@ -76,7 +76,7 @@ Contenido base: `Claude outputs/04-privacidad-y-confidencialidad.md`.
 | # | Slide | Origen | Estado |
 |---|---|---|---|
 | 24 | Resumen de la sesión | tipo summary | A |
-| 25 | Tarea: seudonimizar tu contrato para la Virtual 2 | tipo next-steps | N |
+| 25 | Tarea: bajar el Anonimizador y elegir un contrato propio para la Virtual 2 | tipo next-steps | N |
 
 ## Balance
 
