@@ -52,7 +52,8 @@ El `heading` lo pinta `Encabezado`, como en todos los tipos.
             id: "…",                   // único dentro del slide
             texto: "…",                // el enunciado o el dato a clasificar
             opciones: ["…", "…"],      // si no hay opciones comunes
-            correcta: 1,               // índice en las opciones (base 0)
+            correcta: 1,               // índice en las opciones (base 0), o lista de índices si
+                                       // más de una coincide: [1, 2]. «El curso dice» muestra el primero
             porque: "…"                // obligatorio: se muestra al revelar
         }
     ],
@@ -65,7 +66,7 @@ Con estas piezas salen los cuatro usos y los que vengan en las virtuales 2, 3 y 
 una pregunta, varias preguntas, clasificar en categorías o cazar una frase.
 
 `validar(contentData)` devuelve la lista de errores: sin `items`, `id` repetido, `correcta` fuera de
-rango, `porque` vacío, item sin opciones, `animacion` sin `mensajes`. En desarrollo
+rango (cada índice, si es lista) o lista vacía, `porque` vacío, item sin opciones, `animacion` sin `mensajes`. En desarrollo
 (`import.meta.env.DEV`) el slide muestra esos errores en una caja roja en vez de pintarse. En
 producción no se valida.
 
@@ -263,7 +264,7 @@ seudonimice).
               porque: "Fallo público: verde." },
             { id: "salida-menor", texto: "La autorización de salida del país de un menor", correcta: 2,
               porque: "Datos de niñas, niños y adolescentes: rojo." },
-            { id: "contrato-crudo", texto: "El contrato de arrendamiento de un cliente, tal como te lo mandó, con nombres y cédulas", correcta: 1,
+            { id: "contrato-crudo", texto: "El contrato de arrendamiento de un cliente, tal como te lo mandó, con nombres y cédulas", correcta: [1, 2],
               porque: "Es un documento de cliente: amarillo. Pero así como está no se sube: primero se seudonimiza en tu computadora o se pide el consentimiento informado del cliente. Si elegiste rojo, vas bien: ante la duda, sube un color." },
             { id: "penal-seudonimizado", texto: "Un expediente penal, ya seudonimizado", correcta: 2,
               porque: "Los procesos penales son rojo aunque cambies los nombres. Solo por excepción: API con Zero Data Retention o nube empresarial, y con consentimiento expreso del cliente." },
@@ -471,4 +472,4 @@ Estimado aparte, sin medir: 4 a 6 h.
 
 - [ ] Diseño aprobado por José Luis: fecha ____
 - [x] Lista A aprobada completa (los 5 puntos, −10 min): 24 sep 2026. Con los 8 min del Anonimizador, la Virtual 1 queda en 142 min
-- [ ] Datos 6 y 7 del semáforo aprobados: fecha ____
+- [x] Datos 6 y 7 del semáforo aprobados: 24 sep 2026. En el 6 coinciden amarillo y rojo (`correcta: [1, 2]`)
