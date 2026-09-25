@@ -66,6 +66,7 @@ function Contenido({ slide }) {
     const textoResultado = total > 1
         ? (respondidos ? `Coincidiste en ${aciertos} de ${total}` : 'Estas son las respuestas del curso')
         : resultadoDe(items[0]).texto;
+    const unoDifiere = total === 1 && resultadoDe(items[0]).tipo === 'difiere';
 
     const pintarItem = (item) => {
         const opciones = opcionesDe(item, datos);
@@ -146,22 +147,26 @@ function Contenido({ slide }) {
                     </Item>
                 ))
             )}
-            <Item aria-live="polite" className="flex flex-wrap items-center gap-4 pt-1">
-                {estado.revelado ? (
-                    <p
-                        ref={resultado}
-                        tabIndex={-1}
-                        data-resultado
-                        className="rounded-xl bg-av-acento px-5 py-3 font-av-titulo text-lg font-bold text-av-sobre-acento focus:outline-none focus-visible:ring-2 focus-visible:ring-av-acento-2"
-                    >
-                        {textoResultado}
-                    </p>
-                ) : (
+            <Item className="flex flex-wrap items-center gap-4 pt-1">
+                <div aria-live="polite" className="empty:hidden">
+                    {estado.revelado && (
+                        <p
+                            ref={resultado}
+                            tabIndex={-1}
+                            data-resultado
+                            className={`flex items-center gap-2 rounded-xl px-5 py-3 font-av-titulo text-lg font-bold focus:outline-none focus-visible:ring-2 focus-visible:ring-av-acento-2 ${unoDifiere ? 'border border-av-alerta bg-av-alerta/10 text-av-alerta' : 'bg-av-acento text-av-sobre-acento'}`}
+                        >
+                            {unoDifiere && <X size={18} aria-hidden="true" />}
+                            {textoResultado}
+                        </p>
+                    )}
+                </div>
+                {!estado.revelado && (
                     <>
                         <button type="button" onClick={revelar} className={BOTON}>
                             {datos.boton || (total > 1 ? 'Ver respuestas' : 'Ver respuesta')}
                         </button>
-                        <span data-contador className={`text-av-texto-2 ${MONO}`}>{respondidos} de {total} respondidas</span>
+                        {total > 1 && <span data-contador className={`text-av-texto-2 ${MONO}`}>{respondidos} de {total} respondidas</span>}
                     </>
                 )}
             </Item>

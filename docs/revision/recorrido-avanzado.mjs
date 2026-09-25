@@ -118,7 +118,7 @@ if (!solo) {
     await alumno.route(/supabase\.co/, (ruta) => ruta.abort());
     const paginaAlumno = await alumno.newPage();
     const pedidosGuion = [];
-    paginaAlumno.on('request', (r) => { if (/guion/i.test(r.url())) pedidosGuion.push(r.url()); });
+    paginaAlumno.on('request', (r) => { if (/guion-virtual/i.test(r.url())) pedidosGuion.push(r.url()); });
     await paginaAlumno.goto(url);
     await paginaAlumno.waitForSelector('[data-slide-id]', { timeout: 10000 }).catch(() => problemas.push('alumno: no cargó el slide'));
     await paginaAlumno.waitForTimeout(1000);
@@ -187,12 +187,12 @@ if (!solo) {
             if (!(await pagina.textContent('[data-contador]'))?.includes('1 de 10')) problemas.push('decide v1-6-4: el contador no dice 1 de 10');
 
             await pagina.reload();
-            await ir('v1-6-4');
+            if (!(await ir('v1-6-4'))) throw new Error('después de recargar no se llegó a v1-6-4');
             if (!(await pagina.locator('[data-decide] input[type="radio"]').first().isChecked())) problemas.push('decide v1-6-4: al recargar se pierde lo marcado');
 
             await avanzar(pagina);
-            // Pequeña espera: handleNavigate es async (guarda en Supabase antes de moverse) y
-            // dos flechas pegadas pueden ganarle a esa promesa. Un usuario real nunca las pega así.
+            // Pequeña espera: el listener de keydown de AppLayout se registra de nuevo después del
+            // render, y dos flechas pegadas pueden llegar antes. Un usuario real nunca las pega así.
             await pagina.waitForTimeout(300);
             await pagina.keyboard.press('ArrowLeft');
             await pagina.waitForSelector('[data-slide-id="v1-6-4"]');
