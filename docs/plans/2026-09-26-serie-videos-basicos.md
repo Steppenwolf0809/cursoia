@@ -6,7 +6,8 @@ Fecha: 2026-09-26. Estado: borrador, falta que José Luis lo apruebe.
 
 - **Herramienta:** HyperFrames (HTML + GSAP, todo hecho con código). Sin imágenes generadas.
   ChatGPT Image solo si una escena concreta lo pide más adelante.
-- **Voz:** ElevenLabs, solo para los videos educativos.
+- **Voz:** ElevenLabs, solo para los videos educativos. Horacio (Colombia) para toda la serie,
+  con el modelo Eleven v3 y etiquetas entre corchetes (`[laughs]`, `[whispers]`…).
 - **Formato:** horizontal 16:9 (1920×1080), pensado para proyectar en clase.
 - **Referencia de estilo:** video de BridgeMind sobre la historia de la IA
   (https://x.com/bridgemindai/status/2103530750767206626). Dura 60 s, no tiene narración y abre y
@@ -41,7 +42,6 @@ Fecha: 2026-09-26. Estado: borrador, falta que José Luis lo apruebe.
 
 ## Pendiente de decidir
 
-- Voz de ElevenLabs: acento, género y tono.
 - Dónde viven los videos: dentro de las diapositivas del curso o sueltos.
 
 ## Siguiente sesión
