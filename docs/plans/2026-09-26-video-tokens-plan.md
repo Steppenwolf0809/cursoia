@@ -39,14 +39,16 @@ unas 7 a 9 horas en total, repartidas en dos sesiones: T0–T8 hasta la Parada 2
 
 0. **Escena 8 regrabada:** T0 comprueba que `audio/escena-8.mp3` es la grabación nueva, la que
    dice «ciento noventa y nueve palabras». Sin ella no se miden tiempos (T2).
-1. **Si HyperFrames pide descargar algo fuera de `videos/02-tokens/`** (Chrome, un modelo, una
-   fuente): preguntar. El Chrome de HyperFrames ya está en `~/.cache/hyperframes/chrome`.
+1. **Si HyperFrames pide descargar o instalar algo fuera de `videos/02-tokens/`** (Chrome, un
+   modelo, una fuente, una skill en `~/.claude/skills`): preguntar. El Chrome de HyperFrames ya
+   está en `~/.cache/hyperframes/chrome`.
 2. **Escena piloto (después de T8):** mandarle los snapshots de las escenas 1 y 2 con el
    contador, ya con los colores y las fuentes de las diapositivas que se asignaron en T1. Fijan
    el estilo de los 8 videos. No construir la escena 3 sin su visto bueno.
 3. **Vista final (T16):** abrir la vista previa de Studio. Él escucha si las animaciones caen
    sobre la palabra. Solo con su aprobación se renderiza.
-4. **Antes de `git add` de cualquier MP3 o MP4:** preguntar si van a git. Hasta entonces, nunca
+4. **Antes de `git add` de cualquier MP3 o MP4:** preguntar si van a git. Mientras tanto,
+   `videos/02-tokens/.gitignore` deja fuera `audio/*.mp3` (provisional), y nunca se usa
    `git add -A` ni `git add .`: siempre rutas explícitas.
 5. **Si el total pasa de 150 s:** preguntar antes de recortar pausas o escenas.
    Con las duraciones medidas (sección «Tiempos») no pasa.
@@ -109,6 +111,7 @@ Anclas de la escena 8, globales, ya medidas con el código de T3 (sirven para co
 
 ```
 videos/02-tokens/
+  .gitignore                       audio/*.mp3, provisional hasta la Parada 4 (ya está en git)
   BRIEF.md                     T1  decisiones para cualquier sesión futura de /hyperframes
   frame.md                     T1  especificación de diseño de la serie (normativa)
   index.html                   T5  orquestador: fondo, 9 escenas, contador, 9 voces, fundido
@@ -229,9 +232,19 @@ bash herramientas/hf.sh lint
 bash herramientas/hf.sh snapshot --at <t1>,<t2>,<t3>
 ```
 
-`lint` sin errores. Los snapshots (en la carpeta de snapshots del proyecto) se miran uno por uno
-contra lo que dice la tarea. Los tiempos `--at` son **globales**: inicio de la escena (columna
-«Inicio» de «Tiempos») más el tiempo local.
+`lint` sin errores. Los snapshots (en `snapshots/`, con una hoja de contacto) se miran uno por
+uno contra lo que dice la tarea. Los tiempos `--at` son **globales**: inicio de la escena (columna
+«Inicio» de «Tiempos») más el tiempo local. Las escenas 1, 3, 5 y 9 traen además el valor del
+contador en cada snapshot y su `check --at`.
+
+**Probado en esta sesión:** un proyecto de prueba armado con el `index.html` (T5), `fondo.html`
+(T5), `contador.html` (T6, con los pasos reales de T4) y las escenas 1, 3, 5 y 9 de este plan,
+con colores y fuentes de prueba (Inter e IBM Plex Mono), pasó `lint` y `check` sin errores en
+todos los tiempos de esas cuatro tareas y en el acercamiento de la escena 8, y los snapshots
+mostraron lo que dicen sus tablas. Eso encontró y corrigió tres cosas que ya están arregladas
+aquí: el rótulo del contador encimado al número (`margin-top: 36px`), el margen del fondo marcado
+como desborde (`data-layout-allow-overflow`) y las caras de la escena 5
+(`data-layout-allow-overlap`).
 
 ---
 
@@ -257,6 +270,8 @@ ls -l --time-style=long-iso videos/02-tokens/audio/escena-{1..9}.mp3
 ```
 
 Esperado: los 9 archivos, con `escena-8.mp3` más reciente que los demás (es la regrabada).
+`git status --short videos/02-tokens/audio` no lista nada: el `.gitignore` provisional los deja
+fuera.
 Si falta alguno, o si la 8 tiene la misma fecha que las otras, parar y preguntar a José Luis
 (Parada 0).
 
@@ -286,11 +301,12 @@ cd videos/02-tokens && bash herramientas/hf.sh lint
 
 Esperado: termina sin errores sobre el `index.html` de la plantilla.
 
-- [ ] **Paso 5: Instalar la skill del flujo** (se escribe en `~/.claude/skills`):
-
-```bash
-cd videos/02-tokens && bash herramientas/hf.sh skills update general-video
-```
+- [ ] **Paso 5: No instalar skills.** `hf.sh` exporta `HYPERFRAMES_SKIP_SKILLS=1`, así que ningún
+  comando de la CLI toca `~/.claude/skills`. El plan no necesita la skill `general-video`: usa las
+  de dominio que ya están instaladas (`hyperframes-core`, `hyperframes-animation`,
+  `hyperframes-cli`, `hyperframes-creative`). Si algo pide instalar o actualizar skills, parar y
+  preguntar a José Luis (Parada 1). Todos los comandos de HyperFrames van por `hf.sh`, nunca con
+  `npx hyperframes` a secas.
 
 - [ ] **Paso 6: Commit.**
 
@@ -1186,7 +1202,7 @@ git commit -m "feat(videos): pasos del contador de tokens"
         }
       </style>
       <div id="root" data-composition-id="fondo" data-width="1920" data-height="1080">
-        <div id="fondo-mundo">
+        <div id="fondo-mundo" data-layout-allow-overflow>
           <div id="fondo-rejilla"></div>
           <div id="fondo-halo"></div>
         </div>
@@ -1255,8 +1271,8 @@ Reglas: `counting-dynamic-scale` (tabular, `Math.round`, sin rebote en el númer
           letter-spacing: 0.14em; text-transform: uppercase; color: var(--texto-2);
         }
         #contador-num {
-          font-family: 'FUENTE_M'; font-weight: 700; font-size: 176px; line-height: 0.95;
-          color: var(--acento); font-variant-numeric: tabular-nums; width: 3.2ch;
+          font-family: 'FUENTE_M'; font-weight: 700; font-size: 176px; line-height: 1;
+          margin-top: 36px; color: var(--acento); font-variant-numeric: tabular-nums; width: 3.2ch;
         }
         #contador-palabras {
           position: absolute; left: 192px; top: 560px; white-space: nowrap;
@@ -1337,42 +1353,89 @@ git commit -m "feat(videos): contador de tokens que sube con la voz"
 
 ### T7: Escena 1 — la pregunta
 
-**Archivo:** `compositions/escena-1.html`. Reglas: `discrete-text-sequence` (tipeo) y
-`context-sensitive-cursor` (parpadeo determinista). Anclas: ninguna; el tipeo va antes de la voz.
+**Archivo:** `compositions/escena-1.html` (reemplazar el esqueleto de T5). HTML tomado del plan
+paralelo, adaptado a los roles de color, a la fuente H y a los tiempos reales. Escena global
+0,000 → 7,113; voz local 0,600 → 6,713. La pregunta se escribe mientras la voz dice «¿La
+inteligencia artificial lee palabras», y el cursor parpadea toda la escena.
 
-Composición:
+El cursor es un bloque de color (`--acento`), no el carácter «▌»: así no depende de que la fuente
+H traiga ese glifo. Si `check` marca que la línea se sale del cuadro con la fuente H elegida,
+bajar el tamaño a 120px aquí y en la escena 9 por igual (tienen que coincidir).
 
-| Elemento | Posición | Estilo |
-|---|---|---|
-| `#escena-1-pregunta`, dos líneas «¿La IA lee» / «palabras?» | `left: 192px; top: 300px` | fuente H 150px, `line-height: 1.05`, `letter-spacing: -0.02em`, `--texto` |
-| `#escena-1-cursor`, bloque tras la última letra escrita | en línea con el texto | `width: 0.5em; height: 0.92em; background: var(--acento); vertical-align: -0.08em` |
+- [ ] **Paso 1: reemplazar el archivo.**
 
-Cada línea es un `<span style="display:block">` (nada de `<br>`). El texto escrito se calcula
-desde el reloj: una letra cada 0,06 s desde `t = 0.25` (20 letras, termina en 1,45 s). El cursor
-va siempre al final de lo escrito; mientras escribe está fijo, después parpadea con
-`opacity = Math.floor((t - 1.45) / 0.5) % 2 === 0 ? 1 : 0`.
-
-```js
-const LINEAS = ["¿La IA lee", "palabras?"];
-const letras = LINEAS.join("").length;         // 19 + el salto
-function escrito(t) {
-  const n = Math.max(0, Math.min(letras, Math.floor((t - 0.25) / 0.06)));
-  const a = LINEAS[0].slice(0, n);
-  const b = LINEAS[1].slice(0, Math.max(0, n - LINEAS[0].length));
-  return [a, b];
-}
+```html
+<!doctype html>
+<html lang="es">
+  <head><meta charset="UTF-8" /></head>
+  <body>
+    <template id="escena-1-template">
+      <style>
+        #root { position: absolute; inset: 0; overflow: hidden; color: var(--texto); }
+        #escena-1-contenido { position: absolute; inset: 0; }
+        #escena-1-linea { position: absolute; left: 192px; top: 420px; display: flex; align-items: baseline; }
+        #escena-1-texto {
+          font-family: 'FUENTE_H'; font-weight: 700; font-size: 132px; line-height: 1.05;
+          letter-spacing: -0.03em; color: var(--texto); white-space: pre;
+        }
+        #escena-1-cursor { display: inline-block; width: 60px; height: 106px; margin-left: 10px; background: var(--acento); }
+      </style>
+      <div id="root" data-composition-id="escena-1" data-width="1920" data-height="1080">
+        <div id="escena-1-contenido">
+          <div id="escena-1-linea"><span id="escena-1-texto"></span><span id="escena-1-cursor"></span></div>
+        </div>
+      </div>
+      <script>
+        (() => {
+          const D = 7.113;
+          const W = {"La": 0.6, "como": 3.23}; // anclas 1 La como
+          const TEXTO = "¿La IA lee palabras?";
+          const el = document.getElementById("escena-1-texto");
+          const st = { n: 0 };
+          const tl = gsap.timeline({ paused: true });
+          // Cursor: 0,4 s encendido y 0,4 s apagado toda la escena (17 medios ciclos = 6,8 s).
+          tl.fromTo("#escena-1-cursor", { opacity: 1 },
+            { opacity: 0, duration: 0.4, ease: "steps(1)", repeat: 16, yoyo: true }, 0);
+          // 20 caracteres desde «La» hasta 0,2 s antes de «como» (2,43 s).
+          tl.fromTo(st, { n: 0 }, { n: TEXTO.length, duration: W.como - 0.2 - W.La, ease: "none", snap: "n",
+            onUpdate: () => { el.textContent = TEXTO.slice(0, st.n); } }, W.La);
+          tl.fromTo("#escena-1-contenido", { opacity: 1 },
+            { opacity: 0, duration: 0.3, ease: "power1.in", immediateRender: false }, D - 0.3);
+          window.__timelines["escena-1"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>
 ```
 
-Cada `onUpdate` escribe las dos líneas y mueve el cursor a la línea que se está escribiendo
-(dos spans de cursor, uno por línea, y se muestra el que toca).
+- [ ] **Paso 2: snapshots** (la escena empieza en 0, así que global = local):
 
-- [ ] **Paso 1:** escribir la escena.
-- [ ] **Paso 2:** `bash herramientas/hf.sh lint` sin errores.
-- [ ] **Paso 3:** snapshot en `--at 0.8,2.5,<fin1-0.5>`. Esperado: «¿La IA l» a medio escribir
-  con cursor; la pregunta completa con cursor dorado; el contador abajo a la izquierda no toca el
-  texto.
-- [ ] **Paso 4:** commit `feat(videos): escena 1, la pregunta espejo` con
-  `git add videos/02-tokens/compositions/escena-1.html`.
+```bash
+cd videos/02-tokens && bash herramientas/hf.sh snapshot --at 1.5,3.5,6.5 --no-end
+```
+
+| Global | Se ve | Contador |
+|---|---|---|
+| 1,5 | «¿La IA» a medio escribir, con cursor | 2 |
+| 3,5 | «¿La IA lee palabras?» completa, con cursor | 8 |
+| 6,5 | igual | 20 |
+
+Los valores del contador son los de los pasos de T6 con la alineación de T3; si `palabras.json`
+salió distinto de la tabla de T3, se aceptan ±2.
+
+- [ ] **Paso 3: `check`** (0 errores):
+
+```bash
+cd videos/02-tokens && bash herramientas/hf.sh check --at 1.5,3.5,6.5
+```
+
+- [ ] **Paso 4: commit.**
+
+```bash
+git add videos/02-tokens/compositions/escena-1.html
+git commit -m "feat(videos): escena 1, la pregunta espejo"
+```
 
 ### T8: Escena 2 — «El gato duerme.» se corta en cinco
 
@@ -1441,32 +1504,114 @@ const DX = PIEZAS.map(([txt, col]) => {
 
 ### T9: Escena 3 — gato entero, duerme partido, el punto cuenta
 
-**Archivo:** `compositions/escena-3.html`. Reglas: `asr-keyword-glow` (resaltado sobre la
-palabra), `physics-press-reaction` (rebote del punto).
-Anclas: `anclas 3 Gato token duerme parte punto token#2`.
+**Archivo:** `compositions/escena-3.html`. HTML tomado del plan paralelo, adaptado a los roles, a
+la fuente M, a los tiempos reales y a la fila de la escena 2 de este plan. Escena global
+21,079 → 31,888; voz local 0,300 → 10,154. Los bloques arrancan exactamente donde los dejó la
+escena 2: `left: 192px; top: 470px`, `gap: 16px`, bloque de la Convención 10.
 
-Empieza con los 5 bloques **idénticos** al final de la escena 2: misma fila, misma posición
-(`left: 192px; top: 470px`), mismos tamaños y colores, ya separados y rellenos. Encima de la
-fila, una insignia por grupo (fuente M 700 64px, `--acento`), centrada sobre su grupo a
-`top: 380px`: «1» sobre `gato`, «2» sobre `duer`+`me`, «1» sobre `.`.
+- [ ] **Paso 1: reemplazar el archivo.**
 
-1. `W.Gato`: `gato` crece a `scale: 1.08` con contorno de 4px `--acento`
-   (`box-shadow: 0 0 0 4px var(--acento)` en un hijo, animado con opacidad); los demás bajan a
-   `opacity: 0.35`. Aparece la insignia «1».
-2. `W.duerme`: `gato` vuelve a su estado; `duer` y `me` vuelven a opacidad 1 y los demás se
-   atenúan. `duer` y `me` se juntan: `me` va a `x: -16` (cierra el hueco) en 0,4 s.
-3. `W.parte`: se vuelven a separar (`x: 0`, 0,3 s, `back.out(2)`); aparece la insignia «2».
-4. `W.punto`: `.` vuelve a opacidad 1, los demás se atenúan; el punto salta (`y` 0 → -60 → 0,
-   `power2.out` de subida y `bounce.out` de bajada, 0,6 s en total). Aparece la insignia «1».
-5. `W["token#2"] + 0.6`: todos los bloques vuelven a opacidad 1.
-6. Salida estándar (Convención 11).
+```html
+<!doctype html>
+<html lang="es">
+  <head><meta charset="UTF-8" /></head>
+  <body>
+    <template id="escena-3-template">
+      <style>
+        #root { position: absolute; inset: 0; overflow: hidden; color: var(--texto); }
+        #escena-3-contenido { position: absolute; inset: 0; }
+        /* Misma fila, mismo lugar y mismos bloques que el final de la escena 2 */
+        #escena-3-bloques { position: absolute; left: 192px; top: 470px; display: flex; gap: 16px; }
+        .escena-3-tok {
+          position: relative; display: inline-block;
+          font-family: 'FUENTE_M'; font-weight: 700; font-size: 88px; line-height: 1;
+          padding: 20px 26px; border-radius: 14px; color: var(--sobre-token); white-space: pre;
+        }
+        .escena-3-cuenta {
+          position: absolute; left: 50%; top: -88px; width: 64px; height: 64px; margin-left: -32px;
+          border-radius: 50%; background: var(--acento); color: var(--fondo);
+          font-family: 'FUENTE_M'; font-weight: 700; font-size: 40px; line-height: 64px;
+          text-align: center; opacity: 0;
+        }
+        #escena-3-cuenta-2 { left: 100%; margin-left: -24px; } /* en el hueco entre «duer» y «me» */
+      </style>
+      <div id="root" data-composition-id="escena-3" data-width="1920" data-height="1080">
+        <div id="escena-3-contenido">
+          <div id="escena-3-bloques">
+            <span class="escena-3-tok" style="background: var(--token-1)">El</span>
+            <span id="escena-3-gato" class="escena-3-tok" style="background: var(--token-2)">gato<span id="escena-3-cuenta-1" class="escena-3-cuenta">1</span></span>
+            <span id="escena-3-duer" class="escena-3-tok" style="background: var(--token-3)">duer<span id="escena-3-cuenta-2" class="escena-3-cuenta">2</span></span>
+            <span id="escena-3-me" class="escena-3-tok" style="background: var(--token-4)">me</span>
+            <span id="escena-3-punto" class="escena-3-tok" style="background: var(--token-5)">.<span id="escena-3-cuenta-3" class="escena-3-cuenta">1</span></span>
+          </div>
+        </div>
+      </div>
+      <script>
+        (() => {
+          const D = 10.809;
+          const W = {"Gato": 0.3, "token": 4.55, "Duerme": 5.52, "parte": 6.29, "dos": 6.99, "punto": 8.37, "token#2": 9.83};
+          const tl = gsap.timeline({ paused: true });
+          const aparece = (sel, t) => tl.fromTo(sel, { opacity: 0, scale: 0 },
+            { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(1.7)" }, t);
+          // «Gato» queda entera: crece y recibe su «1».
+          tl.fromTo("#escena-3-gato", { scale: 1 }, { scale: 1.12, duration: 0.4, ease: "back.out(2)" }, W.Gato + 0.4);
+          aparece("#escena-3-cuenta-1", W.token - 0.3);
+          tl.fromTo("#escena-3-gato", { scale: 1.12 },
+            { scale: 1, duration: 0.4, ease: "power2.inOut", immediateRender: false }, W.token + 0.5);
+          // «Duerme» se parte en dos: se juntan (cierran el hueco de 16 px), se separan con rebote, «2».
+          tl.fromTo("#escena-3-duer", { x: 0 }, { x: 8, duration: 0.35, ease: "power2.inOut" }, W.Duerme);
+          tl.fromTo("#escena-3-me", { x: 0 }, { x: -8, duration: 0.35, ease: "power2.inOut" }, W.Duerme);
+          tl.fromTo("#escena-3-duer", { x: 8 },
+            { x: 0, duration: 0.5, ease: "back.out(2)", immediateRender: false }, W.parte);
+          tl.fromTo("#escena-3-me", { x: -8 },
+            { x: 0, duration: 0.5, ease: "back.out(2)", immediateRender: false }, W.parte);
+          aparece("#escena-3-cuenta-2", W.dos - 0.2);
+          // El punto salta solo y recibe su «1».
+          tl.fromTo("#escena-3-punto", { y: 0 }, { y: -48, duration: 0.3, ease: "power2.out" }, W.punto);
+          tl.fromTo("#escena-3-punto", { y: -48 },
+            { y: 0, duration: 0.5, ease: "bounce.out", immediateRender: false }, W.punto + 0.3);
+          aparece("#escena-3-cuenta-3", W["token#2"] - 0.3);
+          tl.fromTo("#escena-3-contenido", { opacity: 1 },
+            { opacity: 0, duration: 0.3, ease: "power1.in", immediateRender: false }, D - 0.3);
+          window.__timelines["escena-3"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>
+```
 
-- [ ] **Paso 1:** escribir la escena.
-- [ ] **Paso 2:** `lint` sin errores.
-- [ ] **Paso 3:** snapshots en globales de `fin2 - 0.05`, `inicio3 + 0.05`, `W.Gato + 0.6`,
-  `W.parte + 0.5`, `W.punto + 0.2`. Esperado: los dos primeros, idénticos (sin salto en el corte);
-  luego `gato` resaltado con «1»; `duer me` con «2»; el punto en el aire.
-- [ ] **Paso 4:** commit `feat(videos): escena 3, qué se corta y qué no`.
+`W` es la salida de `python herramientas/alinear.py anclas 3 Gato token Duerme parte dos punto token#2`
+medida en esta sesión; comprobar que coincide.
+
+- [ ] **Paso 2: snapshots** (global = local + 21,079):
+
+```bash
+cd videos/02-tokens && bash herramientas/hf.sh snapshot --at 21.03,21.1,25.68,27.08,29.75,31.08 --no-end
+```
+
+| Global | Se ve | Contador |
+|---|---|---|
+| 21,03 | final de la escena 2: los cinco bloques solos | 64 |
+| 21,10 | primer cuadro de la escena 3: **idéntico** al anterior (sin salto en el corte) | 64 |
+| 25,68 | «gato» más grande, con su «1» encima | 81 |
+| 27,08 | «duer» y «me» pegados, sin hueco | 84 |
+| 29,75 | el punto arriba, en lo alto del salto; «1» y «2» visibles | 96 |
+| 31,08 | las tres cuentas visibles, bloques en su lugar | 101 |
+
+- [ ] **Paso 3: `check`** (0 errores; si marca `content_overlap` de una cuenta sobre su bloque,
+  poner `data-layout-allow-overlap` en ese `.escena-3-cuenta`):
+
+```bash
+cd videos/02-tokens && bash herramientas/hf.sh check --at 21.1,25.68,27.08,29.75,31.08
+```
+
+- [ ] **Paso 4: commit.**
+
+```bash
+git add videos/02-tokens/compositions/escena-3.html
+git commit -m "feat(videos): escena 3, cuántos tokens tiene cada palabra"
+```
 
 ### T10: Escena 4 — otorrinolaringólogo y el ñaño
 
@@ -1509,31 +1654,122 @@ Parte B, desde `W.Y`:
 
 ### T11: Escena 5 — cada token es un número
 
-**Archivo:** `compositions/escena-5.html`. Anclas: `anclas 5 cortar números número fila`.
-Sin regla exacta en el índice para el giro de ficha: se hace con `rotateY` y dos caras
-(`backface-visibility: hidden`), con la perspectiva en el padre (`perspective: 1200px`).
+**Archivo:** `compositions/escena-5.html`. HTML tomado del plan paralelo, adaptado a los roles, a
+la fuente M y a los tiempos reales. Escena global 47,626 → 62,248; voz local 0,300 → 13,622. Cada
+bloque es una ficha de dos caras: gira y muestra su número; al final se apagan los colores y queda
+la fila de números en `--acento`.
 
-- Fila de 5 fichas centrada en `top: 330px`, `left: 192px`, `gap: 20px`. Cada ficha tiene ancho
-  fijo (el mayor entre su token y su número a 80px, más 60px de relleno) y dos caras:
-  frente = token (`El` `gato` `duer` `me` `.`), dorso = número (`4422` `99767` `116318` `1047`
-  `13`), las dos en fuente M 700 80px sobre su color `--token-1` … `--token-5`.
-- Debajo de cada ficha, `top: 470px`, el token original en fuente M 400 34px `--texto-2`,
-  oculto al principio.
+Dos cambios frente al original, los dos para no tuitear colores escritos a mano: el color de la
+cara de atrás es una capa `.escena-5-relleno` que se apaga con `opacity`, y el número está dos
+veces (oscuro y en acento) para cruzarlos con `opacity`. Las caras usan `box-sizing: border-box`:
+sin eso, la de atrás (con `width: 100%` más el relleno) queda 52 px más ancha que la de adelante.
+El `min-width` de la cara de adelante es el ancho del número: `dígitos × AVANCE × 88 + 52`
+(con `AVANCE = 0.6`: 264, 317, 370, 264, 158); si la fuente M tiene otro avance, recalcular.
+Las dos caras, y el número oscuro con el dorado, se enciman a propósito: el verificador no entiende
+`backface-visibility` ni el cruce de opacidades, así que llevan `data-layout-allow-overlap`
+(sin eso, `check` da 5 errores `content_overlap`; probado en esta sesión).
+Cada ficha va en una sola línea, sin espacios entre sus `<span>`: un espacio dentro de
+`.escena-5-int` le sumaría ancho y descentraría la cara de atrás.
 
-1. Inicio (0,3 s después de empezar la escena): las fichas entran desde abajo (`y` 60→0,
-   `opacity` 0→1, stagger 0,08 s, `power3.out`) mostrando el frente.
-2. `W["número"]`: cada ficha gira `rotateY` 0 → 180 en 0,5 s, stagger 0,12 s, `power2.inOut`.
-   Al terminar el giro de cada una, aparece su token original debajo.
-3. `W.fila`: los rellenos de color y los tokens de abajo se desvanecen (0,6 s); los números quedan
-   en `--texto` sobre el fondo. Queda solo la fila «4422 99767 116318 1047 13» durante la cola.
-4. Salida estándar.
+- [ ] **Paso 1: reemplazar el archivo.**
 
-- [ ] **Paso 1:** escribir la escena.
-- [ ] **Paso 2:** `lint` sin errores.
-- [ ] **Paso 3:** snapshots en globales de `W["número"] + 0.3`, `W["número"] + 1.4`,
-  `fin5 - 0.5`. Esperado: fichas a medio girar; los 5 números con su token debajo; solo la fila
-  de números, sin colores.
-- [ ] **Paso 4:** commit `feat(videos): escena 5, tokens convertidos en números`.
+```html
+<!doctype html>
+<html lang="es">
+  <head><meta charset="UTF-8" /></head>
+  <body>
+    <template id="escena-5-template">
+      <style>
+        #root { position: absolute; inset: 0; overflow: hidden; color: var(--texto); }
+        #escena-5-contenido { position: absolute; inset: 0; }
+        #escena-5-fila {
+          position: absolute; left: 0; top: 470px; width: 1920px;
+          display: flex; gap: 18px; justify-content: center; perspective: 1400px;
+        }
+        .escena-5-ficha { position: relative; display: inline-block; opacity: 0; }
+        .escena-5-int { position: relative; display: inline-block; transform-style: preserve-3d; }
+        .escena-5-cara {
+          display: inline-block; box-sizing: border-box; backface-visibility: hidden; text-align: center;
+          font-family: 'FUENTE_M'; font-weight: 700; font-size: 88px; line-height: 1;
+          padding: 20px 26px; border-radius: 14px; color: var(--sobre-token); white-space: pre;
+        }
+        .escena-5-atras { position: absolute; left: 0; top: 0; width: 100%; height: 100%; transform: rotateY(180deg); }
+        .escena-5-relleno { position: absolute; inset: 0; border-radius: 14px; }
+        .escena-5-oscuro { position: relative; }
+        .escena-5-dorado {
+          position: absolute; inset: 0; box-sizing: border-box; padding: 20px 26px;
+          color: var(--acento); opacity: 0;
+        }
+      </style>
+      <div id="root" data-composition-id="escena-5" data-width="1920" data-height="1080">
+        <div id="escena-5-contenido">
+          <div id="escena-5-fila">
+            <span class="escena-5-ficha"><span class="escena-5-int"><span class="escena-5-cara" data-layout-allow-overlap style="min-width: 264px; background: var(--token-1)">El</span><span class="escena-5-cara escena-5-atras"><span class="escena-5-relleno" style="background: var(--token-1)"></span><span class="escena-5-oscuro" data-layout-allow-overlap>4422</span><span class="escena-5-dorado" data-layout-allow-overlap>4422</span></span></span></span>
+            <span class="escena-5-ficha"><span class="escena-5-int"><span class="escena-5-cara" data-layout-allow-overlap style="min-width: 317px; background: var(--token-2)">gato</span><span class="escena-5-cara escena-5-atras"><span class="escena-5-relleno" style="background: var(--token-2)"></span><span class="escena-5-oscuro" data-layout-allow-overlap>99767</span><span class="escena-5-dorado" data-layout-allow-overlap>99767</span></span></span></span>
+            <span class="escena-5-ficha"><span class="escena-5-int"><span class="escena-5-cara" data-layout-allow-overlap style="min-width: 370px; background: var(--token-3)">duer</span><span class="escena-5-cara escena-5-atras"><span class="escena-5-relleno" style="background: var(--token-3)"></span><span class="escena-5-oscuro" data-layout-allow-overlap>116318</span><span class="escena-5-dorado" data-layout-allow-overlap>116318</span></span></span></span>
+            <span class="escena-5-ficha"><span class="escena-5-int"><span class="escena-5-cara" data-layout-allow-overlap style="min-width: 264px; background: var(--token-4)">me</span><span class="escena-5-cara escena-5-atras"><span class="escena-5-relleno" style="background: var(--token-4)"></span><span class="escena-5-oscuro" data-layout-allow-overlap>1047</span><span class="escena-5-dorado" data-layout-allow-overlap>1047</span></span></span></span>
+            <span class="escena-5-ficha"><span class="escena-5-int"><span class="escena-5-cara" data-layout-allow-overlap style="min-width: 158px; background: var(--token-5)">.</span><span class="escena-5-cara escena-5-atras"><span class="escena-5-relleno" style="background: var(--token-5)"></span><span class="escena-5-oscuro" data-layout-allow-overlap>13</span><span class="escena-5-dorado" data-layout-allow-overlap>13</span></span></span></span>
+          </div>
+        </div>
+      </div>
+      <script>
+        (() => {
+          const D = 14.622;
+          const W = {"Cada": 6.12, "Lo": 9.97}; // anclas 5 Cada Lo
+          const tl = gsap.timeline({ paused: true });
+          // Vuelven los bloques de «El gato duerme.».
+          tl.fromTo(".escena-5-ficha", { opacity: 0, y: 30, scale: 0.7 },
+            { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "back.out(1.7)", stagger: 0.1 }, 0.6);
+          // «Cada token tiene su propio número»: cada ficha gira y muestra su número.
+          tl.fromTo(".escena-5-int", { rotationY: 0 },
+            { rotationY: 180, duration: 0.6, ease: "power2.inOut", stagger: 0.2 }, W.Cada);
+          // «Lo que de verdad le llega a la IA…»: se apagan los colores y queda la fila en el acento.
+          const APAGA = W.Lo + 0.4;
+          tl.fromTo(".escena-5-relleno", { opacity: 1 }, { opacity: 0, duration: 0.9, ease: "power2.inOut" }, APAGA);
+          tl.fromTo(".escena-5-oscuro", { opacity: 1 }, { opacity: 0, duration: 0.9, ease: "power2.inOut" }, APAGA);
+          tl.fromTo(".escena-5-dorado", { opacity: 0 }, { opacity: 1, duration: 0.9, ease: "power2.inOut" }, APAGA);
+          tl.fromTo("#escena-5-contenido", { opacity: 1 },
+            { opacity: 0, duration: 0.3, ease: "power1.in", immediateRender: false }, D - 0.3);
+          window.__timelines["escena-5"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>
+```
+
+La cara de atrás tiene un `transform` en CSS y **no** se tuitea con GSAP (se tuitea
+`.escena-5-int`), así que no hay conflicto `gsap_css_transform_conflict`. La ficha gira 180° y
+muestra la cara de atrás, que ya viene girada 180° en CSS: el número se lee derecho.
+
+- [ ] **Paso 2: snapshots** (global = local + 47,626):
+
+```bash
+cd videos/02-tokens && bash herramientas/hf.sh snapshot --at 49.53,54.23,56.13,60.13 --no-end
+```
+
+| Global | Se ve | Contador |
+|---|---|---|
+| 49,53 | cinco bloques con letras: `El` `gato` `duer` `me` `.` | 157 |
+| 54,23 | fichas a medio giro: la primera casi vuelta, la segunda de canto, la tercera empezando | 170 |
+| 56,13 | cinco números sobre sus colores: 4422 99767 116318 1047 13 | 176 |
+| 60,13 | solo los números, en el color de acento, sin bloques de color | 192 |
+
+Si a los 56,13 s los números se ven en espejo, la cara de atrás perdió `backface-visibility`;
+revisar que `.escena-5-cara` está en las dos caras.
+
+- [ ] **Paso 3: `check`** (0 errores):
+
+```bash
+cd videos/02-tokens && bash herramientas/hf.sh check --at 49.53,54.23,56.13,60.13
+```
+
+- [ ] **Paso 4: commit.**
+
+```bash
+git add videos/02-tokens/compositions/escena-5.html
+git commit -m "feat(videos): escena 5, las fichas giran y muestran su número"
+```
 
 ### T12: Escena 6 — límite y costo
 
@@ -1622,28 +1858,107 @@ Anclas: `anclas 8 contador En`.
 
 ### T15: Escena 9 — la respuesta
 
-**Archivo:** `compositions/escena-9.html`. Reglas: `discrete-text-sequence` (borrar y reescribir)
-y `context-sensitive-cursor`. Anclas: `anclas 9 No Lee`.
+**Archivo:** `compositions/escena-9.html`. HTML tomado del plan paralelo, adaptado a los roles, a
+la fuente H y a los tiempos reales. Escena global 108,360 → 118,366; voz local 0,300 → 8,006.
+Mismo encuadre que la escena 1 (mismos estilos, mismo lugar). La pregunta está escrita desde el
+primer cuadro; se borra en 0,3 s al terminar de decirla (3,05 local, fin del grupo «la IA lee
+palabras» de T3); «No. Lee tokens.» se escribe desde «No» hasta 0,5 s después de empezar
+«tokens»; el cursor queda fijo, parpadea dos veces (7,9 → 9,5, cuando la voz ya terminó y el
+contador llegó a 349) y el fundido a negro de `index.html` empieza en 117,866 global (9,506 local).
+Sin salida propia.
 
-Mismo encuadre que la escena 1: `left: 192px; top: 300px`, fuente H 150px, dos líneas,
-cursor dorado.
+Ojo con la ancla: en la escena 9 hay dos «lee». `anclas 9 Lee` devuelve la de la pregunta; la de
+la respuesta es `Lee#2`.
 
-1. En `0.1`: la pregunta «¿La IA lee» / «palabras?» aparece ya escrita (`opacity` 0→1, 0,3 s),
-   cursor parpadeando.
-2. En `W.No - 0.7`: se borra letra por letra hacia atrás, una cada 0,03 s.
-3. En `W.No`: se escribe «No.» en la primera línea.
-4. En `W.Lee`: se escribe «Lee tokens.» en la segunda línea, una letra cada 0,05 s. «tokens.» va
-   en fuente M 700 150px y `--acento` (la palabra de la máquina); «Lee » en fuente H.
-5. Al terminar de escribir, el cursor parpadea exactamente dos veces (ciclo de 0,6 s) y se queda
-   encendido.
-6. Sin salida propia: el fundido a negro de `index.html` cubre los últimos 0,5 s.
+- [ ] **Paso 1: reemplazar el archivo.**
 
-- [ ] **Paso 1:** escribir la escena.
-- [ ] **Paso 2:** `lint` sin errores.
-- [ ] **Paso 3:** snapshots en globales de `inicio9 + 1.0`, `W.No + 0.2`, `fin9 - 0.8`,
-  `fin9 - 0.05`. Esperado: la pregunta completa; «No.» recién escrito; «No. / Lee tokens.▌» con
-  el contador en 349; negro.
-- [ ] **Paso 4:** commit `feat(videos): escena 9, la respuesta`.
+```html
+<!doctype html>
+<html lang="es">
+  <head><meta charset="UTF-8" /></head>
+  <body>
+    <template id="escena-9-template">
+      <style>
+        #root { position: absolute; inset: 0; overflow: hidden; color: var(--texto); }
+        #escena-9-linea { position: absolute; left: 192px; top: 420px; display: flex; align-items: baseline; }
+        #escena-9-texto {
+          font-family: 'FUENTE_H'; font-weight: 700; font-size: 132px; line-height: 1.05;
+          letter-spacing: -0.03em; color: var(--texto); white-space: pre;
+        }
+        #escena-9-cursor { display: inline-block; width: 60px; height: 106px; margin-left: 10px; background: var(--acento); }
+      </style>
+      <div id="root" data-composition-id="escena-9" data-width="1920" data-height="1080">
+        <div id="escena-9-linea"><span id="escena-9-texto">¿La IA lee palabras?</span><span id="escena-9-cursor"></span></div>
+      </div>
+      <script>
+        (() => {
+          const D = 10.006;
+          const W = {"No": 3.4, "tokens": 4.51}; // anclas 9 No tokens
+          const FIN_PREGUNTA = 3.05;             // fin del grupo «la IA lee palabras» (T3), local
+          const PREGUNTA = "¿La IA lee palabras?";
+          const RESPUESTA = "No. Lee tokens.";
+          const el = document.getElementById("escena-9-texto");
+          const tl = gsap.timeline({ paused: true });
+          // Cursor: parpadea mientras la voz pregunta (7 medios ciclos = 2,8 s), fijo al borrar y
+          // escribir, dos parpadeos al final (7,9 → 9,5) y fijo durante el fundido a negro.
+          tl.fromTo("#escena-9-cursor", { opacity: 1 },
+            { opacity: 0, duration: 0.4, ease: "steps(1)", repeat: 6, yoyo: true }, 0);
+          tl.set("#escena-9-cursor", { opacity: 1 }, FIN_PREGUNTA);
+          tl.fromTo("#escena-9-cursor", { opacity: 1 },
+            { opacity: 0, duration: 0.4, ease: "steps(1)", repeat: 3, yoyo: true, immediateRender: false }, 7.9);
+          tl.set("#escena-9-cursor", { opacity: 1 }, 9.5);
+          // Un solo reloj escribe el texto según el tiempo (Convención 5): pregunta completa, borrado
+          // en 0,3 s, vacío, y la respuesta de «No» a «tokens» + 0,5 (15 caracteres).
+          const ESCRIBE = W.tokens + 0.5 - W.No;
+          function texto(t) {
+            if (t < FIN_PREGUNTA) return PREGUNTA;
+            if (t < FIN_PREGUNTA + 0.3)
+              return PREGUNTA.slice(0, Math.round(PREGUNTA.length * (1 - (t - FIN_PREGUNTA) / 0.3)));
+            if (t < W.No) return "";
+            return RESPUESTA.slice(0, Math.min(RESPUESTA.length, Math.round(RESPUESTA.length * (t - W.No) / ESCRIBE)));
+          }
+          const reloj = { t: 0 };
+          tl.fromTo(reloj, { t: 0 }, { t: D, duration: D, ease: "none",
+            onUpdate: () => { el.textContent = texto(reloj.t); } }, 0);
+          window.__timelines["escena-9"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>
+```
+
+El original del plan paralelo usaba dos objetos que escribían el mismo texto y dependía del orden
+de creación de los `fromTo`; `lint` lo marca (`gsap_repeated_fromto_without_baseline`). Con un solo
+reloj el texto es una función del tiempo y no hay orden que cuidar.
+
+- [ ] **Paso 2: snapshots** (global = local + 108,360):
+
+```bash
+cd videos/02-tokens && bash herramientas/hf.sh snapshot --at 108.86,111.56,112.96,114.86,116.66,118.35 --no-end
+```
+
+| Global | Se ve | Contador |
+|---|---|---|
+| 108,86 | «¿La IA lee palabras?» completa, con cursor, en el mismo lugar que la escena 1 | 327 |
+| 111,56 | la pregunta a medio borrar: entre «¿La IA lee» y «¿La IA lee pa» (el cuadro cae a 30 fps) | 335 |
+| 112,96 | «No. Lee tok» | 338 |
+| 114,86 | «No. Lee tokens.» con el cursor fijo | 343 |
+| 116,66 | igual; el contador ya no sube | 349 |
+| 118,35 | casi negro (el fundido va al 94 %): el texto apenas se adivina | — |
+
+- [ ] **Paso 3: `check`** (0 errores):
+
+```bash
+cd videos/02-tokens && bash herramientas/hf.sh check --at 108.86,111.56,112.96,114.86,116.66
+```
+
+- [ ] **Paso 4: commit.**
+
+```bash
+git add videos/02-tokens/compositions/escena-9.html
+git commit -m "feat(videos): escena 9, la respuesta y el corte a negro"
+```
 
 ### T16: Montaje completo y vista final
 
