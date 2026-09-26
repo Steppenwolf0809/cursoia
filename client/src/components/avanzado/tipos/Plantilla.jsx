@@ -24,7 +24,7 @@ const Plantilla = ({ slide }) => {
                         {copiado ? 'Copiado' : 'Copiar'}
                     </button>
                 </div>
-                <pre className="whitespace-pre-wrap break-words p-4 font-av-mono text-[13px] leading-relaxed text-av-texto sm:p-5 sm:text-sm lg:max-h-[60vh] lg:overflow-auto">
+                <pre className="whitespace-pre-wrap break-words p-4 font-av-mono text-[13px] leading-relaxed text-av-texto sm:p-5 sm:text-sm">
                     {datos.template.split(/(\[.*?\])/g).map((parte, i) => (
                         /^\[.*\]$/.test(parte)
                             ? <span key={i} className="rounded bg-av-acento/15 px-1 text-av-acento">{parte}</span>

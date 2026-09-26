@@ -9,7 +9,7 @@ IA Avanzada para Abogados · Virtual 1. Propuesta del curso, no norma. Ante la d
 - Material de capacitación del despacho.
 
 ## Amarillo: solo seudonimizado o con consentimiento
-**Dónde:** plan pago con entrenamiento desactivado, solo después de seudonimizar en tu computadora (nombres, cédulas, RUC, direcciones, claves catastrales cambiados por `[VENDEDOR_1]`, `[INMUEBLE_1]`), o con el consentimiento explícito e informado del cliente (art. 60.2 LOPDP). Mejor en un plan de equipo (nivel 2).
+**Dónde:** plan pago con entrenamiento desactivado, solo después de seudonimizar en tu computadora (nombres, cédulas, RUC, direcciones, claves catastrales cambiados por `[VENDEDOR_1]`, `[INMUEBLE_1]`), o con el consentimiento explícito e informado del cliente (LOPDP, art. 60, num. 2). Mejor en un plan de equipo (nivel 2).
 - Notaría: minuta de compraventa o promesa con las partes etiquetadas; liquidación de sociedad conyugal seudonimizada.
 - Abogacía: contrato de arrendamiento de un cliente seudonimizado; demanda ejecutiva o expediente ya seudonimizados.
 
@@ -23,19 +23,20 @@ IA Avanzada para Abogados · Virtual 1. Propuesta del curso, no norma. Ante la d
 |---|---|---|
 | 1. Plan personal (Claude Free, Pro o Max; ChatGPT Free, Plus o Pro) | Claude: tú decides. ChatGPT: entrena con tus chats salvo que lo desactives (opt-out), según chatgpt.com/pricing | Claude, entrenamiento desactivado: lo borrado se elimina en 30 días; activado: hasta 5 años |
 | 2. Equipo o empresa (Claude Team o Enterprise) | No | Lo borrado sale en 30 días; Enterprise configura la retención |
-| 3. API de Claude con Zero Data Retention | No | Nada tras responder, salvo lo marcado por seguridad (hasta 2 años); Fable y Mythos exigen 30 días |
+| 3. API de Claude con Zero Data Retention | No | Nada tras responder, salvo lo marcado por seguridad (hasta 2 años); Fable exige 30 días |
 | 4. Claude en Amazon Bedrock o Google Vertex AI | Según tu contrato con AWS o Google, que son los encargados | Según la nube; Bedrock no tiene región garantizada en Sudamérica |
 
 ## Lo que dice la LOPDP
 - Tú eres el responsable; el proveedor de IA es el encargado (arts. 4, 34 y 47).
 - El encargo exige un contrato que prohíba otros usos y obligue a devolver o destruir los datos (art. 34).
 - El encargo no es transferencia internacional (Resolución SPDP-SPD-2026-0004-R, art. 23). Si el proveedor usa los datos para fines propios, sí lo es; Estados Unidos no tiene nivel adecuado declarado.
+- Seudonimizar no es anonimizar (arts. 2, lit. c, y 4): lo anonimizado ya no permite identificar a la persona sin un esfuerzo desproporcionado, y la ley no se le aplica mientras siga así; lo seudonimizado sí lo permite con la tabla que guardas aparte, así que sigue siendo dato personal.
 - Criterio del curso: sin contrato de encargo por escrito, trátalo como transferencia: seudonimiza o pide consentimiento.
 
 ## Errores comunes
 - Creer que desactivar el entrenamiento equivale a confidencialidad.
 - Pedirle a la IA que anonimice un documento real: los datos ya salieron.
-- Anonimizar solo el nombre.
+- Cambiar solo el nombre.
 - Dejar que un agente lea la carpeta real de clientes sin revisarla.
 
-Fuentes: LOPDP, R.O. Suplemento 459 (26 may 2021); Resolución SPDP-SPD-2026-0004-R (https://spdp.gob.ec/); https://privacy.claude.com/en/articles/10023548-how-long-do-you-store-my-data ; https://privacy.claude.com/en/articles/7996866-how-long-do-you-store-my-organization-s-data ; https://platform.claude.com/docs/en/manage-claude/api-and-data-retention
+Fuentes: LOPDP, R.O. Quinto Suplemento 459 (26 may 2021); Resolución SPDP-SPD-2026-0004-R (https://spdp.gob.ec/); https://privacy.claude.com/en/articles/10023548-how-long-do-you-store-my-data ; https://privacy.claude.com/en/articles/7996866-how-long-do-you-store-my-organization-s-data ; https://platform.claude.com/docs/en/manage-claude/api-and-data-retention

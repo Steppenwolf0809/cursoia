@@ -11,6 +11,9 @@ function delBasico(modulo, id, nuevoId) {
     return { ...slide, id: nuevoId };
 }
 
+// «¿Quién soy?» sale del básico, con viñetas propias: las del básico llevan emojis.
+const QUIEN_SOY = delBasico(MODULO_1, "1-2", "v1-1-2");
+
 export const VIRTUAL_1 = {
     id: "v1-virtual-1",
     title: "Virtual 1: Fundamentos exprés y confidencialidad",
@@ -26,7 +29,17 @@ export const VIRTUAL_1 = {
                 image: "/images/llm-diagram.png"
             }
         },
-        delBasico(MODULO_1, "1-2", "v1-1-2"),
+        {
+            ...QUIEN_SOY,
+            contentData: {
+                ...QUIEN_SOY.contentData,
+                bullets: [
+                    "Antes: tareas mecánicas y miedo al error.",
+                    "Ahora: la IA hace el borrador y yo reviso cada resultado.",
+                    "Este curso: que uses la IA con método, sin arriesgar la exactitud ni la confidencialidad."
+                ]
+            }
+        },
         {
             id: "v1-1-3",
             title: "¿Qué IA usas más en tu trabajo?",
@@ -122,8 +135,8 @@ export const VIRTUAL_1 = {
                 headers: ["IA", "Modelos", "Ventana de contexto"],
                 rows: [
                     ["Claude", "Fable 5.1, Opus 5.5, Sonnet 5 y Haiku 4.5", "1M tokens (Haiku 4.5: 200K)"],
-                    ["ChatGPT", "GPT-6 Astra; por API, también GPT-6 Sol y Luna (desde el 22 de septiembre)", "GPT-6 Sol por API: 1 050 000 tokens"],
-                    ["Gemini", "Gemini 3.1 Pro y Gemini 3 Flash", "—"]
+                    ["ChatGPT", "GPT-6 Astra; desde el 22 de septiembre, también GPT-6 Sol y Luna", "GPT-6 Sol por API: 1\u00A0050\u00A0000 tokens"],
+                    ["Gemini", "Gemini 3.1 Pro y Gemini 3 Flash", "Gemini 3.1 Pro: 1M tokens"]
                 ]
             }
         },
@@ -193,7 +206,7 @@ export const VIRTUAL_1 = {
                 headers: ["Competencia", "La pregunta", "Dónde la trabajamos hoy"],
                 rows: [
                     ["Discernimiento", "¿Cómo evalúo lo que me entrega?", "Alucinaciones y verificación"],
-                    ["Delegación", "¿Qué hago yo y qué hace la IA?", "Harness y agentes"],
+                    ["Delegación", "¿Qué hago yo y qué hace la IA?", "Tres formas de trabajar con IA y qué delegar"],
                     ["Diligencia", "¿Cómo lo hago de forma responsable?", "Confidencialidad y LOPDP"],
                     ["Descripción", "¿Cómo le digo lo que necesito?", "Mi despacho y Configura tu IA"]
                 ]
@@ -270,7 +283,7 @@ export const VIRTUAL_1 = {
             type: "comparison",
             contentData: {
                 heading: "Los modelos de hoy también inventan",
-                paragraph: "Benchmark AA-Omniscience de Artificial Analysis, consultado el 24 de septiembre de 2026: preguntas de conocimiento factual: mide lo que el modelo recuerda. Saber más no significa inventar menos. Y mide la memoria del modelo, no su trabajo con la norma que tú le entregas: por eso se la entregas.",
+                paragraph: "Benchmark AA-Omniscience de Artificial Analysis, consultado el 24 de septiembre de 2026. Con preguntas de conocimiento factual, mide lo que el modelo recuerda, no cómo trabaja con la norma que tú le entregas: por eso se la entregas. Y saber más no significa inventar menos.",
                 headers: ["", "Claude Fable 5.1 (max)", "Claude Opus 5.5 (max)", "GPT-6 Astra (high)"],
                 rows: [
                     ["Aciertos", "67 %", "66 %", "61 %"],
@@ -338,7 +351,7 @@ export const VIRTUAL_1 = {
                 heading: "Paso 3: el prompt mejor",
                 template: `Eres mi asistente de investigación jurídica en Ecuador. Te adjunto el texto vigente del Código Civil ecuatoriano [ADJUNTAR ARCHIVO O PEGAR EL TEXTO OFICIAL] y el enlace del Registro Oficial donde se publicó la última reforma relevante: [URL].
 
-Usa ÚNICAMENTE estos documentos, no tu conocimiento general ni supuestos de otras jurisdicciones. Para cada punto de tu respuesta sobre el plazo de prescripción de una acción ejecutiva y de una ordinaria, dame:
+Usa solo estos documentos, no tu conocimiento general ni supuestos de otras jurisdicciones. Para cada punto de tu respuesta sobre el plazo de prescripción de una acción ejecutiva y de una ordinaria, dame:
 - La fuente exacta (número de artículo y una cita textual de máximo dos líneas).
 - Tu nivel de confianza (alta, media o baja) en que esa cita corresponde al texto vigente.
 - Qué no está claro o qué falta en el documento que te di (por ejemplo, excepciones o plazos especiales que no puedas confirmar con lo que tienes).
@@ -398,7 +411,7 @@ Si para algún punto el documento no alcanza, responde exactamente: "la informac
                 rightItems: [
                     "La conclusión jurídica final y la firma",
                     "Citas y jurisprudencia sin verificar",
-                    "Datos de clientes sin seudonimizar",
+                    "Documentos de clientes con sus datos reales",
                     "Decisiones que afectan los derechos de una persona"
                 ]
             }
@@ -419,11 +432,11 @@ Si para algún punto el documento no alcanza, responde exactamente: "la informac
             type: "warning",
             contentData: {
                 heading: "Lo que nunca debes hacer",
-                paragraph: "Desactivar el entrenamiento no es confidencialidad: tus datos igual salen de tu computadora y se guardan un tiempo.",
+                paragraph: "Desactivar el entrenamiento no es confidencialidad: tus datos igual salen de tu computadora y se guardan un tiempo. Por eso se seudonimiza antes de subir: cada dato que identifica a alguien se cambia por una etiqueta, como [VENDEDOR_1], y la tabla que dice quién es quién se queda en tu computadora.",
                 bullets: [
                     "Pegar nombres, cédulas, RUC o direcciones de clientes sin seudonimizar",
                     "Pedirle a la IA que anonimice un documento real: los datos ya salieron",
-                    "Anonimizar solo el nombre: un inmueble único, una fecha y una notaría identifican a la persona",
+                    "Cambiar solo el nombre: un inmueble único, una fecha y una notaría identifican a la persona",
                     "Subir datos de salud, de menores, penales o bancarios a un plan personal",
                     "Darle a un agente la carpeta real de clientes sin revisar qué contiene"
                 ],
@@ -436,14 +449,15 @@ Si para algún punto el documento no alcanza, responde exactamente: "la informac
             type: "narrative",
             contentData: {
                 Heading1: "LOPDP: tú eres el responsable",
-                paragraph1: "Ley Orgánica de Protección de Datos Personales, Registro Oficial Suplemento 459 de 26 de mayo de 2021; su régimen sancionatorio rige plenamente desde el 26 de mayo de 2023. Cuando subes datos de un cliente, tú eres el responsable y el proveedor de IA es el encargado del tratamiento.",
+                paragraph1: "Ley Orgánica de Protección de Datos Personales, Registro Oficial Quinto Suplemento 459 de 26 de mayo de 2021; su régimen sancionatorio rige plenamente desde el 26 de mayo de 2023. Cuando subes datos de un cliente, tú eres el responsable y el proveedor de IA es el encargado del tratamiento.",
                 bullets1: [
                     "<b>Art. 34:</b> el encargo exige un contrato que prohíba al proveedor usar los datos para otros fines o pasarlos a terceros, y que lo obligue a devolverlos o destruirlos al terminar.",
                     "<b>Datos sensibles (arts. 4 y 26):</b> salud, pasado judicial y datos biométricos, entre otros. Tratarlos está prohibido por regla general.",
-                    "<b>Resolución SPDP-SPD-2026-0004-R (28 ene 2026), art. 23:</b> el encargo de tratamiento no es transferencia internacional."
+                    "<b>Resolución SPDP-SPD-2026-0004-R (28 ene 2026), art. 23:</b> el encargo de tratamiento no es transferencia internacional.",
+                    "<b>Seudonimizar no es anonimizar (arts. 2, lit. c, y 4):</b> lo anonimizado ya no permite identificar a la persona sin un esfuerzo desproporcionado, y la ley no se le aplica mientras siga así; lo seudonimizado sí lo permite con la tabla que guardas aparte, así que sigue siendo dato personal."
                 ],
                 Heading2: "Encargo o transferencia: la diferencia que importa",
-                paragraph2: "Si el proveedor solo procesa por tu cuenta, rige el encargo (arts. 34 y 47). Si usa los datos para fines propios, como entrenar modelos, es transferencia internacional. Hoy ningún país tiene nivel adecuado declarado, salvo los de la Comunidad Andina; Estados Unidos no. Entonces hacen falta garantías contractuales, autorización de la SPDP o el consentimiento explícito e informado del titular (art. 60.2).",
+                paragraph2: "Si el proveedor solo procesa por tu cuenta, rige el encargo (arts. 34 y 47). Si usa los datos para fines propios, como entrenar modelos, es transferencia internacional. Hoy ningún país tiene nivel adecuado declarado, salvo los de la Comunidad Andina (Resolución 0004-R, art. 59); Estados Unidos no. Entonces hacen falta garantías contractuales, autorización de la SPDP o el consentimiento explícito e informado del titular (LOPDP, art. 60, num. 2).",
                 highlight: { type: "info", text: "Criterio del curso: si no tienes un contrato de encargo por escrito, trátalo como transferencia. Seudonimiza o pide consentimiento." }
             }
         },
@@ -456,9 +470,9 @@ Si para algún punto el documento no alcanza, responde exactamente: "la informac
                 paragraph: "Según la documentación oficial de Anthropic y la página de precios de OpenAI, septiembre de 2026.",
                 headers: ["Nivel", "¿Entrena con tus datos?", "Cuánto se guardan", "¿Realista para un despacho pequeño?"],
                 rows: [
-                    ["1. Plan personal: Claude Free, Pro o Max; ChatGPT Free, Plus o Pro", "Claude: tú decides con un interruptor. ChatGPT: entrena con tus chats salvo que lo desactives (opt-out), según chatgpt.com/pricing", "Claude con entrenamiento desactivado: lo que borras se elimina en 30 días. Activado: hasta 5 años, desidentificado", "Sí, para el color verde. Claude Pro y ChatGPT Plus cuestan 20 dólares al mes"],
+                    ["1. Plan personal: Claude Free, Pro o Max; ChatGPT Free, Plus o Pro", "Claude: tú decides con un interruptor. ChatGPT: entrena con tus chats salvo que lo desactives (opt-out), según chatgpt.com/pricing", "Claude con entrenamiento desactivado: lo que borras se elimina en 30 días. Activado: hasta 5 años, desidentificado", "Sí, para lo que no tiene datos de clientes: plantillas, normas y fallos públicos. Claude Pro y ChatGPT Plus cuestan 20 dólares al mes"],
                     ["2. Plan de equipo o empresa: Claude Team o Enterprise", "No", "Lo que borras sale del sistema en 30 días; Enterprise permite configurar la retención", "Team, sí. Enterprise: precio a consultar con ventas"],
-                    ["3. API de Claude con Zero Data Retention", "No", "Nada después de responder, salvo lo que marquen los filtros de seguridad (hasta 2 años). Fable y Mythos exigen 30 días", "Solo con desarrollo propio; se pide al equipo de ventas de Anthropic"],
+                    ["3. API de Claude con Zero Data Retention", "No", "Nada después de responder, salvo lo que marquen los filtros de seguridad (hasta 2 años). Fable exige 30 días", "Solo con desarrollo propio; se pide al equipo de ventas de Anthropic"],
                     ["4. Claude en Amazon Bedrock o Google Vertex AI", "Según tu contrato con AWS o Google, que son los encargados", "Según la política de esa nube", "Poco: Bedrock no tiene región garantizada en Sudamérica y es complejo"]
                 ]
             }
@@ -470,7 +484,8 @@ Si para algún punto el documento no alcanza, responde exactamente: "la informac
             contentData: {
                 heading: "Semáforo: ¿qué color le toca a cada dato?",
                 paragraph: "Clasifica los diez. Propuesta del curso, no norma. Ante la duda, sube un color.",
-                opciones: ["🟢 Verde", "🟡 Amarillo", "🔴 Rojo"],
+                // \u00A0 une el emoji con la palabra: con un espacio normal, «🟡 Amarillo» se parte en móvil.
+                opciones: ["🟢\u00A0Verde", "🟡\u00A0Amarillo", "🔴\u00A0Rojo"],
                 boton: "Ver respuestas",
                 items: [
                     { id: "plantilla", texto: "Tu plantilla de minuta de compraventa, sin datos reales", correcta: 0,
@@ -733,7 +748,7 @@ Formato de entrega:
                     "Discernimiento: pide la cita, contrasta con la fuente oficial y pasa el checklist.",
                     "Diligencia: seudonimiza en tu computadora antes de subir; el semáforo te dice a dónde va cada dato."
                 ],
-                callToAction: "Virtual 2 · jueves 15 de octubre: anonimiza tu contrato y revísalo con IA"
+                callToAction: "Virtual 2 · jueves 15 de octubre: seudonimiza tu contrato y revísalo con IA"
             }
         },
         {
@@ -745,7 +760,7 @@ Formato de entrega:
                 steps: [
                     { day: "Hoy", action: "Termina tu Proyecto «Mi despacho»", tip: "Pídele que te entreviste y redacte tus instrucciones con la plantilla 2; pruébalo con una consulta que puedas verificar." },
                     { day: "Antes del jueves", action: "Baja el Anonimizador del enlace de Drive, comprueba que abre y elige un contrato propio en .docx", tip: "No lo subas a ninguna IA todavía." },
-                    { day: "Jueves 15 oct", action: "Trae el contrato .docx sin anonimizar", tip: "Lo anonimizamos juntos al empezar y con él haces la matriz de riesgos." }
+                    { day: "Jueves 15 oct", action: "Trae el contrato .docx tal como está", tip: "Lo seudonimizamos juntos al empezar y con él haces la matriz de riesgos." }
                 ],
                 challenge: "Elige un contrato con dos partes o más y datos como cédulas, RUC o direcciones."
             }
