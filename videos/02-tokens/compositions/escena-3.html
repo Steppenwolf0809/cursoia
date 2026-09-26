@@ -6,19 +6,57 @@
       <style>
         #root { position: absolute; inset: 0; overflow: hidden; color: var(--texto); }
         #escena-3-contenido { position: absolute; inset: 0; }
-        /* estilos de la escena, con ids escena-3-… */
+        /* Misma fila, mismo lugar y mismos bloques que el final de la escena 2 */
+        #escena-3-bloques { position: absolute; left: 192px; top: 470px; display: flex; gap: 16px; }
+        .escena-3-tok {
+          position: relative; display: inline-block;
+          font-family: 'IBM Plex Mono'; font-weight: 700; font-size: 88px; line-height: 1;
+          padding: 20px 26px; border-radius: 14px; color: var(--sobre-token); white-space: pre;
+        }
+        .escena-3-cuenta {
+          position: absolute; left: 50%; top: -88px; width: 64px; height: 64px; margin-left: -32px;
+          border-radius: 50%; background: var(--acento); color: var(--fondo);
+          font-family: 'IBM Plex Mono'; font-weight: 700; font-size: 40px; line-height: 64px;
+          text-align: center; opacity: 0;
+        }
+        #escena-3-cuenta-2 { left: 100%; margin-left: -24px; } /* en el hueco entre «duer» y «me» */
       </style>
       <div id="root" data-composition-id="escena-3" data-width="1920" data-height="1080">
         <div id="escena-3-contenido">
-          <!-- marcado de la escena -->
+          <div id="escena-3-bloques">
+            <span class="escena-3-tok" style="background: var(--token-1)">El</span>
+            <span id="escena-3-gato" class="escena-3-tok" style="background: var(--token-2)">gato<span id="escena-3-cuenta-1" class="escena-3-cuenta">1</span></span>
+            <span id="escena-3-duer" class="escena-3-tok" style="background: var(--token-3)">duer<span id="escena-3-cuenta-2" class="escena-3-cuenta">2</span></span>
+            <span id="escena-3-me" class="escena-3-tok" style="background: var(--token-4)">me</span>
+            <span id="escena-3-punto" class="escena-3-tok" style="background: var(--token-5)">.<span id="escena-3-cuenta-3" class="escena-3-cuenta">1</span></span>
+          </div>
         </div>
       </div>
       <script>
         (() => {
-          const D = 10.809;          // data-duration del hueco escena-3 en index.html
-          const W = {};         // salida de: python herramientas/alinear.py anclas 3 …
+          const D = 10.809;
+          const W = {"Gato": 0.3, "token": 4.55, "Duerme": 5.52, "parte": 6.29, "dos": 6.99, "punto": 8.37, "token#2": 9.83};
           const tl = gsap.timeline({ paused: true });
-          // … animaciones de la escena …
+          const aparece = (sel, t) => tl.fromTo(sel, { opacity: 0, scale: 0 },
+            { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(1.7)" }, t);
+          // «Gato» queda entera: crece y recibe su «1».
+          tl.fromTo("#escena-3-gato", { scale: 1 }, { scale: 1.12, duration: 0.4, ease: "back.out(2)" }, W.Gato + 0.4);
+          aparece("#escena-3-cuenta-1", W.token - 0.3);
+          tl.fromTo("#escena-3-gato", { scale: 1.12 },
+            { scale: 1, duration: 0.4, ease: "power2.inOut", immediateRender: false }, W.token + 0.5);
+          // «Duerme» se parte en dos: se juntan (cierran el hueco de 16 px), se separan con rebote, «2».
+          tl.fromTo("#escena-3-duer", { x: 0 }, { x: 8, duration: 0.35, ease: "power2.inOut" }, W.Duerme);
+          tl.fromTo("#escena-3-me", { x: 0 }, { x: -8, duration: 0.35, ease: "power2.inOut" }, W.Duerme);
+          tl.fromTo("#escena-3-duer", { x: 8 },
+            { x: 0, duration: 0.5, ease: "back.out(2)", immediateRender: false }, W.parte);
+          tl.fromTo("#escena-3-me", { x: -8 },
+            { x: 0, duration: 0.5, ease: "back.out(2)", immediateRender: false }, W.parte);
+          aparece("#escena-3-cuenta-2", W.dos - 0.2);
+          // El punto salta solo y recibe su «1».
+          tl.fromTo("#escena-3-punto", { y: 0 }, { y: -48, duration: 0.3, ease: "power2.out" }, W.punto);
+          tl.fromTo("#escena-3-punto", { y: -48 },
+            { y: 0, duration: 0.5, ease: "bounce.out", immediateRender: false }, W.punto + 0.3);
+          aparece("#escena-3-cuenta-3", W["token#2"] - 0.3);
           tl.fromTo("#escena-3-contenido", { opacity: 1 },
             { opacity: 0, duration: 0.3, ease: "power1.in", immediateRender: false }, D - 0.3);
           window.__timelines["escena-3"] = tl;
