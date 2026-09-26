@@ -484,7 +484,8 @@ Si para algún punto el documento no alcanza, responde exactamente: "la informac
             contentData: {
                 heading: "Semáforo: ¿qué color le toca a cada dato?",
                 paragraph: "Clasifica los diez. Propuesta del curso, no norma. Ante la duda, sube un color.",
-                opciones: ["🟢 Verde", "🟡 Amarillo", "🔴 Rojo"],
+                // \u00A0 une el emoji con la palabra: con un espacio normal, «🟡 Amarillo» se parte en móvil.
+                opciones: ["🟢\u00A0Verde", "🟡\u00A0Amarillo", "🔴\u00A0Rojo"],
                 boton: "Ver respuestas",
                 items: [
                     { id: "plantilla", texto: "Tu plantilla de minuta de compraventa, sin datos reales", correcta: 0,
