@@ -283,7 +283,7 @@ export const VIRTUAL_1 = {
             type: "comparison",
             contentData: {
                 heading: "Los modelos de hoy también inventan",
-                paragraph: "Benchmark AA-Omniscience de Artificial Analysis, consultado el 24 de septiembre de 2026: preguntas de conocimiento factual: mide lo que el modelo recuerda. Saber más no significa inventar menos. Y mide la memoria del modelo, no su trabajo con la norma que tú le entregas: por eso se la entregas.",
+                paragraph: "Benchmark AA-Omniscience de Artificial Analysis, consultado el 24 de septiembre de 2026. Con preguntas de conocimiento factual, mide lo que el modelo recuerda, no cómo trabaja con la norma que tú le entregas: por eso se la entregas. Y saber más no significa inventar menos.",
                 headers: ["", "Claude Fable 5.1 (max)", "Claude Opus 5.5 (max)", "GPT-6 Astra (high)"],
                 rows: [
                     ["Aciertos", "67 %", "66 %", "61 %"],
@@ -351,7 +351,7 @@ export const VIRTUAL_1 = {
                 heading: "Paso 3: el prompt mejor",
                 template: `Eres mi asistente de investigación jurídica en Ecuador. Te adjunto el texto vigente del Código Civil ecuatoriano [ADJUNTAR ARCHIVO O PEGAR EL TEXTO OFICIAL] y el enlace del Registro Oficial donde se publicó la última reforma relevante: [URL].
 
-Usa ÚNICAMENTE estos documentos, no tu conocimiento general ni supuestos de otras jurisdicciones. Para cada punto de tu respuesta sobre el plazo de prescripción de una acción ejecutiva y de una ordinaria, dame:
+Usa solo estos documentos, no tu conocimiento general ni supuestos de otras jurisdicciones. Para cada punto de tu respuesta sobre el plazo de prescripción de una acción ejecutiva y de una ordinaria, dame:
 - La fuente exacta (número de artículo y una cita textual de máximo dos líneas).
 - Tu nivel de confianza (alta, media o baja) en que esa cita corresponde al texto vigente.
 - Qué no está claro o qué falta en el documento que te di (por ejemplo, excepciones o plazos especiales que no puedas confirmar con lo que tienes).

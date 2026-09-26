@@ -48,7 +48,7 @@ No dice si es una acción ejecutiva u ordinaria, no entrega la fuente ni pide qu
 
     Eres mi asistente de investigación jurídica en Ecuador. Te adjunto el texto vigente del Código Civil ecuatoriano [ADJUNTAR ARCHIVO O PEGAR EL TEXTO OFICIAL].
 
-    Usa ÚNICAMENTE ese documento, no tu conocimiento general. Dime:
+    Usa solo ese documento, no tu conocimiento general. Dime:
     1. ¿Cuál es el plazo de prescripción extintiva de una acción ejecutiva y de una acción ordinaria, según el texto que te di?
     2. Si el documento no trae esa información completa, dilo explícitamente: no la inventes ni la completes con lo que "sueles saber" de otros países o de versiones anteriores de la ley.
     3. Señala qué supuestos estás haciendo (por ejemplo, si asumes que la deuda no tiene un plazo especial distinto al general).
@@ -57,7 +57,7 @@ No dice si es una acción ejecutiva u ordinaria, no entrega la fuente ni pide qu
 
     Eres mi asistente de investigación jurídica en Ecuador. Te adjunto el texto vigente del Código Civil ecuatoriano [ADJUNTAR ARCHIVO O PEGAR EL TEXTO OFICIAL] y el enlace del Registro Oficial donde se publicó la última reforma relevante: [URL].
 
-    Usa ÚNICAMENTE estos documentos, no tu conocimiento general ni supuestos de otras jurisdicciones. Para cada punto de tu respuesta sobre el plazo de prescripción de una acción ejecutiva y de una ordinaria, dame:
+    Usa solo estos documentos, no tu conocimiento general ni supuestos de otras jurisdicciones. Para cada punto de tu respuesta sobre el plazo de prescripción de una acción ejecutiva y de una ordinaria, dame:
     - La fuente exacta (número de artículo y una cita textual de máximo dos líneas).
     - Tu nivel de confianza (alta, media o baja) en que esa cita corresponde al texto vigente.
     - Qué no está claro o qué falta en el documento que te di (por ejemplo, excepciones o plazos especiales que no puedas confirmar con lo que tienes).
