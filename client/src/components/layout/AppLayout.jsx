@@ -165,8 +165,8 @@ const AppLayout = ({ modules, activeModuleId, activeSlideId, onNavigate, childre
                            target.isContentEditable;
             
             if (isInput) return;
-            // La barra espaciadora sobre un botón lo activa: no debe avanzar de slide.
-            if (e.key === ' ' && target.tagName === 'BUTTON') return;
+            // La barra espaciadora sobre un botón o un <summary> lo activa: no debe avanzar de slide.
+            if (e.key === ' ' && (target.tagName === 'BUTTON' || target.tagName === 'SUMMARY')) return;
 
             switch (e.key) {
                 case 'ArrowRight':
