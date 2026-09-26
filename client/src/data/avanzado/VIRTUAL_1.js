@@ -206,7 +206,7 @@ export const VIRTUAL_1 = {
                 headers: ["Competencia", "La pregunta", "Dónde la trabajamos hoy"],
                 rows: [
                     ["Discernimiento", "¿Cómo evalúo lo que me entrega?", "Alucinaciones y verificación"],
-                    ["Delegación", "¿Qué hago yo y qué hace la IA?", "Harness y agentes"],
+                    ["Delegación", "¿Qué hago yo y qué hace la IA?", "Tres formas de trabajar con IA y qué delegar"],
                     ["Diligencia", "¿Cómo lo hago de forma responsable?", "Confidencialidad y LOPDP"],
                     ["Descripción", "¿Cómo le digo lo que necesito?", "Mi despacho y Configura tu IA"]
                 ]
@@ -469,9 +469,9 @@ Si para algún punto el documento no alcanza, responde exactamente: "la informac
                 paragraph: "Según la documentación oficial de Anthropic y la página de precios de OpenAI, septiembre de 2026.",
                 headers: ["Nivel", "¿Entrena con tus datos?", "Cuánto se guardan", "¿Realista para un despacho pequeño?"],
                 rows: [
-                    ["1. Plan personal: Claude Free, Pro o Max; ChatGPT Free, Plus o Pro", "Claude: tú decides con un interruptor. ChatGPT: entrena con tus chats salvo que lo desactives (opt-out), según chatgpt.com/pricing", "Claude con entrenamiento desactivado: lo que borras se elimina en 30 días. Activado: hasta 5 años, desidentificado", "Sí, para el color verde. Claude Pro y ChatGPT Plus cuestan 20 dólares al mes"],
+                    ["1. Plan personal: Claude Free, Pro o Max; ChatGPT Free, Plus o Pro", "Claude: tú decides con un interruptor. ChatGPT: entrena con tus chats salvo que lo desactives (opt-out), según chatgpt.com/pricing", "Claude con entrenamiento desactivado: lo que borras se elimina en 30 días. Activado: hasta 5 años, desidentificado", "Sí, para lo que no tiene datos de clientes: plantillas, normas y fallos públicos. Claude Pro y ChatGPT Plus cuestan 20 dólares al mes"],
                     ["2. Plan de equipo o empresa: Claude Team o Enterprise", "No", "Lo que borras sale del sistema en 30 días; Enterprise permite configurar la retención", "Team, sí. Enterprise: precio a consultar con ventas"],
-                    ["3. API de Claude con Zero Data Retention", "No", "Nada después de responder, salvo lo que marquen los filtros de seguridad (hasta 2 años). Fable y Mythos exigen 30 días", "Solo con desarrollo propio; se pide al equipo de ventas de Anthropic"],
+                    ["3. API de Claude con Zero Data Retention", "No", "Nada después de responder, salvo lo que marquen los filtros de seguridad (hasta 2 años). Fable exige 30 días", "Solo con desarrollo propio; se pide al equipo de ventas de Anthropic"],
                     ["4. Claude en Amazon Bedrock o Google Vertex AI", "Según tu contrato con AWS o Google, que son los encargados", "Según la política de esa nube", "Poco: Bedrock no tiene región garantizada en Sudamérica y es complejo"]
                 ]
             }
