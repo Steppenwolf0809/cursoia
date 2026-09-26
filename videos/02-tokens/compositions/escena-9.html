@@ -5,22 +5,46 @@
     <template id="escena-9-template">
       <style>
         #root { position: absolute; inset: 0; overflow: hidden; color: var(--texto); }
-        #escena-9-contenido { position: absolute; inset: 0; }
-        /* estilos de la escena, con ids escena-9-… */
+        #escena-9-linea { position: absolute; left: 192px; top: 420px; display: flex; align-items: baseline; }
+        #escena-9-texto {
+          font-family: 'Inter'; font-weight: 700; font-size: 132px; line-height: 1.05;
+          letter-spacing: -0.03em; color: var(--texto); white-space: pre;
+        }
+        #escena-9-cursor { display: inline-block; width: 60px; height: 106px; margin-left: 10px; background: var(--acento); }
       </style>
       <div id="root" data-composition-id="escena-9" data-width="1920" data-height="1080">
-        <div id="escena-9-contenido">
-          <!-- marcado de la escena -->
-        </div>
+        <div id="escena-9-linea"><span id="escena-9-texto">¿La IA lee palabras?</span><span id="escena-9-cursor"></span></div>
       </div>
       <script>
         (() => {
-          const D = 10.006;          // data-duration del hueco escena-9 en index.html
-          const W = {};         // salida de: python herramientas/alinear.py anclas 9 …
+          const D = 10.006;
+          const W = {"No": 3.4, "tokens": 4.51}; // anclas 9 No tokens
+          const FIN_PREGUNTA = 3.05;             // fin del grupo «la IA lee palabras» (T3), local
+          const PREGUNTA = "¿La IA lee palabras?";
+          const RESPUESTA = "No. Lee tokens.";
+          const el = document.getElementById("escena-9-texto");
           const tl = gsap.timeline({ paused: true });
-          // … animaciones de la escena …
-          tl.fromTo("#escena-9-contenido", { opacity: 1 },
-            { opacity: 0, duration: 0.3, ease: "power1.in", immediateRender: false }, D - 0.3);
+          // Cursor: parpadea mientras la voz pregunta (7 medios ciclos = 2,8 s), fijo al borrar y
+          // escribir, dos parpadeos al final (7,9 → 9,5) y fijo durante el fundido a negro.
+          tl.fromTo("#escena-9-cursor", { opacity: 1 },
+            { opacity: 0, duration: 0.4, ease: "steps(1)", repeat: 6, yoyo: true }, 0);
+          tl.set("#escena-9-cursor", { opacity: 1 }, FIN_PREGUNTA);
+          tl.fromTo("#escena-9-cursor", { opacity: 1 },
+            { opacity: 0, duration: 0.4, ease: "steps(1)", repeat: 3, yoyo: true, immediateRender: false }, 7.9);
+          tl.set("#escena-9-cursor", { opacity: 1 }, 9.5);
+          // Un solo reloj escribe el texto según el tiempo (Convención 5): pregunta completa, borrado
+          // en 0,3 s, vacío, y la respuesta de «No» a «tokens» + 0,5 (15 caracteres).
+          const ESCRIBE = W.tokens + 0.5 - W.No;
+          function texto(t) {
+            if (t < FIN_PREGUNTA) return PREGUNTA;
+            if (t < FIN_PREGUNTA + 0.3)
+              return PREGUNTA.slice(0, Math.round(PREGUNTA.length * (1 - (t - FIN_PREGUNTA) / 0.3)));
+            if (t < W.No) return "";
+            return RESPUESTA.slice(0, Math.min(RESPUESTA.length, Math.round(RESPUESTA.length * (t - W.No) / ESCRIBE)));
+          }
+          const reloj = { t: 0 };
+          tl.fromTo(reloj, { t: 0 }, { t: D, duration: D, ease: "none",
+            onUpdate: () => { el.textContent = texto(reloj.t); } }, 0);
           window.__timelines["escena-9"] = tl;
         })();
       </script>
