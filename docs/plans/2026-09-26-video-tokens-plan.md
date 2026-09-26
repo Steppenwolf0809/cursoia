@@ -75,7 +75,35 @@ unas 7 a 9 horas en total, repartidas en dos sesiones: T0–T8 hasta la Parada 2
 
 ## Tiempos
 
-⟨PENDIENTE: medir los MP3⟩
+Voz medida el 2026-09-26 con ffprobe 4.0.2 (`format=duration`, lo mismo que usa `tiempos.py`).
+Decodificando el archivo entero con FFmpeg 6.1.1 sale lo mismo con ±0,03 s. Las estimaciones del
+encargo, hechas por tamaño de archivo, estaban un segundo altas por escena. La escena 8 es la
+regrabada.
+
+Cada escena dura `ENTRADA + voz + COLA`. `ENTRADA` es el silencio antes de la voz: 0,6 s en la
+escena 1 (el tipeo empieza antes) y 0,3 s en las demás. `COLA` es lo que la escena sigue en
+pantalla después de la voz, y ahí caben las pausas del guion: 0,4 · 0,5 · 0,4 · 0,6 · 1,0 (giro de
+las fichas) · 0,5 · 0,8 (líneas que bajan) · 0,6 · 2,0 (cursor y negro). Las pausas «de 1 s en el
+corte» de las escenas 2 y 4 son visuales: la animación se queda quieta mientras la voz sigue.
+
+| Escena | Voz (s) | Inicio | Voz desde | Fin | Duración |
+|---|---|---|---|---|---|
+| 1 | 6,113 | 0,000 | 0,600 | 7,113 | 7,113 |
+| 2 | 13,166 | 7,113 | 7,413 | 21,079 | 13,966 |
+| 3 | 10,109 | 21,079 | 21,379 | 31,888 | 10,809 |
+| 4 | 14,838 | 31,888 | 32,188 | 47,626 | 15,738 |
+| 5 | 13,322 | 47,626 | 47,926 | 62,248 | 14,622 |
+| 6 | 16,771 | 62,248 | 62,548 | 79,819 | 17,571 |
+| 7 | 9,953 | 79,819 | 80,119 | 90,872 | 11,053 |
+| 8 | 16,588 | 90,872 | 91,172 | 108,360 | 17,488 |
+| 9 | 7,706 | 108,360 | 108,660 | 118,366 | 10,006 |
+
+**Voz: 108,57 s. Video: 118,366 s**, bajo el tope de 150. Estos son los valores de `index.html`
+(T5): `data-start` = Inicio, `data-duration` = Duración, `<audio data-start>` = Voz desde,
+`<audio data-duration>` = Voz, `TOTAL` = 118.366. `tiempos.py` (T2) tiene que reproducirlos.
+
+Anclas de la escena 8, globales, ya medidas con el código de T3 (sirven para comprobar T5 y T6):
+`contador` 94,07 · `palabras` 100,83 · `tokens#2` 103,42 · `En` 104,30.
 
 ## Estructura de archivos
 
@@ -246,7 +274,9 @@ exec npx --yes hyperframes@0.8.78 "$@"
 ```
 
 - [ ] **Paso 3: Leer los archivos que dejó `init`** (`index.html`, `CLAUDE.md`, `AGENTS.md`,
-  `package.json`) antes de reemplazar `index.html` en T5.
+  `package.json`, `meta.json`, `hyperframes.json`) antes de reemplazar `index.html` en T5. Si
+  alguno trae datos personales (un correo, un nombre de usuario), preguntar a José Luis antes de
+  hacer commit de ese archivo.
 
 - [ ] **Paso 4: Probar la CLI.**
 
@@ -285,7 +315,7 @@ destination: desktop
 aspect: 1920x1080
 language: es
 audience: "Estudiantes del curso básico de IA; se proyecta en clase"
-length: ⟨total de «Tiempos»⟩s
+length: 118s
 narration: yes
 ---
 
@@ -571,11 +601,19 @@ git commit -m "feat(videos): narración, tokens por palabra y tiempos del video 
 **Archivos:** crear `videos/02-tokens/herramientas/alinear.py` y `test_alinear.py`. Genera
 `videos/02-tokens/datos/palabras.json`.
 
-Método, sin descargar modelos: FFmpeg `silencedetect` da los tramos con voz de cada MP3; el
-texto se parte en frases por la puntuación; se empareja frase con tramo en orden; dentro de cada
-tramo, las palabras se reparten según su número de letras. Precisión esperada: ±0,3 s, suficiente
-para el contador y para que un resaltado caiga sobre su palabra. José Luis juzga la sincronía
-de oído en la Parada 3.
+Método, sin descargar modelos de voz. FFmpeg `silencedetect` da los tramos con voz de cada MP3
+y el texto se parte en frases por la puntuación. Una programación dinámica agrupa frases y tramos
+seguidos (k frases con l tramos) buscando que cada grupo dure lo que piden sus letras al ritmo
+medio de la escena. Castiga los cortes de frase sin pausa y las pausas que no caen en un corte.
+Dentro de cada grupo, las palabras se reparten el tiempo con voz según sus letras.
+
+**Probado en esta sesión con los 9 MP3 reales:** todos los grupos quedan entre 9 y 21 letras/s.
+Una versión anterior unía tramos por cercanía, y en la escena 6 metía «quien usa la IA a gran
+escala paga por token» en 0,4 s; por eso la prueba `test_elige_por_ritmo_y_no_por_cercania`.
+Precisión esperada dentro de un grupo: ±0,3 s. En la escena 4, la risa queda dentro del grupo
+«Otorrinolaringólogo se corta en cinco», así que «corta» puede salir hasta 1 s antes de tiempo:
+el corte visual cae durante la risa, y eso sirve. José Luis juzga la sincronía de oído en la
+Parada 3.
 
 - [ ] **Paso 1: Escribir las pruebas que fallan.**
 
@@ -591,21 +629,37 @@ class PruebaAlinear(unittest.TestCase):
         self.assertEqual(tramos_de_voz(silencios, 3.0), [[0.2, 1.0], [1.4, 2.5]])
 
     def test_una_frase_por_tramo(self):
-        r = alinear("Hola, mundo. Adiós.", [[0.0, 1.0], [1.5, 2.0], [2.5, 3.0]])
-        self.assertEqual([(p["inicio"], p["fin"]) for p in r], [(0.0, 1.0), (1.5, 2.0), (2.5, 3.0)])
+        # las tres frases a 10 letras por segundo
+        r = alinear("Hola, mundo. Adiós.", [[0.0, 0.5], [0.8, 1.4], [1.7, 2.3]])
+        self.assertEqual([(p["inicio"], p["fin"]) for p in r], [(0.0, 0.5), (0.8, 1.4), (1.7, 2.3)])
 
-    def test_sobran_tramos_se_unen_los_mas_cercanos(self):
-        r = alinear("Hola, mundo. Adiós.", [[0.0, 1.0], [1.5, 1.8], [1.85, 2.0], [2.5, 3.0]])
-        self.assertEqual(r[1]["inicio"], 1.5)
-        self.assertEqual(r[1]["fin"], 2.0)
+    def test_pausa_dentro_de_una_frase(self):
+        # «mundo» tiene una pausa corta adentro: sus dos tramos van juntos
+        r = alinear("Hola, mundo. Adiós.", [[0.0, 0.5], [0.8, 1.1], [1.15, 1.4], [1.7, 2.3]])
+        self.assertEqual((r[1]["inicio"], r[1]["fin"]), (0.8, 1.4))
+        self.assertEqual(r[2]["inicio"], 1.7)
 
-    def test_faltan_tramos_se_une_la_pausa_mas_debil(self):
-        # la coma es más débil que el punto: «Hola mundo» comparten el primer tramo
-        r = alinear("Hola, mundo. Adiós.", [[0.0, 1.1], [1.5, 2.0]])
-        self.assertEqual(r[0]["inicio"], 0.0)
-        self.assertAlmostEqual(r[0]["fin"], 0.5, places=3)   # 5 de 11 unidades de 1,1 s
-        self.assertAlmostEqual(r[1]["fin"], 1.1, places=3)
-        self.assertEqual(r[2]["inicio"], 1.5)
+    def test_coma_sin_pausa(self):
+        r = alinear("Hola, mundo. Adiós.", [[0.0, 1.1], [1.4, 2.0]])
+        self.assertEqual((r[0]["inicio"], r[0]["fin"]), (0.0, 0.5))  # 5 de 11 letras de 1,1 s
+        self.assertEqual(r[1]["fin"], 1.1)
+        self.assertEqual(r[2]["inicio"], 1.4)
+
+    def test_elige_por_ritmo_y_no_por_cercania(self):
+        # Como la escena 6: un tramo corto suelto antes de una frase larga. Unir por cercanía
+        # metería la frase larga en 0,3 s; por ritmo, el tramo corto va con ella.
+        texto = "Segundo, el costo: quien usa la IA a gran escala paga por token."
+        r = alinear(texto, [[0.0, 0.55], [0.85, 1.45], [1.95, 2.25], [2.85, 5.75]])
+        quien = next(p for p in r if p["palabra"] == "quien")
+        costo = next(p for p in r if p["palabra"] == "costo")
+        self.assertGreaterEqual(quien["inicio"], 1.95)
+        self.assertLess(costo["fin"], 1.5)
+
+    def test_reparte_solo_el_tiempo_con_voz(self):
+        # una sola frase en dos tramos: ninguna palabra empieza dentro del silencio
+        r = alinear("Uno dos son.", [[0.0, 0.6], [1.6, 2.0]])
+        self.assertAlmostEqual(r[1]["inicio"], 0.333, places=3)
+        self.assertAlmostEqual(r[2]["inicio"], 1.667, places=3)
 
     def test_tiempos_crecen(self):
         r = alinear("Uno dos, tres cuatro. Cinco.", [[0.1, 0.9], [1.2, 2.0], [2.4, 2.9]])
@@ -629,24 +683,33 @@ Esperado: `ModuleNotFoundError: No module named 'alinear'`.
 - [ ] **Paso 3: Escribir `alinear.py`.**
 
 ```python
-"""Tiempo aproximado de cada palabra: tramos de voz (FFmpeg silencedetect) + reparto por letras.
+"""Tiempo aproximado de cada palabra, sin modelos de voz.
+
+FFmpeg `silencedetect` da los tramos con voz del MP3; el texto se parte en frases por la
+puntuación. Una programación dinámica agrupa frases y tramos seguidos (k frases con l tramos) para
+que cada grupo dure lo que piden sus letras al ritmo medio de la escena. Dentro de cada grupo, las
+palabras se reparten el tiempo con voz según sus letras.
 
 Uso:
-  python herramientas/alinear.py              genera datos/palabras.json y muestra la alineación
-  python herramientas/alinear.py anclas N p1 p2#2 …   imprime `const W = {…}` con segundos
-                                               locales de la escena N (añadir --global para globales)
+  python herramientas/alinear.py                      genera datos/palabras.json y muestra los grupos
+  python herramientas/alinear.py anclas N p1 p2#2 …   imprime `const W = {…}` con segundos locales
+                                                      de la escena N (con --global, globales)
 """
 import json
+import math
 import re
 import subprocess
 import sys
-from pathlib import Path
 
 from narracion import escenas, palabras, cortes
 from tiempos import PROYECTO, ENTRADA
 
 FFMPEG = PROYECTO / "node_modules" / "ffmpeg-static" / "ffmpeg.exe"
 AJUSTE = {n: {"ruido": -35, "minimo": 0.18} for n in range(1, 10)}  # silencedetect por escena
+SIN_PAUSA = {1: 0.25, 2: 0.6, 3: 1.2}      # corte de frase sin pausa en el audio, según su fuerza
+PAUSA_SUELTA, PAUSA_SUELTA_POR_S = 0.3, 1.0  # pausa del audio dentro de un grupo: fijo + por segundo
+PESO_RITMO = 2.0                            # castigo por |ln(duración real / duración esperada)|
+MAX_GRUPO = 4                               # frases o tramos que caben en un mismo grupo
 
 
 def silencios(mp3, ruido, minimo):
@@ -670,38 +733,97 @@ def tramos_de_voz(sil, duracion, minimo=0.08):
     return tramos
 
 
-def alinear(texto, tramos):
-    """[{palabra, inicio, fin}] en segundos del MP3."""
-    ps = palabras(texto)
+def frases(texto):
+    """Frases (listas de índices de palabra) y la fuerza de la pausa que cierra cada una."""
     fuerzas = cortes(texto)
-    # frases: listas de índices de palabra, partidas donde hay pausa (fuerza >= 1)
-    frases, actual = [], [0]
+    lista, actual = [], [0]
     for k, f in enumerate(fuerzas):
         if f >= 1:
-            frases.append(actual)
+            lista.append(actual)
             actual = [k + 1]
         else:
             actual.append(k + 1)
-    frases.append(actual)
-    uniones = [fuerzas[f[-1]] for f in frases[:-1]]  # fuerza de la pausa que cierra cada frase
-    tramos = [list(t) for t in tramos]
-    while len(tramos) > len(frases):  # sobran tramos: unir los dos más cercanos
-        k = min(range(len(tramos) - 1), key=lambda i: tramos[i + 1][0] - tramos[i][1])
-        tramos[k:k + 2] = [[tramos[k][0], tramos[k + 1][1]]]
-    while len(frases) > len(tramos):  # faltan tramos: unir las frases de la pausa más débil
-        k = min(range(len(uniones)), key=lambda i: (uniones[i], len(frases[i]) + len(frases[i + 1])))
-        frases[k:k + 2] = [frases[k] + frases[k + 1]]
-        del uniones[k]
+    lista.append(actual)
+    return lista, [fuerzas[f[-1]] for f in lista[:-1]]
+
+
+def grupos(texto, tramos):
+    """[(frase_desde, frase_hasta, tramo_desde, tramo_hasta)] al menor costo; los «hasta» excluidos."""
+    ps = palabras(texto)
+    fs, fuerzas = frases(texto)
+    letras = [sum(len(ps[i][0]) + 1 for i in f) for f in fs]
+    P, S = len(fs), len(tramos)
+    ritmo = sum(letras) / sum(b - a for a, b in tramos)  # letras por segundo de voz
+    inf = float("inf")
+    costo = [[inf] * (S + 1) for _ in range(P + 1)]
+    desde = [[None] * (S + 1) for _ in range(P + 1)]
+    costo[0][0] = 0.0
+    for p in range(P):
+        for t in range(S):
+            if costo[p][t] == inf:
+                continue
+            for k in range(1, min(MAX_GRUPO, P - p) + 1):
+                for l in range(1, min(MAX_GRUPO, S - t) + 1):
+                    real = sum(b - a for a, b in tramos[t:t + l])
+                    esperada = sum(letras[p:p + k]) / ritmo
+                    c = PESO_RITMO * abs(math.log(real / esperada))
+                    c += sum(SIN_PAUSA[f] for f in fuerzas[p:p + k - 1])
+                    c += sum(PAUSA_SUELTA + PAUSA_SUELTA_POR_S * (tramos[i + 1][0] - tramos[i][1])
+                             for i in range(t, t + l - 1))
+                    if costo[p][t] + c < costo[p + k][t + l]:
+                        costo[p + k][t + l] = costo[p][t] + c
+                        desde[p + k][t + l] = (p, t)
+    salida, p, t = [], P, S
+    while (p, t) != (0, 0):
+        pp, tt = desde[p][t]
+        salida.append((pp, p, tt, t))
+        p, t = pp, tt
+    return salida[::-1]
+
+
+def _a_tiempo_real(tramos, v, al_final=False):
+    """Segundos de voz desde el primer tramo → segundo real del MP3. En un borde entre tramos, un
+    inicio cae al principio del tramo siguiente y un final (`al_final`) al término del anterior."""
+    for a, b in tramos:
+        if v < b - a or (al_final and v <= b - a):
+            return a + v
+        v -= b - a
+    return tramos[-1][1]
+
+
+def alinear(texto, tramos):
+    """[{palabra, inicio, fin}] en segundos del MP3."""
+    ps = palabras(texto)
+    fs, _ = frases(texto)
     salida = []
-    for frase, (a, b) in zip(frases, tramos):
-        pesos = [len(ps[i][0]) + 1 for i in frase]
+    for p0, p1, t0, t1 in grupos(texto, tramos):
+        suyos = tramos[t0:t1]
+        voz = sum(b - a for a, b in suyos)
+        indices = [i for f in fs[p0:p1] for i in f]
+        pesos = [len(ps[i][0]) + 1 for i in indices]
         total, acum = sum(pesos), 0
-        for i, peso in zip(frase, pesos):
-            ini = a + (b - a) * acum / total
+        for i, peso in zip(indices, pesos):
+            ini = voz * acum / total
             acum += peso
-            salida.append({"palabra": ps[i][0], "inicio": round(ini, 3),
-                           "fin": round(a + (b - a) * acum / total, 3)})
+            salida.append({"palabra": ps[i][0],
+                           "inicio": round(_a_tiempo_real(suyos, ini), 3),
+                           "fin": round(_a_tiempo_real(suyos, voz * acum / total, al_final=True), 3)})
     return salida
+
+
+def resumen(texto, tramos):
+    """Una línea por grupo: segundos, letras por segundo y el texto; marca los ritmos raros."""
+    ps = palabras(texto)
+    fs, _ = frases(texto)
+    lineas = []
+    for p0, p1, t0, t1 in grupos(texto, tramos):
+        indices = [i for f in fs[p0:p1] for i in f]
+        letras = sum(len(ps[i][0]) + 1 for i in indices)
+        ritmo = letras / sum(b - a for a, b in tramos[t0:t1])
+        marca = "" if 8 <= ritmo <= 23 else "   <- revisar"
+        lineas.append(f"  {tramos[t0][0]:6.2f}-{tramos[t1 - 1][1]:6.2f}  {ritmo:4.1f} l/s  "
+                      + " ".join(ps[i][0] for i in indices) + marca)
+    return lineas
 
 
 def generar():
@@ -710,12 +832,10 @@ def generar():
     todo = {}
     for n in range(1, 10):
         mp3 = PROYECTO / "audio" / f"escena-{n}.mp3"
-        sil = silencios(mp3, **AJUSTE[n])
-        tramos = tramos_de_voz(sil, tiempos[n - 1]["voz"])
+        tramos = tramos_de_voz(silencios(mp3, **AJUSTE[n]), tiempos[n - 1]["voz"])
         todo[str(n)] = alinear(textos[n - 1], tramos)
         print(f"\nEscena {n}: {len(tramos)} tramos de voz")
-        for p in todo[str(n)]:
-            print(f"  {p['inicio']:6.2f}  {p['palabra']}")
+        print("\n".join(resumen(textos[n - 1], tramos)))
     (PROYECTO / "datos" / "palabras.json").write_text(
         json.dumps(todo, indent=1, ensure_ascii=False), encoding="utf-8")
 
@@ -747,19 +867,29 @@ if __name__ == "__main__":
 cd videos/02-tokens/herramientas && python -m unittest -v test_alinear
 ```
 
-Esperado: 5 pruebas, `OK`.
+Esperado: 7 pruebas, `OK`.
 
-- [ ] **Paso 5: Generar `datos/palabras.json` y revisar la salida.**
+- [ ] **Paso 5: Generar `datos/palabras.json` y comparar los grupos.**
 
 ```bash
-cd videos/02-tokens && python herramientas/alinear.py
+cd videos/02-tokens && PYTHONIOENCODING=utf-8 python herramientas/alinear.py
 ```
 
-Revisar escena por escena: la primera palabra empieza cerca del inicio del MP3, la última
-termina cerca de su final, y el número de tramos se parece al número de frases. La escena 4
-tiene una risa después de «Otorrinolaringólogo»: si su palabra siguiente («se») cae antes que la
-risa, bajar `AJUSTE[4]["minimo"]` a 0.12 y volver a generar. Pegar en el informe los tramos de
-cada escena.
+Esperado: ningún `<- revisar`, y estos grupos (medidos en esta sesión; ±0,05 s):
+
+| Escena | Tramos | Grupos (segundo de inicio en el MP3 → primeras palabras) |
+|---|---|---|
+| 1 | 3 | 0,00 La inteligencia… · 2,63 como las lees tú · 4,04 Mira lo que pasa… |
+| 2 | 8 | 0,00 Escribes · 1,21 El gato duerme · 2,86 Tú ves tres palabras · 4,75 Pero la IA… · 7,86 corta el texto… · 9,77 Cada pedazo… · 11,89 Aquí hay cinco |
+| 3 | 5 | 0,00 Gato es una palabra común · 2,15 así que queda entera · 3,72 un solo token · 5,22 Duerme se parte en dos · 7,48 Y hasta el punto final… |
+| 4 | 7 | 0,00 Mientras más rara… · 4,56 Otorrinolaringólogo se corta en cinco · 8,65 Y esta frase · 9,74 Mi ñaño… · 11,51 tiene cinco palabras · 13,32 pero diez tokens |
+| 5 | 6 | 0,00 Y para qué cortar · 1,55 Porque la IA… · 4,14 trabaja con números · 5,82 Cada token… · 8,00 como una ficha… · 9,67 Lo que de verdad… |
+| 6 | 9 | 0,00 Esto importa… · 2,83 Primero · 3,54 el límite · 4,70 la IA solo puede… · 9,45 Segundo · 10,32 el costo · 11,48 quien usa la IA… · 15,63 no por palabra |
+| 7 | 6 | 0,00 Un detalle más · 1,42 cada modelo… · 3,76 ChatGPT · 4,80 Claude y Gemini… · 8,48 Pero todos cortan |
+| 8 | 6 | 0,00 Este mismo video… · 2,52 Mira el contador… · 4,58 cuenta los tokens… · 7,59 Hasta aquí van… · 10,72 y doscientos setenta y un tokens · 13,13 En español… |
+| 9 | 5 | 0,00 Entonces · 1,02 la IA lee palabras · 3,10 No · 3,83 Lee tokens · 5,25 pedazos de palabras… |
+
+Si algo no coincide, parar: cambió un MP3 o el guion.
 
 - [ ] **Paso 6: Commit.**
 
@@ -917,7 +1047,7 @@ if __name__ == "__main__":
 cd videos/02-tokens/herramientas && python -m unittest -v
 ```
 
-Esperado: 17 pruebas, `OK`.
+Esperado: 19 pruebas, `OK`.
 
 - [ ] **Paso 5: Commit.**
 
@@ -932,9 +1062,8 @@ git commit -m "feat(videos): pasos del contador de tokens"
 `compositions/escena-1.html` … `escena-9.html` con la plantilla de escena (sin contenido,
 `W = {}`, el `D` de su hueco).
 
-- [ ] **Paso 1: Escribir `index.html`.** Los números `inicio`, `duracion`, `voz_inicio` y `voz`
-  salen de `datos/tiempos.json` (tres decimales); `TOTAL` es el `fin` de la escena 9. La tabla
-  «Tiempos» los trae ya calculados.
+- [ ] **Paso 1: Escribir `index.html`.** Los números son los de la tabla «Tiempos», que
+  `datos/tiempos.json` (T2) tiene que reproducir. Si difieren, manda `tiempos.json` y hay que avisar.
 
 ```html
 <!doctype html>
@@ -962,29 +1091,67 @@ git commit -m "feat(videos): pasos del contador de tokens"
     </style>
   </head>
   <body>
-    <div id="root" data-composition-id="tokens" data-start="0" data-width="1920" data-height="1080" data-duration="TOTAL">
+    <div id="root" data-composition-id="tokens" data-start="0" data-width="1920" data-height="1080" data-duration="118.366">
       <div id="el-fondo" data-composition-id="fondo" data-composition-src="compositions/fondo.html"
-        data-start="0" data-duration="TOTAL" data-track-index="0" data-track-kind="graphics"
+        data-start="0" data-duration="118.366" data-track-index="0" data-track-kind="graphics"
         data-width="1920" data-height="1080"></div>
 
-      <!-- Una por escena, N = 1 … 9, en orden -->
-      <div id="el-escena-N" class="escena" data-composition-id="escena-N" data-composition-src="compositions/escena-N.html"
-        data-start="INICIO_N" data-duration="DURACION_N" data-track-index="1" data-track-kind="graphics"
+      <div id="el-escena-1" class="escena" data-composition-id="escena-1" data-composition-src="compositions/escena-1.html"
+        data-start="0.000" data-duration="7.113" data-track-index="1" data-track-kind="graphics"
+        data-width="1920" data-height="1080"></div>
+      <div id="el-escena-2" class="escena" data-composition-id="escena-2" data-composition-src="compositions/escena-2.html"
+        data-start="7.113" data-duration="13.966" data-track-index="1" data-track-kind="graphics"
+        data-width="1920" data-height="1080"></div>
+      <div id="el-escena-3" class="escena" data-composition-id="escena-3" data-composition-src="compositions/escena-3.html"
+        data-start="21.079" data-duration="10.809" data-track-index="1" data-track-kind="graphics"
+        data-width="1920" data-height="1080"></div>
+      <div id="el-escena-4" class="escena" data-composition-id="escena-4" data-composition-src="compositions/escena-4.html"
+        data-start="31.888" data-duration="15.738" data-track-index="1" data-track-kind="graphics"
+        data-width="1920" data-height="1080"></div>
+      <div id="el-escena-5" class="escena" data-composition-id="escena-5" data-composition-src="compositions/escena-5.html"
+        data-start="47.626" data-duration="14.622" data-track-index="1" data-track-kind="graphics"
+        data-width="1920" data-height="1080"></div>
+      <div id="el-escena-6" class="escena" data-composition-id="escena-6" data-composition-src="compositions/escena-6.html"
+        data-start="62.248" data-duration="17.571" data-track-index="1" data-track-kind="graphics"
+        data-width="1920" data-height="1080"></div>
+      <div id="el-escena-7" class="escena" data-composition-id="escena-7" data-composition-src="compositions/escena-7.html"
+        data-start="79.819" data-duration="11.053" data-track-index="1" data-track-kind="graphics"
+        data-width="1920" data-height="1080"></div>
+      <div id="el-escena-8" class="escena" data-composition-id="escena-8" data-composition-src="compositions/escena-8.html"
+        data-start="90.872" data-duration="17.488" data-track-index="1" data-track-kind="graphics"
+        data-width="1920" data-height="1080"></div>
+      <div id="el-escena-9" class="escena" data-composition-id="escena-9" data-composition-src="compositions/escena-9.html"
+        data-start="108.360" data-duration="10.006" data-track-index="1" data-track-kind="graphics"
         data-width="1920" data-height="1080"></div>
 
       <div id="el-contador" data-composition-id="contador" data-composition-src="compositions/contador.html"
-        data-start="0" data-duration="TOTAL" data-track-index="2" data-track-kind="graphics"
+        data-start="0" data-duration="118.366" data-track-index="2" data-track-kind="graphics"
         data-width="1920" data-height="1080"></div>
 
-      <!-- Una por escena, N = 1 … 9 -->
-      <audio id="voz-N" src="audio/escena-N.mp3" data-start="VOZ_INICIO_N" data-duration="VOZ_N"
+      <audio id="voz-1" src="audio/escena-1.mp3" data-start="0.600" data-duration="6.113"
+        data-track-index="10" data-volume="1"></audio>
+      <audio id="voz-2" src="audio/escena-2.mp3" data-start="7.413" data-duration="13.166"
+        data-track-index="10" data-volume="1"></audio>
+      <audio id="voz-3" src="audio/escena-3.mp3" data-start="21.379" data-duration="10.109"
+        data-track-index="10" data-volume="1"></audio>
+      <audio id="voz-4" src="audio/escena-4.mp3" data-start="32.188" data-duration="14.838"
+        data-track-index="10" data-volume="1"></audio>
+      <audio id="voz-5" src="audio/escena-5.mp3" data-start="47.926" data-duration="13.322"
+        data-track-index="10" data-volume="1"></audio>
+      <audio id="voz-6" src="audio/escena-6.mp3" data-start="62.548" data-duration="16.771"
+        data-track-index="10" data-volume="1"></audio>
+      <audio id="voz-7" src="audio/escena-7.mp3" data-start="80.119" data-duration="9.953"
+        data-track-index="10" data-volume="1"></audio>
+      <audio id="voz-8" src="audio/escena-8.mp3" data-start="91.172" data-duration="16.588"
+        data-track-index="10" data-volume="1"></audio>
+      <audio id="voz-9" src="audio/escena-9.mp3" data-start="108.660" data-duration="7.706"
         data-track-index="10" data-volume="1"></audio>
 
       <div id="negro"></div>
     </div>
     <script>
       (() => {
-        const TOTAL = 0; // el fin de la escena 9
+        const TOTAL = 118.366; // el fin de la escena 9
         const tl = gsap.timeline({ paused: true });
         tl.fromTo("#negro", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power1.in" }, TOTAL - 0.5);
         window.__timelines["tokens"] = tl;
@@ -994,11 +1161,9 @@ git commit -m "feat(videos): pasos del contador de tokens"
 </html>
 ```
 
-Escribir los 9 huecos y los 9 `<audio>` con sus números reales: el bloque de arriba muestra uno
-de cada uno solo para no repetirlo aquí.
 
-- [ ] **Paso 2: Escribir `compositions/fondo.html`.** `ACERCA` y `ALEJA` salen de
-  `python herramientas/alinear.py anclas 8 contador En --global`.
+- [ ] **Paso 2: Escribir `compositions/fondo.html`.** `ACERCA` y `ALEJA` ya van puestos;
+  comprobar que coinciden con `python herramientas/alinear.py anclas 8 contador En --global`.
 
 ```html
 <!doctype html>
@@ -1028,9 +1193,9 @@ de cada uno solo para no repetirlo aquí.
       </div>
       <script>
         (() => {
-          const TOTAL = 0;  // data-duration del hueco
-          const ACERCA = 0; // global: escena 8, «contador»
-          const ALEJA = 0;  // global: escena 8, «En»
+          const TOTAL = 118.366; // data-duration del hueco
+          const ACERCA = 94.07;  // global: escena 8, «contador»
+          const ALEJA = 104.3;   // global: escena 8, «En»
           const tl = gsap.timeline({ paused: true });
           const ciclos = Math.floor(TOTAL / 6);
           tl.fromTo("#fondo-halo", { scale: 1, opacity: 0.85 },
@@ -1056,7 +1221,7 @@ de cada uno solo para no repetirlo aquí.
 cd videos/02-tokens && bash herramientas/hf.sh check
 ```
 
-Esperado: 0 errores. Un snapshot en `--at 1,60,120` muestra el fondo con rejilla y halo, sin
+Esperado: 0 errores. Un snapshot en `--at 1,60,117` muestra el fondo con rejilla y halo, sin
 nada más. Oír la vista previa no hace falta todavía.
 
 - [ ] **Paso 5: Commit.**
@@ -1073,7 +1238,7 @@ git commit -m "feat(videos): orquestador del video 2 con fondo y escenas vacías
 Reglas: `counting-dynamic-scale` (tabular, `Math.round`, sin rebote en el número) y
 `coordinate-target-zoom` (viaje al centro con escala desde una esquina).
 
-- [ ] **Paso 1: Escribir `contador.html`.** `W8` sale de
+- [ ] **Paso 1: Escribir `contador.html`.** `W8` ya va puesto; comprobar que coincide con
   `python herramientas/alinear.py anclas 8 contador palabras tokens#2 En --global`.
 
 ```html
@@ -1108,8 +1273,8 @@ Reglas: `counting-dynamic-scale` (tabular, `Math.round`, sin rebote en el númer
       <script>
         (() => {
           /* PASOS:INICIO */ const PASOS = [[0,0]]; /* PASOS:FIN */
-          const TOTAL = 0; // data-duration del hueco
-          const W8 = {};   // anclas globales de la escena 8
+          const TOTAL = 118.366; // data-duration del hueco
+          const W8 = {"contador": 94.07, "palabras": 100.83, "tokens#2": 103.42, "En": 104.3};
           const num = document.getElementById("contador-num");
           let pintado = -1;
           function pintar(t) {
