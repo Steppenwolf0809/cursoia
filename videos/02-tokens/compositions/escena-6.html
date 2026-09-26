@@ -6,19 +6,135 @@
       <style>
         #root { position: absolute; inset: 0; overflow: hidden; color: var(--texto); }
         #escena-6-contenido { position: absolute; inset: 0; }
-        /* estilos de la escena, con ids escena-6-… */
+        .escena-6-panel {
+          position: absolute; top: 120px; width: 740px; height: 560px; box-sizing: border-box;
+          background: var(--panel); border: 3px solid var(--linea); border-radius: 22px; overflow: hidden;
+        }
+        #escena-6-limite { left: 192px; }
+        #escena-6-costo { left: 988px; }
+        .escena-6-titulo {
+          position: absolute; left: 60px; top: 50px; white-space: pre;
+          font-family: 'Inter'; font-weight: 700; font-size: 64px; line-height: 1;
+        }
+        .escena-6-apagado { color: var(--texto-2); }
+        .escena-6-encendido { color: var(--texto); opacity: 0; }
+        .escena-6-bloque {
+          position: absolute; width: 64px; height: 56px; box-sizing: border-box; border-radius: 8px;
+          font-family: 'IBM Plex Mono'; font-weight: 700; font-size: 28px; line-height: 56px;
+          text-align: center; color: var(--sobre-token); white-space: pre; opacity: 0;
+        }
+        #escena-6-caja {
+          position: absolute; left: 60px; top: 170px; width: 480px; height: 300px; box-sizing: border-box;
+          border: 4px solid var(--texto-2); border-radius: 12px;
+        }
+        .escena-6-sobra { outline: 3px solid var(--token-3); outline-offset: 0; }
+        #escena-6-bandeja {
+          position: absolute; left: 110px; top: 400px; width: 520px; height: 12px;
+          border-radius: 6px; background: var(--linea);
+        }
+        .escena-6-moneda {
+          position: absolute; width: 56px; height: 56px; border-radius: 50%; background: var(--acento);
+          font-family: 'IBM Plex Mono'; font-weight: 700; font-size: 30px; line-height: 56px;
+          text-align: center; color: var(--sobre-token); opacity: 0;
+          box-shadow: 0 3px 0 color-mix(in srgb, var(--fondo) 45%, transparent);
+        }
+        #escena-6-pago {
+          position: absolute; left: 110px; top: 432px; white-space: pre;
+          font-family: 'IBM Plex Mono'; font-weight: 700; font-size: 40px; line-height: 1; color: var(--acento);
+        }
+        #escena-6-no {
+          position: absolute; left: 110px; top: 488px; white-space: pre;
+          font-family: 'Inter'; font-weight: 400; font-size: 40px; line-height: 1; color: var(--texto-2);
+        }
+        #escena-6-tacha {
+          position: absolute; left: -6px; right: -6px; top: 50%; height: 4px; margin-top: -2px;
+          background: var(--texto-2); transform-origin: 0% 50%;
+        }
       </style>
       <div id="root" data-composition-id="escena-6" data-width="1920" data-height="1080">
         <div id="escena-6-contenido">
-          <!-- marcado de la escena -->
+          <div id="escena-6-limite" class="escena-6-panel">
+            <div class="escena-6-titulo escena-6-apagado" data-layout-allow-overlap>Límite</div>
+            <div id="escena-6-limite-luz" class="escena-6-titulo escena-6-encendido" data-layout-allow-overlap>Límite</div>
+            <div id="escena-6-caja"></div>
+          </div>
+          <div id="escena-6-costo" class="escena-6-panel">
+            <div class="escena-6-titulo escena-6-apagado" data-layout-allow-overlap>Costo</div>
+            <div id="escena-6-costo-luz" class="escena-6-titulo escena-6-encendido" data-layout-allow-overlap>Costo</div>
+            <div id="escena-6-bandeja"></div>
+            <div id="escena-6-pago">pago por token</div>
+            <div id="escena-6-no">no por palabra<div id="escena-6-tacha"></div></div>
+          </div>
         </div>
       </div>
       <script>
         (() => {
-          const D = 17.571;          // data-duration del hueco escena-6 en index.html
-          const W = {};         // salida de: python herramientas/alinear.py anclas 6 …
+          const D = 17.571;
+          const W = {"razones": 1.82, "límite": 4.02, "vez": 8.94, "costo": 10.84, "token": 15.23, "palabra": 16.36}; // anclas 6 razones límite vez costo token palabra
+          // Tokens reales (o200k_base) de la narración de la escena, los de hasta 3 caracteres.
+          const TOKS = ["ero", ",", "el", ":", "la", "IA", "de", "a", "la", "vez", ".", ",", "el", ":", "usa", "la", "IA", "a", "por", ",", "no", "por", "."];
           const tl = gsap.timeline({ paused: true });
-          // … animaciones de la escena …
+
+          // Los bloques se crean una vez, con posiciones fijas: el resultado no depende del tiempo.
+          const bloque = (padre, k, left, top, extra) => {
+            const b = document.createElement("div");
+            b.className = "escena-6-bloque" + (extra ? " " + extra : "");
+            b.textContent = TOKS[k % TOKS.length];
+            b.style.background = `var(--token-${(k % 5) + 1})`;
+            b.style.left = left + "px"; b.style.top = top + "px";
+            padre.appendChild(b);
+            return b;
+          };
+
+          // Paneles y títulos.
+          tl.fromTo(".escena-6-panel", { opacity: 0, y: 30 },
+            { opacity: 1, y: 0, duration: 0.5, ease: "power3.out", stagger: 0.15 }, W.razones);
+          tl.fromTo("#escena-6-limite-luz", { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power1.out" }, W["límite"]);
+          tl.fromTo("#escena-6-costo-luz", { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power1.out" }, W.costo);
+
+          // Límite: 24 bloques llenan la caja (6 × 4) de abajo hacia arriba, parejo entre «límite» y «vez».
+          const panelL = document.getElementById("escena-6-limite");
+          const CAJA_X = 60 + 4 + 14, CAJA_Y = 170 + 4 + 16, PASO_X = 64 + 12, PASO_Y = 56 + 12;
+          const CAEN = 0.45, FIN_LLENO = W.vez - CAEN;
+          for (let k = 0; k < 24; k++) {
+            const fila = 3 - Math.floor(k / 6), col = k % 6;
+            const b = bloque(panelL, k, CAJA_X + col * PASO_X, CAJA_Y + fila * PASO_Y);
+            const t = W["límite"] + (FIN_LLENO - W["límite"]) * k / 23;
+            tl.fromTo(b, { y: -200, opacity: 0 }, { y: 0, opacity: 1, duration: CAEN, ease: "power2.in" }, t);
+          }
+          // Los 5 que no entran: quedan afuera, a la derecha de la caja, atenuados.
+          const SOBRA = [[564, 402], [564, 334], [564, 266], [640, 402], [640, 334]];
+          SOBRA.forEach(([x, y], i) => {
+            const b = bloque(panelL, 24 + i, x, y, "escena-6-sobra");
+            const t = W.vez + 0.1 + i * 0.3;
+            tl.fromTo(b, { y: -200, opacity: 0 }, { y: 0, opacity: 1, duration: CAEN, ease: "power2.in" }, t);
+            tl.fromTo(b, { opacity: 1 }, { opacity: 0.4, duration: 0.3, ease: "power1.out", immediateRender: false }, t + CAEN + 0.1);
+          });
+
+          // Costo: un bloque cada 0,35 s cae sobre la bandeja y se vuelve moneda; columnas de 6.
+          const panelC = document.getElementById("escena-6-costo");
+          const N = Math.floor((W.token - W.costo) / 0.35) + 1;
+          const COLS = Math.ceil(N / 6), SEP = 84, SUBE = 40;
+          const X_COL0 = 110 + 260 - ((COLS - 1) * SEP) / 2 - 28;
+          for (let k = 0; k < N; k++) {
+            const col = Math.floor(k / 6), piso = k % 6;
+            const x = X_COL0 + col * SEP, y = 400 - 56 - piso * SUBE;
+            const t = W.costo + k * 0.35;
+            const b = bloque(panelC, k, x - 4, y, null);
+            const m = document.createElement("div");
+            m.className = "escena-6-moneda"; m.textContent = "¢";
+            m.style.left = x + "px"; m.style.top = y + "px";
+            panelC.appendChild(m);
+            tl.fromTo(b, { y: -220, opacity: 0 }, { y: 0, opacity: 1, duration: 0.35, ease: "power2.in" }, t);
+            tl.fromTo(b, { opacity: 1 }, { opacity: 0, duration: 0.15, ease: "none", immediateRender: false }, t + 0.35);
+            tl.fromTo(m, { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2.2)" }, t + 0.35);
+          }
+          tl.fromTo("#escena-6-pago", { opacity: 0, y: 12 },
+            { opacity: 1, y: 0, duration: 0.35, ease: "back.out(1.6)" }, W.token);
+          tl.fromTo("#escena-6-no", { opacity: 0, y: 12 },
+            { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, W.palabra - 0.4);
+          tl.fromTo("#escena-6-tacha", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power2.out" }, W.palabra + 0.1);
+
           tl.fromTo("#escena-6-contenido", { opacity: 1 },
             { opacity: 0, duration: 0.3, ease: "power1.in", immediateRender: false }, D - 0.3);
           window.__timelines["escena-6"] = tl;
