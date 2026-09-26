@@ -6,19 +6,52 @@
       <style>
         #root { position: absolute; inset: 0; overflow: hidden; color: var(--texto); }
         #escena-5-contenido { position: absolute; inset: 0; }
-        /* estilos de la escena, con ids escena-5-… */
+        #escena-5-fila {
+          position: absolute; left: 0; top: 470px; width: 1920px;
+          display: flex; gap: 18px; justify-content: center; perspective: 1400px;
+        }
+        .escena-5-ficha { position: relative; display: inline-block; opacity: 0; }
+        .escena-5-int { position: relative; display: inline-block; transform-style: preserve-3d; }
+        .escena-5-cara {
+          display: inline-block; box-sizing: border-box; backface-visibility: hidden; text-align: center;
+          font-family: 'IBM Plex Mono'; font-weight: 700; font-size: 88px; line-height: 1;
+          padding: 20px 26px; border-radius: 14px; color: var(--sobre-token); white-space: pre;
+        }
+        .escena-5-atras { position: absolute; left: 0; top: 0; width: 100%; height: 100%; transform: rotateY(180deg); }
+        .escena-5-relleno { position: absolute; inset: 0; border-radius: 14px; }
+        .escena-5-oscuro { position: relative; }
+        .escena-5-dorado {
+          position: absolute; inset: 0; box-sizing: border-box; padding: 20px 26px;
+          color: var(--acento); opacity: 0;
+        }
       </style>
       <div id="root" data-composition-id="escena-5" data-width="1920" data-height="1080">
         <div id="escena-5-contenido">
-          <!-- marcado de la escena -->
+          <div id="escena-5-fila">
+            <span class="escena-5-ficha"><span class="escena-5-int"><span class="escena-5-cara" data-layout-allow-overlap style="min-width: 264px; background: var(--token-1)">El</span><span class="escena-5-cara escena-5-atras"><span class="escena-5-relleno" style="background: var(--token-1)"></span><span class="escena-5-oscuro" data-layout-allow-overlap>4422</span><span class="escena-5-dorado" data-layout-allow-overlap>4422</span></span></span></span>
+            <span class="escena-5-ficha"><span class="escena-5-int"><span class="escena-5-cara" data-layout-allow-overlap style="min-width: 317px; background: var(--token-2)">gato</span><span class="escena-5-cara escena-5-atras"><span class="escena-5-relleno" style="background: var(--token-2)"></span><span class="escena-5-oscuro" data-layout-allow-overlap>99767</span><span class="escena-5-dorado" data-layout-allow-overlap>99767</span></span></span></span>
+            <span class="escena-5-ficha"><span class="escena-5-int"><span class="escena-5-cara" data-layout-allow-overlap style="min-width: 370px; background: var(--token-3)">duer</span><span class="escena-5-cara escena-5-atras"><span class="escena-5-relleno" style="background: var(--token-3)"></span><span class="escena-5-oscuro" data-layout-allow-overlap>116318</span><span class="escena-5-dorado" data-layout-allow-overlap>116318</span></span></span></span>
+            <span class="escena-5-ficha"><span class="escena-5-int"><span class="escena-5-cara" data-layout-allow-overlap style="min-width: 264px; background: var(--token-4)">me</span><span class="escena-5-cara escena-5-atras"><span class="escena-5-relleno" style="background: var(--token-4)"></span><span class="escena-5-oscuro" data-layout-allow-overlap>1047</span><span class="escena-5-dorado" data-layout-allow-overlap>1047</span></span></span></span>
+            <span class="escena-5-ficha"><span class="escena-5-int"><span class="escena-5-cara" data-layout-allow-overlap style="min-width: 158px; background: var(--token-5)">.</span><span class="escena-5-cara escena-5-atras"><span class="escena-5-relleno" style="background: var(--token-5)"></span><span class="escena-5-oscuro" data-layout-allow-overlap>13</span><span class="escena-5-dorado" data-layout-allow-overlap>13</span></span></span></span>
+          </div>
         </div>
       </div>
       <script>
         (() => {
-          const D = 14.622;          // data-duration del hueco escena-5 en index.html
-          const W = {};         // salida de: python herramientas/alinear.py anclas 5 …
+          const D = 14.622;
+          const W = {"Cada": 6.12, "Lo": 9.97}; // anclas 5 Cada Lo
           const tl = gsap.timeline({ paused: true });
-          // … animaciones de la escena …
+          // Vuelven los bloques de «El gato duerme.».
+          tl.fromTo(".escena-5-ficha", { opacity: 0, y: 30, scale: 0.7 },
+            { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "back.out(1.7)", stagger: 0.1 }, 0.6);
+          // «Cada token tiene su propio número»: cada ficha gira y muestra su número.
+          tl.fromTo(".escena-5-int", { rotationY: 0 },
+            { rotationY: 180, duration: 0.6, ease: "power2.inOut", stagger: 0.2 }, W.Cada);
+          // «Lo que de verdad le llega a la IA…»: se apagan los colores y queda la fila en el acento.
+          const APAGA = W.Lo + 0.4;
+          tl.fromTo(".escena-5-relleno", { opacity: 1 }, { opacity: 0, duration: 0.9, ease: "power2.inOut" }, APAGA);
+          tl.fromTo(".escena-5-oscuro", { opacity: 1 }, { opacity: 0, duration: 0.9, ease: "power2.inOut" }, APAGA);
+          tl.fromTo(".escena-5-dorado", { opacity: 0 }, { opacity: 1, duration: 0.9, ease: "power2.inOut" }, APAGA);
           tl.fromTo("#escena-5-contenido", { opacity: 1 },
             { opacity: 0, duration: 0.3, ease: "power1.in", immediateRender: false }, D - 0.3);
           window.__timelines["escena-5"] = tl;
