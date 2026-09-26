@@ -1,0 +1,74 @@
+[
+  {
+    "escena": 1,
+    "inicio": 0.0,
+    "voz_inicio": 0.6,
+    "voz": 6.113,
+    "fin": 7.113,
+    "duracion": 7.113
+  },
+  {
+    "escena": 2,
+    "inicio": 7.113,
+    "voz_inicio": 7.413,
+    "voz": 13.166,
+    "fin": 21.079,
+    "duracion": 13.966
+  },
+  {
+    "escena": 3,
+    "inicio": 21.079,
+    "voz_inicio": 21.379,
+    "voz": 10.109,
+    "fin": 31.888,
+    "duracion": 10.809
+  },
+  {
+    "escena": 4,
+    "inicio": 31.888,
+    "voz_inicio": 32.188,
+    "voz": 14.838,
+    "fin": 47.626,
+    "duracion": 15.738
+  },
+  {
+    "escena": 5,
+    "inicio": 47.626,
+    "voz_inicio": 47.926,
+    "voz": 13.322,
+    "fin": 62.248,
+    "duracion": 14.622
+  },
+  {
+    "escena": 6,
+    "inicio": 62.248,
+    "voz_inicio": 62.548,
+    "voz": 16.771,
+    "fin": 79.819,
+    "duracion": 17.571
+  },
+  {
+    "escena": 7,
+    "inicio": 79.819,
+    "voz_inicio": 80.119,
+    "voz": 9.953,
+    "fin": 90.872,
+    "duracion": 11.053
+  },
+  {
+    "escena": 8,
+    "inicio": 90.872,
+    "voz_inicio": 91.172,
+    "voz": 16.588,
+    "fin": 108.36,
+    "duracion": 17.488
+  },
+  {
+    "escena": 9,
+    "inicio": 108.36,
+    "voz_inicio": 108.66,
+    "voz": 7.706,
+    "fin": 118.366,
+    "duracion": 10.006
+  }
+]
