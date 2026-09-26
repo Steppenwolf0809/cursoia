@@ -6,21 +6,130 @@
       <style>
         #root { position: absolute; inset: 0; overflow: hidden; color: var(--texto); }
         #escena-2-contenido { position: absolute; inset: 0; }
-        /* estilos de la escena, con ids escena-2-… */
+        #escena-2-chat {
+          position: absolute; left: 192px; top: 110px; width: 1100px; padding: 44px 56px;
+          background: var(--panel); border: 3px solid var(--linea); border-radius: 22px;
+        }
+        #escena-2-frase {
+          font-family: 'Inter'; font-weight: 400; font-size: 96px; line-height: 1.05;
+          color: var(--texto); white-space: pre; min-height: 1.05em;
+        }
+        #escena-2-palabras {
+          margin-top: 14px; font-family: 'Inter'; font-weight: 400; font-size: 44px;
+          line-height: 1.2; color: var(--texto-2);
+        }
+        /* Misma fila, mismo lugar y mismos bloques con que empieza la escena 3 */
+        #escena-2-fila { position: absolute; left: 192px; top: 470px; display: flex; gap: 16px; }
+        .escena-2-tok {
+          position: relative; display: inline-block;
+          font-family: 'IBM Plex Mono'; font-weight: 700; font-size: 88px; line-height: 1;
+          padding: 20px 26px; border-radius: 14px; white-space: pre;
+        }
+        .escena-2-relleno { position: absolute; inset: 0; border-radius: 14px; opacity: 0; }
+        .escena-2-claro { position: relative; display: block; color: var(--texto); }
+        .escena-2-oscuro {
+          position: absolute; left: 26px; top: 20px; display: block; color: var(--sobre-token); opacity: 0;
+        }
+        #escena-2-linea {
+          position: absolute; left: 0; top: 449px; width: 6px; height: 170px;
+          border-radius: 3px; background: var(--acento);
+        }
+        #escena-2-etiqueta {
+          position: absolute; left: 426px; top: 406px; /* centrado sobre «gato» */ white-space: pre;
+          font-family: 'IBM Plex Mono'; font-weight: 400; font-size: 34px; line-height: 1;
+          color: var(--acento);
+        }
+        #escena-2-total {
+          position: absolute; left: 1360px; top: 500px; white-space: pre;
+          font-family: 'IBM Plex Mono'; font-weight: 700; font-size: 60px; line-height: 1;
+          color: var(--texto);
+        }
       </style>
       <div id="root" data-composition-id="escena-2" data-width="1920" data-height="1080">
         <div id="escena-2-contenido">
-          <!-- marcado de la escena -->
+          <div id="escena-2-chat">
+            <div id="escena-2-frase"></div>
+            <div id="escena-2-palabras">3 palabras</div>
+          </div>
+          <div id="escena-2-fila">
+            <span id="escena-2-tok-0" class="escena-2-tok"><span class="escena-2-relleno" style="background: var(--token-1)"></span><span class="escena-2-claro">El</span><span class="escena-2-oscuro">El</span></span>
+            <span id="escena-2-tok-1" class="escena-2-tok"><span class="escena-2-relleno" style="background: var(--token-2)"></span><span class="escena-2-claro">gato</span><span class="escena-2-oscuro">gato</span></span>
+            <span id="escena-2-tok-2" class="escena-2-tok"><span class="escena-2-relleno" style="background: var(--token-3)"></span><span class="escena-2-claro">duer</span><span class="escena-2-oscuro">duer</span></span>
+            <span id="escena-2-tok-3" class="escena-2-tok"><span class="escena-2-relleno" style="background: var(--token-4)"></span><span class="escena-2-claro">me</span><span class="escena-2-oscuro">me</span></span>
+            <span id="escena-2-tok-4" class="escena-2-tok"><span class="escena-2-relleno" style="background: var(--token-5)"></span><span class="escena-2-claro">.</span><span class="escena-2-oscuro">.</span></span>
+          </div>
+          <div id="escena-2-linea"></div>
+          <div id="escena-2-etiqueta">token ↓</div>
+          <div id="escena-2-total">5 tokens</div>
         </div>
       </div>
       <script>
         (() => {
-          const D = 13.966;          // data-duration del hueco escena-2 en index.html
-          const W = {};         // salida de: python herramientas/alinear.py anclas 2 …
+          const D = 13.966;
+          const W = {"El": 1.51, "gato": 1.72, "duerme": 2.07, "tres": 3.62, "corta": 8.16, "token": 11.42, "cinco": 12.82}; // anclas 2 El gato duerme tres corta token cinco
+          const FRASE = "El gato duerme.";
+          const frase = document.getElementById("escena-2-frase");
+          const st = { n: 0 };
           const tl = gsap.timeline({ paused: true });
-          // … animaciones de la escena …
-          tl.fromTo("#escena-2-contenido", { opacity: 1 },
-            { opacity: 0, duration: 0.3, ease: "power1.in", immediateRender: false }, D - 0.3);
+
+          tl.fromTo("#escena-2-chat", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 0);
+          // 1. La frase se escribe en la caja.
+          tl.fromTo(st, { n: 0 }, { n: FRASE.length, duration: W.duerme + 0.4 - W.El, ease: "none", snap: "n",
+            onUpdate: () => { frase.textContent = FRASE.slice(0, st.n); } }, W.El);
+
+          // 2. «3 palabras».
+          tl.fromTo("#escena-2-palabras", { opacity: 0, y: 16 },
+            { opacity: 1, y: 0, duration: 0.35, ease: "back.out(1.6)" }, W.tres);
+
+          // 3. La fila aparece como texto corrido: cada bloque corrido en x hasta su columna.
+          const AVANCE = 0.6; // IBM Plex Mono
+          const CH = AVANCE * 88, PAD = 26, GAP = 16;
+          const PIEZAS = [["El", 0], ["gato", 3], ["duer", 8], ["me", 12], [".", 14]];
+          let x = 0;
+          const DX = PIEZAS.map(([txt, col]) => {
+            const finalTexto = x + PAD;
+            x += txt.length * CH + 2 * PAD + GAP;
+            return col * CH - finalTexto;
+          });
+          PIEZAS.forEach((_, k) => {
+            const tok = `#escena-2-tok-${k}`;
+            tl.fromTo(tok, { x: DX[k], opacity: 0 }, { x: DX[k], opacity: 1, duration: 0.3, ease: "power2.out" }, W.corta - 0.4);
+          });
+
+          // 4. La línea barre la fila; cada bloque se separa y se colorea cuando pasa.
+          tl.fromTo("#escena-2-linea", { x: 150, opacity: 0 }, { x: 150, opacity: 1, duration: 0.15, ease: "power1.out" }, W.corta - 0.15);
+          tl.fromTo("#escena-2-linea", { x: 150 },
+            { x: 1320, duration: 0.8, ease: "none", immediateRender: false }, W.corta);
+          // Centro de cada bloque ya separado, en x de la pantalla.
+          let borde = 192;
+          const CENTRO = PIEZAS.map(([txt]) => {
+            const ancho = txt.length * CH + 2 * PAD;
+            const c = borde + ancho / 2;
+            borde += ancho + GAP;
+            return c;
+          });
+          PIEZAS.forEach((_, k) => {
+            const tok = `#escena-2-tok-${k}`;
+            const t = W.corta + 0.8 * (CENTRO[k] - 150) / (1320 - 150); // cuando la línea cruza su centro
+            tl.fromTo(tok, { x: DX[k] }, { x: 0, duration: 0.3, ease: "power2.out", immediateRender: false }, t);
+            tl.fromTo(`${tok} .escena-2-relleno`, { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out", immediateRender: false }, t);
+            tl.fromTo(`${tok} .escena-2-oscuro`, { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out", immediateRender: false }, t);
+            tl.fromTo(`${tok} .escena-2-claro`, { opacity: 1 }, { opacity: 0, duration: 0.3, ease: "power2.out" }, t);
+          });
+          tl.fromTo("#escena-2-linea", { opacity: 1 },
+            { opacity: 0, duration: 0.25, ease: "power1.in", immediateRender: false }, W.corta + 0.8);
+
+          // 5. Quieto hasta «token». 6. «token ↓» sobre «gato».
+          tl.fromTo("#escena-2-etiqueta", { opacity: 0, y: 12, scale: 0.8 },
+            { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: "back.out(1.7)" }, W.token);
+
+          // 7. «5 tokens».
+          tl.fromTo("#escena-2-total", { opacity: 0, y: 16 },
+            { opacity: 1, y: 0, duration: 0.35, ease: "back.out(1.6)" }, W.cinco);
+
+          // 8. Salida: todo menos los bloques, que siguen en la escena 3.
+          tl.fromTo(["#escena-2-chat", "#escena-2-etiqueta", "#escena-2-total"], { opacity: 1 },
+            { opacity: 0, duration: 0.3, ease: "power1.in", immediateRender: false }, D - 0.4);
           window.__timelines["escena-2"] = tl;
         })();
       </script>
