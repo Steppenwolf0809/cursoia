@@ -6,19 +6,32 @@
       <style>
         #root { position: absolute; inset: 0; overflow: hidden; color: var(--texto); }
         #escena-1-contenido { position: absolute; inset: 0; }
-        /* estilos de la escena, con ids escena-1-… */
+        #escena-1-linea { position: absolute; left: 192px; top: 420px; display: flex; align-items: baseline; }
+        #escena-1-texto {
+          font-family: 'Inter'; font-weight: 700; font-size: 132px; line-height: 1.05;
+          letter-spacing: -0.03em; color: var(--texto); white-space: pre;
+        }
+        #escena-1-cursor { display: inline-block; width: 60px; height: 106px; margin-left: 10px; background: var(--acento); }
       </style>
       <div id="root" data-composition-id="escena-1" data-width="1920" data-height="1080">
         <div id="escena-1-contenido">
-          <!-- marcado de la escena -->
+          <div id="escena-1-linea"><span id="escena-1-texto"></span><span id="escena-1-cursor"></span></div>
         </div>
       </div>
       <script>
         (() => {
-          const D = 7.113;          // data-duration del hueco escena-1 en index.html
-          const W = {};         // salida de: python herramientas/alinear.py anclas 1 …
+          const D = 7.113;
+          const W = {"La": 0.6, "como": 3.23}; // anclas 1 La como
+          const TEXTO = "¿La IA lee palabras?";
+          const el = document.getElementById("escena-1-texto");
+          const st = { n: 0 };
           const tl = gsap.timeline({ paused: true });
-          // … animaciones de la escena …
+          // Cursor: 0,4 s encendido y 0,4 s apagado toda la escena (17 medios ciclos = 6,8 s).
+          tl.fromTo("#escena-1-cursor", { opacity: 1 },
+            { opacity: 0, duration: 0.4, ease: "steps(1)", repeat: 16, yoyo: true }, 0);
+          // 20 caracteres desde «La» hasta 0,2 s antes de «como» (2,43 s).
+          tl.fromTo(st, { n: 0 }, { n: TEXTO.length, duration: W.como - 0.2 - W.La, ease: "none", snap: "n",
+            onUpdate: () => { el.textContent = TEXTO.slice(0, st.n); } }, W.La);
           tl.fromTo("#escena-1-contenido", { opacity: 1 },
             { opacity: 0, duration: 0.3, ease: "power1.in", immediateRender: false }, D - 0.3);
           window.__timelines["escena-1"] = tl;
