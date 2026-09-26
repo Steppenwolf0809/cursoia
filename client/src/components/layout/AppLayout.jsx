@@ -43,7 +43,8 @@ const M = ES_AVANZADO ? {
     contador: 'font-av-mono text-xs text-av-texto-2 uppercase tracking-[0.12em] hidden sm:block',
     anteriorColor: 'border border-av-linea text-av-texto font-medium hover:bg-av-panel',
     siguienteColor: 'bg-av-acento text-av-sobre-acento font-semibold hover:bg-av-acento-2',
-    panelDerechoColor: 'bg-av-fondo-2 border-av-linea',
+    // max-xl: en móvil el panel crece hasta 70vh (con 45vh la 5.ª opción de la encuesta quedaba oculta).
+    panelDerechoColor: 'bg-av-fondo-2 border-av-linea max-xl:max-h-[70vh]',
     panelDerechoCabecera: 'p-3 sm:p-6 border-b border-av-linea',
     panelDerechoTitulo: 'font-av-mono text-av-texto-2 text-[11px] uppercase tracking-[0.12em] flex items-center gap-2',
     panelDerechoPunto: 'w-2 h-2 rounded-full bg-av-acento animate-pulse',
