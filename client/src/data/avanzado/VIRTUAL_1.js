@@ -96,8 +96,8 @@ export const VIRTUAL_1 = {
             type: "analogy",
             contentData: {
                 heading: "¿Quién lee esos tokens? El modelo",
-                left: { title: "El motor (modelo)", text: "Opus 5.5, Sonnet 5, GPT-6 Astra", icon: "Cpu" },
-                right: { title: "El auto (harness)", text: "El chat, Cowork, Claude Code, Codex", icon: "Car" },
+                left: { title: "El auto (harness)", text: "El chat, Cowork, Claude Code, Codex", icon: "Car" },
+                right: { title: "El motor (modelo)", text: "Opus 5.5, Sonnet 5, GPT-6 Astra", icon: "Cpu" },
                 footer: "El modelo lee tus tokens y escribe la respuesta prediciendo, uno por uno, el token más probable. Nunca trabaja solo: va dentro de un harness, el programa que le da herramientas, archivos y memoria. Por eso el mismo modelo rinde distinto en el chat y en un agente."
             }
         },
