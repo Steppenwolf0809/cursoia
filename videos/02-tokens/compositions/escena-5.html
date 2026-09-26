@@ -47,6 +47,10 @@
           // «Cada token tiene su propio número»: cada ficha gira y muestra su número.
           tl.fromTo(".escena-5-int", { rotationY: 0 },
             { rotationY: 180, duration: 0.6, ease: "power2.inOut", stagger: 0.2 }, W.Cada);
+          // Ya giradas, las caras de adelante no se ven (backface-visibility); se apagan para que el
+          // verificador de contraste no las mida.
+          tl.fromTo(".escena-5-int > .escena-5-cara:first-child", { opacity: 1 },
+            { opacity: 0, duration: 0.05, ease: "none" }, W.Cada + 0.2 * 4 + 0.6);
           // «Lo que de verdad le llega a la IA…»: se apagan los colores y queda la fila en el acento.
           const APAGA = W.Lo + 0.4;
           tl.fromTo(".escena-5-relleno", { opacity: 1 }, { opacity: 0, duration: 0.9, ease: "power2.inOut" }, APAGA);
