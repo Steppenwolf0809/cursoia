@@ -9,7 +9,7 @@ IA Avanzada para Abogados · Virtual 1. Propuesta del curso, no norma. Ante la d
 - Material de capacitación del despacho.
 
 ## Amarillo: solo seudonimizado o con consentimiento
-**Dónde:** plan pago con entrenamiento desactivado, solo después de seudonimizar en tu computadora (nombres, cédulas, RUC, direcciones, claves catastrales cambiados por `[VENDEDOR_1]`, `[INMUEBLE_1]`), o con el consentimiento explícito e informado del cliente (art. 60.2 LOPDP). Mejor en un plan de equipo (nivel 2).
+**Dónde:** plan pago con entrenamiento desactivado, solo después de seudonimizar en tu computadora (nombres, cédulas, RUC, direcciones, claves catastrales cambiados por `[VENDEDOR_1]`, `[INMUEBLE_1]`), o con el consentimiento explícito e informado del cliente (LOPDP, art. 60, num. 2). Mejor en un plan de equipo (nivel 2).
 - Notaría: minuta de compraventa o promesa con las partes etiquetadas; liquidación de sociedad conyugal seudonimizada.
 - Abogacía: contrato de arrendamiento de un cliente seudonimizado; demanda ejecutiva o expediente ya seudonimizados.
 
@@ -39,4 +39,4 @@ IA Avanzada para Abogados · Virtual 1. Propuesta del curso, no norma. Ante la d
 - Cambiar solo el nombre.
 - Dejar que un agente lea la carpeta real de clientes sin revisarla.
 
-Fuentes: LOPDP, R.O. Suplemento 459 (26 may 2021); Resolución SPDP-SPD-2026-0004-R (https://spdp.gob.ec/); https://privacy.claude.com/en/articles/10023548-how-long-do-you-store-my-data ; https://privacy.claude.com/en/articles/7996866-how-long-do-you-store-my-organization-s-data ; https://platform.claude.com/docs/en/manage-claude/api-and-data-retention
+Fuentes: LOPDP, R.O. Quinto Suplemento 459 (26 may 2021); Resolución SPDP-SPD-2026-0004-R (https://spdp.gob.ec/); https://privacy.claude.com/en/articles/10023548-how-long-do-you-store-my-data ; https://privacy.claude.com/en/articles/7996866-how-long-do-you-store-my-organization-s-data ; https://platform.claude.com/docs/en/manage-claude/api-and-data-retention

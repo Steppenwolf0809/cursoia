@@ -449,7 +449,7 @@ Si para algún punto el documento no alcanza, responde exactamente: "la informac
             type: "narrative",
             contentData: {
                 Heading1: "LOPDP: tú eres el responsable",
-                paragraph1: "Ley Orgánica de Protección de Datos Personales, Registro Oficial Suplemento 459 de 26 de mayo de 2021; su régimen sancionatorio rige plenamente desde el 26 de mayo de 2023. Cuando subes datos de un cliente, tú eres el responsable y el proveedor de IA es el encargado del tratamiento.",
+                paragraph1: "Ley Orgánica de Protección de Datos Personales, Registro Oficial Quinto Suplemento 459 de 26 de mayo de 2021; su régimen sancionatorio rige plenamente desde el 26 de mayo de 2023. Cuando subes datos de un cliente, tú eres el responsable y el proveedor de IA es el encargado del tratamiento.",
                 bullets1: [
                     "<b>Art. 34:</b> el encargo exige un contrato que prohíba al proveedor usar los datos para otros fines o pasarlos a terceros, y que lo obligue a devolverlos o destruirlos al terminar.",
                     "<b>Datos sensibles (arts. 4 y 26):</b> salud, pasado judicial y datos biométricos, entre otros. Tratarlos está prohibido por regla general.",
