@@ -457,7 +457,7 @@ Si para algún punto el documento no alcanza, responde exactamente: "la informac
                     "<b>Seudonimizar no es anonimizar (arts. 2 y 4):</b> lo anonimizado ya no permite identificar a la persona sin un esfuerzo desproporcionado, y queda fuera de la ley; lo seudonimizado sí lo permite con la tabla que guardas aparte, así que sigue siendo dato personal."
                 ],
                 Heading2: "Encargo o transferencia: la diferencia que importa",
-                paragraph2: "Si el proveedor solo procesa por tu cuenta, rige el encargo (arts. 34 y 47). Si usa los datos para fines propios, como entrenar modelos, es transferencia internacional. Hoy ningún país tiene nivel adecuado declarado, salvo los de la Comunidad Andina; Estados Unidos no. Entonces hacen falta garantías contractuales, autorización de la SPDP o el consentimiento explícito e informado del titular (art. 60.2).",
+                paragraph2: "Si el proveedor solo procesa por tu cuenta, rige el encargo (arts. 34 y 47). Si usa los datos para fines propios, como entrenar modelos, es transferencia internacional. Hoy ningún país tiene nivel adecuado declarado, salvo los de la Comunidad Andina (Resolución 0004-R, art. 59); Estados Unidos no. Entonces hacen falta garantías contractuales, autorización de la SPDP o el consentimiento explícito e informado del titular (art. 60.2).",
                 highlight: { type: "info", text: "Criterio del curso: si no tienes un contrato de encargo por escrito, trátalo como transferencia. Seudonimiza o pide consentimiento." }
             }
         },
