@@ -748,7 +748,7 @@ Formato de entrega:
                     "Discernimiento: pide la cita, contrasta con la fuente oficial y pasa el checklist.",
                     "Diligencia: seudonimiza en tu computadora antes de subir; el semáforo te dice a dónde va cada dato."
                 ],
-                callToAction: "Virtual 2 · jueves 15 de octubre: anonimiza tu contrato y revísalo con IA"
+                callToAction: "Virtual 2 · jueves 15 de octubre: seudonimiza tu contrato y revísalo con IA"
             }
         },
         {
@@ -760,7 +760,7 @@ Formato de entrega:
                 steps: [
                     { day: "Hoy", action: "Termina tu Proyecto «Mi despacho»", tip: "Pídele que te entreviste y redacte tus instrucciones con la plantilla 2; pruébalo con una consulta que puedas verificar." },
                     { day: "Antes del jueves", action: "Baja el Anonimizador del enlace de Drive, comprueba que abre y elige un contrato propio en .docx", tip: "No lo subas a ninguna IA todavía." },
-                    { day: "Jueves 15 oct", action: "Trae el contrato .docx sin anonimizar", tip: "Lo anonimizamos juntos al empezar y con él haces la matriz de riesgos." }
+                    { day: "Jueves 15 oct", action: "Trae el contrato .docx tal como está", tip: "Lo seudonimizamos juntos al empezar y con él haces la matriz de riesgos." }
                 ],
                 challenge: "Elige un contrato con dos partes o más y datos como cédulas, RUC o direcciones."
             }

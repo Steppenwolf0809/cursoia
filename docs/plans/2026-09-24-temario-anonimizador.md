@@ -1,6 +1,13 @@
 # Temario: dónde van el Anonimizador, las instalaciones y la revisión de contratos
 
 Encargo: `docs/prompts/2026-09-24-temario-anonimizador.md`.
+
+**Decisión del 26 de septiembre de 2026 (José Luis):** lo que hace el alumno con su contrato se
+llama «seudonimizar», no «anonimizar»: la Virtual 1 ya enseña la diferencia (`v1-6-2`, LOPDP arts.
+2 y 4). La herramienta conserva el nombre «Anonimizador». Cuando los slides de la Virtual 2 de este
+temario pasen a código («Anonimiza y revisa tu contrato», «Anonimiza antes de pegar», el
+ejercicio), se escriben con «seudonimizar».
+
 Estado: **aprobado por José Luis el 24 sep 2026.** Este documento propone; no se tocó código ni slides.
 
 ## Decisiones
