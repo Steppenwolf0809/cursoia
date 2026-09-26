@@ -6,19 +6,25 @@
       <style>
         #root { position: absolute; inset: 0; overflow: hidden; color: var(--texto); }
         #escena-8-contenido { position: absolute; inset: 0; }
-        /* estilos de la escena, con ids escena-8-… */
+        #escena-8-viñeta {
+          position: absolute; inset: 0; opacity: 0;
+          background: radial-gradient(ellipse at 60% 45%, transparent 35%, rgb(0 0 0 / 0.55) 100%);
+        }
       </style>
       <div id="root" data-composition-id="escena-8" data-width="1920" data-height="1080">
         <div id="escena-8-contenido">
-          <!-- marcado de la escena -->
+          <!-- El contador y el acercamiento viven en contador.html y fondo.html: aquí solo se oscurecen los bordes -->
+          <div id="escena-8-viñeta"></div>
         </div>
       </div>
       <script>
         (() => {
-          const D = 17.488;          // data-duration del hueco escena-8 en index.html
-          const W = {};         // salida de: python herramientas/alinear.py anclas 8 …
+          const D = 17.488;
+          const W = {"contador": 3.2, "En": 13.43}; // anclas 8 contador En
           const tl = gsap.timeline({ paused: true });
-          // … animaciones de la escena …
+          tl.fromTo("#escena-8-viñeta", { opacity: 0 }, { opacity: 1, duration: 1, ease: "power2.inOut" }, W.contador);
+          tl.fromTo("#escena-8-viñeta", { opacity: 1 },
+            { opacity: 0, duration: 1, ease: "power2.inOut", immediateRender: false }, W.En);
           tl.fromTo("#escena-8-contenido", { opacity: 1 },
             { opacity: 0, duration: 0.3, ease: "power1.in", immediateRender: false }, D - 0.3);
           window.__timelines["escena-8"] = tl;
