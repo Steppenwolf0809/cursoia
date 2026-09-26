@@ -9,6 +9,9 @@ Fecha: 2026-09-26. Estado: borrador, falta que José Luis lo apruebe.
 - **Voz:** ElevenLabs, solo para los videos educativos. Horacio (Colombia) para toda la serie,
   con el modelo Eleven v3 y etiquetas entre corchetes (`[laughs]`, `[whispers]`…).
 - **Formato:** horizontal 16:9 (1920×1080), pensado para proyectar en clase.
+- **Paleta:** la de las diapositivas del curso. No se decide antes: los planes describen la
+  intención del color por escena y en producción se toman los valores de las diapositivas
+  (José Luis, 2026-09-26).
 - **Referencia de estilo:** video de BridgeMind sobre la historia de la IA
   (https://x.com/bridgemindai/status/2103530750767206626). Dura 60 s, no tiene narración y abre y
   cierra con la misma pregunta («Can machines think?» / «Let me think.▌»). Cada época tiene su

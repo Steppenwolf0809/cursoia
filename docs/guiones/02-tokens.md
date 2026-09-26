@@ -27,14 +27,14 @@ terminar cada escena. En la escena 8 la narración lo nombra en voz alta.
 | 5 | 48–65 (17) | ¿Y para qué cortar? Porque la IA no trabaja con letras: trabaja con números. Cada token tiene su propio número, como una ficha con código. Lo que de verdad le llega a la IA es una fila de números. | Vuelven los bloques de «El gato duerme.». Cada uno gira como una ficha y muestra su número: `El` 4422 · `gato` 99767 · `duer` 116318 · `me` 1047 · `.` 13. Las letras se desvanecen; queda solo la fila: 4422 99767 116318 1047 13. | 197 |
 | 6 | 65–81 (16) | Esto importa por dos razones. Primero, el límite: la IA solo puede tener presente cierta cantidad de tokens a la vez. Segundo, el costo: quien usa la IA a gran escala paga por token, no por palabra. | Pantalla partida en dos. Izquierda, «Límite»: una caja que se llena de bloques hasta el borde; los que sobran quedan afuera. Derecha, «Costo»: los bloques caen en una balanza o caja registradora y cada uno suma una moneda. | 242 |
 | 7 | 81–91 (10) | Un detalle más: cada modelo corta a su manera. ChatGPT, Claude y Gemini no parten igual la misma frase. Pero todos cortan. | La misma frase en tres filas, cada una cortada en lugares distintos (cortes ilustrativos, sin nombres de marca ni logos: «Modelo A / B / C»). En «Pero todos cortan», las tres líneas de corte bajan a la vez. | 271 |
-| 8 | 91–109 (18) | Este mismo video sirve de ejemplo. [whispers] Mira el contador de la esquina: cuenta los tokens de todo lo que has escuchado. Hasta aquí van doscientas trece palabras… y doscientos setenta y un tokens. En español, casi siempre hay más tokens que palabras. | La cámara se acerca al contador de la esquina, que crece al centro. Junto a él aparece «213 palabras» y el contador se congela en **271**. Luego vuelve a su esquina y sigue contando. | 327 |
+| 8 | 91–109 (18) | Este mismo video sirve de ejemplo. [whispers] Mira el contador de la esquina: cuenta los tokens de todo lo que has escuchado. Hasta aquí van ciento noventa y nueve palabras… y doscientos setenta y un tokens. En español, casi siempre hay más tokens que palabras. | La cámara se acerca al contador de la esquina, que crece al centro. Junto a él aparece «199 palabras» y el contador se congela en **271**. Luego vuelve a su esquina y sigue contando. | 327 |
 | 9 | 109–117 (8) | Entonces, ¿la IA lee palabras? [confident] No. Lee tokens: pedazos de palabras convertidos en números. | Mismo encuadre que la escena 1. «¿La IA lee palabras?» se borra y se escribe «No. Lee tokens.▌». El cursor parpadea dos veces y el contador se detiene en 349. Corte a negro. | 349 |
 
 **Suma:** 8 + 14 + 12 + 14 + 17 + 16 + 10 + 18 + 8 = **117 s**.
 
 ## Palabras y duración
 
-- **Narración:** 255 palabras.
+- **Narración:** 257 palabras.
 - A 150 palabras por minuto son **102 s de voz**. Los 15 s restantes son pausas previstas: cortes
   en pantalla (escenas 2 y 4), el giro de las fichas (5), el contador congelado (8) y el cierre
   con cursor (9).
@@ -49,6 +49,10 @@ terminar cada escena. En la escena 8 la narración lo nombra en voz alta.
   **sin las etiquetas entre corchetes**, que no se dicen en voz alta. Si se cambia una sola
   palabra de la narración, hay que volver a medir.
 - **Palabras:** secuencias de letras; «…», la puntuación y las etiquetas no cuentan.
+- **Lo que dice la escena 8:** «hasta aquí» es el final de la escena 7: 199 palabras y 271
+  tokens. La primera versión decía «doscientas trece palabras», que no salía con esta regla; se
+  corrigió y se regrabó solo la escena 8 (José Luis, 2026-09-26). «Ciento noventa y nueve» y
+  «doscientas trece» ocupan los mismos tokens, así que el contador no cambió.
 
 ```python
 import tiktoken, re
