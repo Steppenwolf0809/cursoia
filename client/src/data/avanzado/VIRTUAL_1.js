@@ -411,7 +411,7 @@ Si para algún punto el documento no alcanza, responde exactamente: "la informac
                 rightItems: [
                     "La conclusión jurídica final y la firma",
                     "Citas y jurisprudencia sin verificar",
-                    "Datos de clientes sin seudonimizar",
+                    "Documentos de clientes con sus datos reales",
                     "Decisiones que afectan los derechos de una persona"
                 ]
             }
@@ -432,11 +432,11 @@ Si para algún punto el documento no alcanza, responde exactamente: "la informac
             type: "warning",
             contentData: {
                 heading: "Lo que nunca debes hacer",
-                paragraph: "Desactivar el entrenamiento no es confidencialidad: tus datos igual salen de tu computadora y se guardan un tiempo.",
+                paragraph: "Desactivar el entrenamiento no es confidencialidad: tus datos igual salen de tu computadora y se guardan un tiempo. Por eso se seudonimiza antes de subir: cada dato que identifica a alguien se cambia por una etiqueta, como [VENDEDOR_1], y la tabla que dice quién es quién se queda en tu computadora.",
                 bullets: [
                     "Pegar nombres, cédulas, RUC o direcciones de clientes sin seudonimizar",
                     "Pedirle a la IA que anonimice un documento real: los datos ya salieron",
-                    "Anonimizar solo el nombre: un inmueble único, una fecha y una notaría identifican a la persona",
+                    "Cambiar solo el nombre: un inmueble único, una fecha y una notaría identifican a la persona",
                     "Subir datos de salud, de menores, penales o bancarios a un plan personal",
                     "Darle a un agente la carpeta real de clientes sin revisar qué contiene"
                 ],
@@ -453,7 +453,8 @@ Si para algún punto el documento no alcanza, responde exactamente: "la informac
                 bullets1: [
                     "<b>Art. 34:</b> el encargo exige un contrato que prohíba al proveedor usar los datos para otros fines o pasarlos a terceros, y que lo obligue a devolverlos o destruirlos al terminar.",
                     "<b>Datos sensibles (arts. 4 y 26):</b> salud, pasado judicial y datos biométricos, entre otros. Tratarlos está prohibido por regla general.",
-                    "<b>Resolución SPDP-SPD-2026-0004-R (28 ene 2026), art. 23:</b> el encargo de tratamiento no es transferencia internacional."
+                    "<b>Resolución SPDP-SPD-2026-0004-R (28 ene 2026), art. 23:</b> el encargo de tratamiento no es transferencia internacional.",
+                    "<b>Seudonimizar no es anonimizar (arts. 2 y 4):</b> lo anonimizado ya no permite identificar a la persona sin un esfuerzo desproporcionado, y queda fuera de la ley; lo seudonimizado sí lo permite con la tabla que guardas aparte, así que sigue siendo dato personal."
                 ],
                 Heading2: "Encargo o transferencia: la diferencia que importa",
                 paragraph2: "Si el proveedor solo procesa por tu cuenta, rige el encargo (arts. 34 y 47). Si usa los datos para fines propios, como entrenar modelos, es transferencia internacional. Hoy ningún país tiene nivel adecuado declarado, salvo los de la Comunidad Andina; Estados Unidos no. Entonces hacen falta garantías contractuales, autorización de la SPDP o el consentimiento explícito e informado del titular (art. 60.2).",

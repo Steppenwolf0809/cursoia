@@ -35,7 +35,7 @@ IA Avanzada para Abogados · Virtual 1. Propuesta del curso, no norma. Ante la d
 ## Errores comunes
 - Creer que desactivar el entrenamiento equivale a confidencialidad.
 - Pedirle a la IA que anonimice un documento real: los datos ya salieron.
-- Anonimizar solo el nombre.
+- Cambiar solo el nombre.
 - Dejar que un agente lea la carpeta real de clientes sin revisarla.
 
 Fuentes: LOPDP, R.O. Suplemento 459 (26 may 2021); Resolución SPDP-SPD-2026-0004-R (https://spdp.gob.ec/); https://privacy.claude.com/en/articles/10023548-how-long-do-you-store-my-data ; https://privacy.claude.com/en/articles/7996866-how-long-do-you-store-my-organization-s-data ; https://platform.claude.com/docs/en/manage-claude/api-and-data-retention
