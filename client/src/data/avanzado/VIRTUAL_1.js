@@ -11,6 +11,9 @@ function delBasico(modulo, id, nuevoId) {
     return { ...slide, id: nuevoId };
 }
 
+// «¿Quién soy?» sale del básico, con viñetas propias: las del básico llevan emojis.
+const QUIEN_SOY = delBasico(MODULO_1, "1-2", "v1-1-2");
+
 export const VIRTUAL_1 = {
     id: "v1-virtual-1",
     title: "Virtual 1: Fundamentos exprés y confidencialidad",
@@ -26,7 +29,17 @@ export const VIRTUAL_1 = {
                 image: "/images/llm-diagram.png"
             }
         },
-        delBasico(MODULO_1, "1-2", "v1-1-2"),
+        {
+            ...QUIEN_SOY,
+            contentData: {
+                ...QUIEN_SOY.contentData,
+                bullets: [
+                    "Antes: tareas mecánicas y miedo al error.",
+                    "Ahora: la IA hace el borrador y yo reviso cada resultado.",
+                    "Este curso: que uses la IA con método, sin arriesgar la exactitud ni la confidencialidad."
+                ]
+            }
+        },
         {
             id: "v1-1-3",
             title: "¿Qué IA usas más en tu trabajo?",
