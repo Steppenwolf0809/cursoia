@@ -19,6 +19,7 @@ import Resumen from './tipos/Resumen';
 import Tarea from './tipos/Tarea';
 import Materiales from './tipos/Materiales';
 import DecideRevela from './tipos/DecideRevela';
+import ArmaPrompt from './tipos/ArmaPrompt';
 
 // Tipo de slide → variante del avanzado. Lo que no está aquí (la pizarra) usa el SlideRenderer del básico.
 const TIPOS = {
@@ -41,6 +42,7 @@ const TIPOS = {
     'next-steps': Tarea,
     'resources-download': Materiales,
     'decide-revela': DecideRevela,
+    'arma-prompt': ArmaPrompt,
 };
 
 const SlideAvanzado = ({ slide, modulo, indice, total, isAdmin }) => {

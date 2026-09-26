@@ -1,6 +1,5 @@
 import { ShieldCheck } from 'lucide-react';
 import { COURSE_MODULES as BASICO } from '../course-content';
-import { MODULE_2 } from '../MODULO_2';
 
 const MODULO_1 = BASICO.find((m) => m.id === 'module-1');
 
@@ -522,7 +521,21 @@ Si para algún punto el documento no alcanza, responde exactamente: "la informac
                 tip: "Claude Free permite hasta 5 proyectos; los planes pagos, ilimitados. ChatGPT Plus también incluye Proyectos."
             }
         },
-        delBasico(MODULE_2, "2-2", "v1-7-2"),
+        {
+            id: "v1-7-2",
+            title: "La fórmula R.C.T.F.",
+            type: "arma-prompt",
+            contentData: {
+                heading: "R.C.T.F.: cuatro preguntas antes de pedir",
+                piezas: [
+                    { nombre: "Rol", pregunta: "¿Quién es la IA?", texto: "Eres asistente legal senior de una notaría en Quito." },
+                    { nombre: "Contexto", pregunta: "¿Qué está pasando?", texto: "Te adjunto la minuta de compraventa de un departamento y su certificado de gravamen." },
+                    { nombre: "Tarea", pregunta: "¿Qué debe hacer?", texto: "Compara la minuta con el certificado y dime qué datos no coinciden o faltan." },
+                    { nombre: "Formato", pregunta: "¿Cómo lo quieres?", texto: "Responde en una tabla: dato, qué dice la minuta y qué dice el certificado." }
+                ],
+                footer: "Funciona en cualquier IA. En «Mi despacho», el rol y el formato van una sola vez en las instrucciones; en cada chat solo escribes el contexto y la tarea."
+            }
+        },
         {
             id: "v1-7-4",
             title: "Ejemplo real",
