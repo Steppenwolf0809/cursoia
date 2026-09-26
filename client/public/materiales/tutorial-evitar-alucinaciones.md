@@ -26,7 +26,7 @@ Según Holly Cope, las alucinaciones más comunes en trabajo jurídico son: fuen
 
 ## 3. El marco de confianza
 
-Trata cada respuesta como el trabajo de un abogado junior muy bueno que todavía no llega. Antes de usarla:
+Trata cada respuesta como el trabajo de un abogado junior muy bueno que aún está aprendiendo. Antes de usarla:
 
 1. **Consecuencias:** ¿qué pasa si está mal? Un escrito o una minuta no es un correo.
 2. **Evidencia:** dale las fuentes y pídele de dónde sale cada afirmación.

@@ -92,11 +92,22 @@ export const VIRTUAL_1 = {
             }
         },
         {
+            id: "v1-2-1b",
+            title: "¿Quién lee esos tokens?",
+            type: "analogy",
+            contentData: {
+                heading: "¿Quién lee esos tokens? El modelo",
+                left: { title: "El motor (modelo)", text: "Opus 5.5, Sonnet 5, GPT-6 Astra", icon: "Cpu" },
+                right: { title: "El auto (harness)", text: "El chat, Cowork, Claude Code, Codex", icon: "Car" },
+                footer: "El modelo lee tus tokens y escribe la respuesta prediciendo, uno por uno, el token más probable. Nunca trabaja solo: va dentro de un harness, el programa que le da herramientas, archivos y memoria. Por eso el mismo modelo rinde distinto en el chat y en un agente."
+            }
+        },
+        {
             id: "v1-2-2",
             title: "Ventana de contexto",
             type: "stat-comparison",
             contentData: {
-                heading: "La ventana de contexto creció",
+                heading: "¿Cuántos tokens ve el modelo a la vez?",
                 statSecondary: "200K",
                 statPrimary: "1M",
                 label: "Tokens: Claude Opus 5.5, Sonnet 5 y Fable 5.1 hoy",
@@ -189,7 +200,23 @@ export const VIRTUAL_1 = {
                 ]
             }
         },
-        delBasico(MODULO_1, "1-4b", "v1-3-2"),
+        {
+            id: "v1-3-2",
+            title: "Días de trabajo sobre datos inventados",
+            type: "narrative",
+            contentData: {
+                Heading1: "Días de trabajo sobre datos inventados",
+                paragraph1: "Programaba un sistema para la notaría con ayuda de la IA. Cada función que le pedía parecía funcionar, y seguí construyendo sobre ese trabajo durante días. Hasta que noté que los datos eran siempre los mismos.",
+                bullets1: [
+                    "La IA había escrito los resultados directamente en el código",
+                    "Esos datos no salían del sistema: eran inventados",
+                    "El programa parecía funcionar, pero no hacía nada real"
+                ],
+                Heading2: "Lo que aprendí",
+                paragraph2: "Cuando se lo pregunté directamente, lo reconoció. Perdí días de trabajo por no revisar lo que me entregaba.",
+                highlight: { type: "danger", text: "La IA no busca engañarte: busca darte una respuesta que parezca buena. Por eso revisas tú." }
+            }
+        },
         {
             id: "v1-3-3",
             title: "Mata v. Avianca",
@@ -259,7 +286,7 @@ export const VIRTUAL_1 = {
             type: "narrative",
             contentData: {
                 Heading1: "Paso 1: el marco de confianza",
-                paragraph1: "Trata cada respuesta como el trabajo de un abogado junior muy bueno que todavía no llega. Antes de usarla, pásala por cinco preguntas:",
+                paragraph1: "Trata cada respuesta como el trabajo de un abogado junior muy bueno que aún está aprendiendo. Antes de usarla, pásala por cinco preguntas:",
                 bullets1: [
                     "<b>Consecuencias:</b> ¿qué pasa si está mal? Un escrito o una minuta no es un correo.",
                     "<b>Evidencia:</b> ¿de dónde sale cada afirmación? Pídele la fuente.",
@@ -337,17 +364,6 @@ Si para algún punto el documento no alcanza, responde exactamente: "la informac
                     "Descarga el <a href='/materiales/checklist-verificacion.md' target='_blank' rel='noopener noreferrer' class='underline'>checklist de verificación</a> y el <a href='/materiales/tutorial-evitar-alucinaciones.md' target='_blank' rel='noopener noreferrer' class='underline'>tutorial completo</a>"
                 ],
                 highlight: { type: "success", text: "La frase inventada del paso 2 no resiste esta comprobación." }
-            }
-        },
-        {
-            id: "v1-4-1",
-            title: "El modelo es el motor",
-            type: "analogy",
-            contentData: {
-                heading: "El modelo es el motor; el harness es el auto",
-                left: { title: "El auto (harness)", text: "El chat, Cowork, Claude Code, Codex", icon: "Car" },
-                right: { title: "El motor (modelo)", text: "Opus 5.5, Sonnet 5, GPT-6 Astra", icon: "Cpu" },
-                footer: "El harness es el programa que rodea al modelo y le da herramientas, archivos y memoria. Por eso el mismo modelo rinde distinto en el chat y en un agente."
             }
         },
         {
