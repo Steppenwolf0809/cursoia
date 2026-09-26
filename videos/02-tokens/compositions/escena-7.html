@@ -6,19 +6,102 @@
       <style>
         #root { position: absolute; inset: 0; overflow: hidden; color: var(--texto); }
         #escena-7-contenido { position: absolute; inset: 0; }
-        /* estilos de la escena, con ids escena-7-… */
+        .escena-7-rotulo {
+          position: absolute; left: 192px; white-space: pre;
+          font-family: 'IBM Plex Mono'; font-weight: 400; font-size: 30px; line-height: 1; color: var(--texto-2);
+        }
+        .escena-7-fila { position: absolute; left: 420px; display: flex; gap: 12px; }
+        .escena-7-tok {
+          position: relative; display: inline-block;
+          font-family: 'IBM Plex Mono'; font-weight: 700; font-size: 64px; line-height: 1;
+          padding: 14px 18px; border-radius: 12px; white-space: pre;
+        }
+        .escena-7-relleno { position: absolute; inset: 0; border-radius: 12px; opacity: 0; }
+        .escena-7-claro { position: relative; display: block; color: var(--texto); }
+        .escena-7-oscuro {
+          position: absolute; left: 18px; top: 14px; display: block; color: var(--sobre-token); opacity: 0;
+        }
+        .escena-7-linea {
+          position: absolute; left: 0; width: 4px; height: 90px; margin-left: -2px;
+          border-radius: 2px; background: var(--acento); transform-origin: 50% 0%;
+        }
       </style>
       <div id="root" data-composition-id="escena-7" data-width="1920" data-height="1080">
-        <div id="escena-7-contenido">
-          <!-- marcado de la escena -->
-        </div>
+        <div id="escena-7-contenido"></div>
       </div>
       <script>
         (() => {
-          const D = 11.053;          // data-duration del hueco escena-7 en index.html
-          const W = {};         // salida de: python herramientas/alinear.py anclas 7 …
+          const D = 11.053;
+          const W = {"modelo": 2.02, "frase": 7.83, "Pero": 8.78, "cortan": 9.59}; // anclas 7 modelo frase Pero cortan
+          const FRASE = "Mi ñaño vive en Guayaquil.";
+          // Cortes inventados: ninguno es el real de o200k_base.
+          const FILAS = [
+            { rotulo: "Modelo A", top: 170, piezas: ["Mi", "ña", "ño", "vive", "en", "Guaya", "quil", "."] },
+            { rotulo: "Modelo B", top: 350, piezas: ["Mi", "ñ", "año", "vi", "ve", "en", "Gu", "ayaquil", "."] },
+            { rotulo: "Modelo C", top: 530, piezas: ["Mi", "ñaño", "vive", "en", "Guay", "a", "quil", "."] },
+          ];
+          const X0 = 420, CH = 0.6 * 64, PAD = 18, GAP = 12, ALTO = 64 + 2 * 14; // IBM Plex Mono: avance 0,6 em
+          const cont = document.getElementById("escena-7-contenido");
           const tl = gsap.timeline({ paused: true });
-          // … animaciones de la escena …
+
+          FILAS.forEach((f, i) => {
+            const rot = document.createElement("div");
+            rot.className = "escena-7-rotulo"; rot.textContent = f.rotulo;
+            rot.style.top = (f.top + (ALTO - 30) / 2) + "px";
+            cont.appendChild(rot);
+            const fila = document.createElement("div");
+            fila.className = "escena-7-fila"; fila.style.top = f.top + "px";
+            cont.appendChild(fila);
+
+            // Columna de cada pieza en la frase, y corrimiento para que la fila parezca texto corrido.
+            let col = 0, x = 0;
+            const P = f.piezas.map((txt, k) => {
+              col = FRASE.indexOf(txt, col);
+              const izq = x;                               // borde izquierdo del bloque ya separado
+              const dx = col * CH - (x + PAD);
+              x += txt.length * CH + 2 * PAD + GAP;
+              const c = col; col += txt.length;
+              return { txt, k, col: c, izq, dx };
+            });
+
+            const toks = P.map(({ txt, k }) => {
+              const t = document.createElement("span");
+              t.className = "escena-7-tok";
+              t.innerHTML = `<span class="escena-7-relleno" style="background: var(--token-${(k % 5) + 1})"></span>` +
+                `<span class="escena-7-claro" data-layout-allow-overlap></span><span class="escena-7-oscuro" data-layout-allow-overlap></span>`;
+              t.querySelector(".escena-7-claro").textContent = txt;
+              t.querySelector(".escena-7-oscuro").textContent = txt;
+              fila.appendChild(t);
+              return t;
+            });
+
+            // Entrada en cascada, como texto corrido.
+            const t0 = W.modelo + 0.2 * i;
+            tl.fromTo(rot, { opacity: 0, y: -20 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, t0);
+            toks.forEach((t, k) => {
+              tl.fromTo(t, { x: P[k].dx, y: -20, opacity: 0 },
+                { x: P[k].dx, y: 0, opacity: 1, duration: 0.45, ease: "power3.out" }, t0);
+            });
+
+            // «Pero»: las líneas bajan todas a la vez en los límites del texto corrido,
+            // y siguen a los bloques cuando se separan y se rellenan.
+            const SEPARA = W.Pero + 0.35;
+            P.slice(1).forEach(({ col: c, izq }) => {
+              const l = document.createElement("div");
+              l.className = "escena-7-linea"; l.style.top = (f.top + 1) + "px";
+              cont.appendChild(l);
+              const corrido = X0 + c * CH, separado = X0 + izq - GAP / 2;
+              tl.fromTo(l, { x: corrido, scaleY: 0 }, { x: corrido, scaleY: 1, duration: 0.35, ease: "power2.out" }, W.Pero);
+              tl.fromTo(l, { x: corrido }, { x: separado, duration: 0.3, ease: "power2.out", immediateRender: false }, SEPARA);
+            });
+            toks.forEach((t, k) => {
+              tl.fromTo(t, { x: P[k].dx }, { x: 0, duration: 0.3, ease: "power2.out", immediateRender: false }, SEPARA);
+              tl.fromTo(t.querySelector(".escena-7-relleno"), { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, SEPARA);
+              tl.fromTo(t.querySelector(".escena-7-oscuro"), { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, SEPARA);
+              tl.fromTo(t.querySelector(".escena-7-claro"), { opacity: 1 }, { opacity: 0, duration: 0.3, ease: "power2.out" }, SEPARA);
+            });
+          });
+
           tl.fromTo("#escena-7-contenido", { opacity: 1 },
             { opacity: 0, duration: 0.3, ease: "power1.in", immediateRender: false }, D - 0.3);
           window.__timelines["escena-7"] = tl;
