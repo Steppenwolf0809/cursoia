@@ -1,0 +1,1305 @@
+{
+ "1": [
+  {
+   "palabra": "La",
+   "inicio": 0.0,
+   "fin": 0.181
+  },
+  {
+   "palabra": "inteligencia",
+   "inicio": 0.181,
+   "fin": 0.965
+  },
+  {
+   "palabra": "artificial",
+   "inicio": 0.965,
+   "fin": 1.629
+  },
+  {
+   "palabra": "lee",
+   "inicio": 1.629,
+   "fin": 1.87
+  },
+  {
+   "palabra": "palabras",
+   "inicio": 1.87,
+   "fin": 2.413
+  },
+  {
+   "palabra": "como",
+   "inicio": 2.629,
+   "fin": 2.865
+  },
+  {
+   "palabra": "las",
+   "inicio": 2.865,
+   "fin": 3.054
+  },
+  {
+   "palabra": "lees",
+   "inicio": 3.054,
+   "fin": 3.29
+  },
+  {
+   "palabra": "tú",
+   "inicio": 3.29,
+   "fin": 3.432
+  },
+  {
+   "palabra": "Mira",
+   "inicio": 4.039,
+   "fin": 4.292
+  },
+  {
+   "palabra": "lo",
+   "inicio": 4.292,
+   "fin": 4.444
+  },
+  {
+   "palabra": "que",
+   "inicio": 4.444,
+   "fin": 4.646
+  },
+  {
+   "palabra": "pasa",
+   "inicio": 4.646,
+   "fin": 4.899
+  },
+  {
+   "palabra": "cuando",
+   "inicio": 4.899,
+   "fin": 5.253
+  },
+  {
+   "palabra": "le",
+   "inicio": 5.253,
+   "fin": 5.405
+  },
+  {
+   "palabra": "escribes",
+   "inicio": 5.405,
+   "fin": 5.86
+  },
+  {
+   "palabra": "algo",
+   "inicio": 5.86,
+   "fin": 6.113
+  }
+ ],
+ "2": [
+  {
+   "palabra": "Escribes",
+   "inicio": 0.0,
+   "fin": 0.791
+  },
+  {
+   "palabra": "El",
+   "inicio": 1.205,
+   "fin": 1.416
+  },
+  {
+   "palabra": "gato",
+   "inicio": 1.416,
+   "fin": 1.768
+  },
+  {
+   "palabra": "duerme",
+   "inicio": 1.768,
+   "fin": 2.261
+  },
+  {
+   "palabra": "Tú",
+   "inicio": 2.859,
+   "fin": 3.056
+  },
+  {
+   "palabra": "ves",
+   "inicio": 3.056,
+   "fin": 3.318
+  },
+  {
+   "palabra": "tres",
+   "inicio": 3.318,
+   "fin": 3.646
+  },
+  {
+   "palabra": "palabras",
+   "inicio": 3.646,
+   "fin": 4.236
+  },
+  {
+   "palabra": "Pero",
+   "inicio": 4.747,
+   "fin": 5.065
+  },
+  {
+   "palabra": "la",
+   "inicio": 5.065,
+   "fin": 5.255
+  },
+  {
+   "palabra": "IA",
+   "inicio": 5.255,
+   "fin": 5.446
+  },
+  {
+   "palabra": "antes",
+   "inicio": 5.446,
+   "fin": 6.14
+  },
+  {
+   "palabra": "de",
+   "inicio": 6.14,
+   "fin": 6.33
+  },
+  {
+   "palabra": "hacer",
+   "inicio": 6.33,
+   "fin": 6.712
+  },
+  {
+   "palabra": "cualquier",
+   "inicio": 6.712,
+   "fin": 7.347
+  },
+  {
+   "palabra": "cosa",
+   "inicio": 7.347,
+   "fin": 7.665
+  },
+  {
+   "palabra": "corta",
+   "inicio": 7.863,
+   "fin": 8.19
+  },
+  {
+   "palabra": "el",
+   "inicio": 8.19,
+   "fin": 8.353
+  },
+  {
+   "palabra": "texto",
+   "inicio": 8.353,
+   "fin": 8.68
+  },
+  {
+   "palabra": "en",
+   "inicio": 8.68,
+   "fin": 8.843
+  },
+  {
+   "palabra": "pedazos",
+   "inicio": 8.843,
+   "fin": 9.279
+  },
+  {
+   "palabra": "Cada",
+   "inicio": 9.774,
+   "fin": 10.095
+  },
+  {
+   "palabra": "pedazo",
+   "inicio": 10.095,
+   "fin": 10.545
+  },
+  {
+   "palabra": "se",
+   "inicio": 10.545,
+   "fin": 10.738
+  },
+  {
+   "palabra": "llama",
+   "inicio": 10.738,
+   "fin": 11.123
+  },
+  {
+   "palabra": "token",
+   "inicio": 11.123,
+   "fin": 11.509
+  },
+  {
+   "palabra": "Aquí",
+   "inicio": 11.893,
+   "fin": 12.242
+  },
+  {
+   "palabra": "hay",
+   "inicio": 12.242,
+   "fin": 12.521
+  },
+  {
+   "palabra": "cinco",
+   "inicio": 12.521,
+   "fin": 12.94
+  }
+ ],
+ "3": [
+  {
+   "palabra": "Gato",
+   "inicio": 0.0,
+   "fin": 0.352
+  },
+  {
+   "palabra": "es",
+   "inicio": 0.352,
+   "fin": 0.564
+  },
+  {
+   "palabra": "una",
+   "inicio": 0.564,
+   "fin": 0.846
+  },
+  {
+   "palabra": "palabra",
+   "inicio": 0.846,
+   "fin": 1.41
+  },
+  {
+   "palabra": "común",
+   "inicio": 1.41,
+   "fin": 1.833
+  },
+  {
+   "palabra": "así",
+   "inicio": 2.154,
+   "fin": 2.375
+  },
+  {
+   "palabra": "que",
+   "inicio": 2.375,
+   "fin": 2.597
+  },
+  {
+   "palabra": "queda",
+   "inicio": 2.597,
+   "fin": 2.929
+  },
+  {
+   "palabra": "entera",
+   "inicio": 2.929,
+   "fin": 3.316
+  },
+  {
+   "palabra": "un",
+   "inicio": 3.72,
+   "fin": 3.919
+  },
+  {
+   "palabra": "solo",
+   "inicio": 3.919,
+   "fin": 4.25
+  },
+  {
+   "palabra": "token",
+   "inicio": 4.25,
+   "fin": 4.647
+  },
+  {
+   "palabra": "Duerme",
+   "inicio": 5.22,
+   "fin": 5.761
+  },
+  {
+   "palabra": "se",
+   "inicio": 5.761,
+   "fin": 5.993
+  },
+  {
+   "palabra": "parte",
+   "inicio": 5.993,
+   "fin": 6.456
+  },
+  {
+   "palabra": "en",
+   "inicio": 6.456,
+   "fin": 6.688
+  },
+  {
+   "palabra": "dos",
+   "inicio": 6.688,
+   "fin": 6.997
+  },
+  {
+   "palabra": "Y",
+   "inicio": 7.48,
+   "fin": 7.588
+  },
+  {
+   "palabra": "hasta",
+   "inicio": 7.588,
+   "fin": 7.912
+  },
+  {
+   "palabra": "el",
+   "inicio": 7.912,
+   "fin": 8.073
+  },
+  {
+   "palabra": "punto",
+   "inicio": 8.073,
+   "fin": 8.397
+  },
+  {
+   "palabra": "final",
+   "inicio": 8.397,
+   "fin": 8.721
+  },
+  {
+   "palabra": "cuenta",
+   "inicio": 8.721,
+   "fin": 9.099
+  },
+  {
+   "palabra": "como",
+   "inicio": 9.099,
+   "fin": 9.368
+  },
+  {
+   "palabra": "un",
+   "inicio": 9.368,
+   "fin": 9.53
+  },
+  {
+   "palabra": "token",
+   "inicio": 9.53,
+   "fin": 9.854
+  }
+ ],
+ "4": [
+  {
+   "palabra": "Mientras",
+   "inicio": 0.0,
+   "fin": 0.671
+  },
+  {
+   "palabra": "más",
+   "inicio": 0.671,
+   "fin": 0.97
+  },
+  {
+   "palabra": "rara",
+   "inicio": 0.97,
+   "fin": 1.343
+  },
+  {
+   "palabra": "o",
+   "inicio": 1.343,
+   "fin": 1.492
+  },
+  {
+   "palabra": "más",
+   "inicio": 1.492,
+   "fin": 1.79
+  },
+  {
+   "palabra": "larga",
+   "inicio": 1.79,
+   "fin": 2.238
+  },
+  {
+   "palabra": "la",
+   "inicio": 2.238,
+   "fin": 2.462
+  },
+  {
+   "palabra": "palabra",
+   "inicio": 2.462,
+   "fin": 3.059
+  },
+  {
+   "palabra": "más",
+   "inicio": 3.059,
+   "fin": 3.357
+  },
+  {
+   "palabra": "pedazos",
+   "inicio": 3.357,
+   "fin": 3.954
+  },
+  {
+   "palabra": "Otorrinolaringólogo",
+   "inicio": 4.562,
+   "fin": 6.118
+  },
+  {
+   "palabra": "se",
+   "inicio": 6.118,
+   "fin": 6.351
+  },
+  {
+   "palabra": "corta",
+   "inicio": 6.351,
+   "fin": 7.322
+  },
+  {
+   "palabra": "en",
+   "inicio": 7.322,
+   "fin": 7.555
+  },
+  {
+   "palabra": "cinco",
+   "inicio": 7.555,
+   "fin": 8.022
+  },
+  {
+   "palabra": "Y",
+   "inicio": 8.649,
+   "fin": 8.77
+  },
+  {
+   "palabra": "esta",
+   "inicio": 8.77,
+   "fin": 9.074
+  },
+  {
+   "palabra": "frase",
+   "inicio": 9.074,
+   "fin": 9.438
+  },
+  {
+   "palabra": "Mi",
+   "inicio": 9.74,
+   "fin": 9.912
+  },
+  {
+   "palabra": "ñaño",
+   "inicio": 9.912,
+   "fin": 10.198
+  },
+  {
+   "palabra": "vive",
+   "inicio": 10.198,
+   "fin": 10.484
+  },
+  {
+   "palabra": "en",
+   "inicio": 10.484,
+   "fin": 10.655
+  },
+  {
+   "palabra": "Guayaquil",
+   "inicio": 10.655,
+   "fin": 11.227
+  },
+  {
+   "palabra": "tiene",
+   "inicio": 11.514,
+   "fin": 11.906
+  },
+  {
+   "palabra": "cinco",
+   "inicio": 11.906,
+   "fin": 12.298
+  },
+  {
+   "palabra": "palabras",
+   "inicio": 12.298,
+   "fin": 12.886
+  },
+  {
+   "palabra": "pero",
+   "inicio": 13.316,
+   "fin": 13.704
+  },
+  {
+   "palabra": "diez",
+   "inicio": 13.704,
+   "fin": 14.091
+  },
+  {
+   "palabra": "tokens",
+   "inicio": 14.091,
+   "fin": 14.634
+  }
+ ],
+ "5": [
+  {
+   "palabra": "Y",
+   "inicio": 0.0,
+   "fin": 0.118
+  },
+  {
+   "palabra": "para",
+   "inicio": 0.118,
+   "fin": 0.413
+  },
+  {
+   "palabra": "qué",
+   "inicio": 0.413,
+   "fin": 0.649
+  },
+  {
+   "palabra": "cortar",
+   "inicio": 0.649,
+   "fin": 1.062
+  },
+  {
+   "palabra": "Porque",
+   "inicio": 1.55,
+   "fin": 2.015
+  },
+  {
+   "palabra": "la",
+   "inicio": 2.015,
+   "fin": 2.214
+  },
+  {
+   "palabra": "IA",
+   "inicio": 2.214,
+   "fin": 2.413
+  },
+  {
+   "palabra": "no",
+   "inicio": 2.413,
+   "fin": 2.612
+  },
+  {
+   "palabra": "trabaja",
+   "inicio": 2.612,
+   "fin": 3.143
+  },
+  {
+   "palabra": "con",
+   "inicio": 3.143,
+   "fin": 3.408
+  },
+  {
+   "palabra": "letras",
+   "inicio": 3.408,
+   "fin": 3.873
+  },
+  {
+   "palabra": "trabaja",
+   "inicio": 4.142,
+   "fin": 4.614
+  },
+  {
+   "palabra": "con",
+   "inicio": 4.614,
+   "fin": 4.85
+  },
+  {
+   "palabra": "números",
+   "inicio": 4.85,
+   "fin": 5.322
+  },
+  {
+   "palabra": "Cada",
+   "inicio": 5.822,
+   "fin": 6.103
+  },
+  {
+   "palabra": "token",
+   "inicio": 6.103,
+   "fin": 6.44
+  },
+  {
+   "palabra": "tiene",
+   "inicio": 6.44,
+   "fin": 6.777
+  },
+  {
+   "palabra": "su",
+   "inicio": 6.777,
+   "fin": 6.946
+  },
+  {
+   "palabra": "propio",
+   "inicio": 6.946,
+   "fin": 7.34
+  },
+  {
+   "palabra": "número",
+   "inicio": 7.34,
+   "fin": 7.733
+  },
+  {
+   "palabra": "como",
+   "inicio": 7.999,
+   "fin": 8.233
+  },
+  {
+   "palabra": "una",
+   "inicio": 8.233,
+   "fin": 8.421
+  },
+  {
+   "palabra": "ficha",
+   "inicio": 8.421,
+   "fin": 8.702
+  },
+  {
+   "palabra": "con",
+   "inicio": 8.702,
+   "fin": 8.889
+  },
+  {
+   "palabra": "código",
+   "inicio": 8.889,
+   "fin": 9.217
+  },
+  {
+   "palabra": "Lo",
+   "inicio": 9.67,
+   "fin": 9.862
+  },
+  {
+   "palabra": "que",
+   "inicio": 9.862,
+   "fin": 10.118
+  },
+  {
+   "palabra": "de",
+   "inicio": 10.118,
+   "fin": 10.311
+  },
+  {
+   "palabra": "verdad",
+   "inicio": 10.311,
+   "fin": 10.759
+  },
+  {
+   "palabra": "le",
+   "inicio": 10.759,
+   "fin": 10.951
+  },
+  {
+   "palabra": "llega",
+   "inicio": 10.951,
+   "fin": 11.336
+  },
+  {
+   "palabra": "a",
+   "inicio": 11.336,
+   "fin": 11.464
+  },
+  {
+   "palabra": "la",
+   "inicio": 11.464,
+   "fin": 11.656
+  },
+  {
+   "palabra": "IA",
+   "inicio": 11.656,
+   "fin": 11.848
+  },
+  {
+   "palabra": "es",
+   "inicio": 11.848,
+   "fin": 12.041
+  },
+  {
+   "palabra": "una",
+   "inicio": 12.041,
+   "fin": 12.297
+  },
+  {
+   "palabra": "fila",
+   "inicio": 12.297,
+   "fin": 12.617
+  },
+  {
+   "palabra": "de",
+   "inicio": 12.617,
+   "fin": 12.809
+  },
+  {
+   "palabra": "números",
+   "inicio": 12.809,
+   "fin": 13.322
+  }
+ ],
+ "6": [
+  {
+   "palabra": "Esto",
+   "inicio": 0.0,
+   "fin": 0.362
+  },
+  {
+   "palabra": "importa",
+   "inicio": 0.362,
+   "fin": 0.941
+  },
+  {
+   "palabra": "por",
+   "inicio": 0.941,
+   "fin": 1.231
+  },
+  {
+   "palabra": "dos",
+   "inicio": 1.231,
+   "fin": 1.521
+  },
+  {
+   "palabra": "razones",
+   "inicio": 1.521,
+   "fin": 2.1
+  },
+  {
+   "palabra": "Primero",
+   "inicio": 2.833,
+   "fin": 3.206
+  },
+  {
+   "palabra": "el",
+   "inicio": 3.536,
+   "fin": 3.724
+  },
+  {
+   "palabra": "límite",
+   "inicio": 3.724,
+   "fin": 4.163
+  },
+  {
+   "palabra": "la",
+   "inicio": 4.698,
+   "fin": 4.886
+  },
+  {
+   "palabra": "IA",
+   "inicio": 4.886,
+   "fin": 5.073
+  },
+  {
+   "palabra": "solo",
+   "inicio": 5.073,
+   "fin": 5.386
+  },
+  {
+   "palabra": "puede",
+   "inicio": 5.386,
+   "fin": 5.761
+  },
+  {
+   "palabra": "tener",
+   "inicio": 5.761,
+   "fin": 6.136
+  },
+  {
+   "palabra": "presente",
+   "inicio": 6.136,
+   "fin": 6.698
+  },
+  {
+   "palabra": "cierta",
+   "inicio": 6.698,
+   "fin": 7.136
+  },
+  {
+   "palabra": "cantidad",
+   "inicio": 7.136,
+   "fin": 7.698
+  },
+  {
+   "palabra": "de",
+   "inicio": 7.698,
+   "fin": 7.886
+  },
+  {
+   "palabra": "tokens",
+   "inicio": 7.886,
+   "fin": 8.323
+  },
+  {
+   "palabra": "a",
+   "inicio": 8.323,
+   "fin": 8.448
+  },
+  {
+   "palabra": "la",
+   "inicio": 8.448,
+   "fin": 8.636
+  },
+  {
+   "palabra": "vez",
+   "inicio": 8.636,
+   "fin": 8.886
+  },
+  {
+   "palabra": "Segundo",
+   "inicio": 9.447,
+   "fin": 10.027
+  },
+  {
+   "palabra": "el",
+   "inicio": 10.322,
+   "fin": 10.538
+  },
+  {
+   "palabra": "costo",
+   "inicio": 10.538,
+   "fin": 10.97
+  },
+  {
+   "palabra": "quien",
+   "inicio": 11.48,
+   "fin": 12.515
+  },
+  {
+   "palabra": "usa",
+   "inicio": 12.515,
+   "fin": 12.808
+  },
+  {
+   "palabra": "la",
+   "inicio": 12.808,
+   "fin": 13.028
+  },
+  {
+   "palabra": "IA",
+   "inicio": 13.028,
+   "fin": 13.248
+  },
+  {
+   "palabra": "a",
+   "inicio": 13.248,
+   "fin": 13.394
+  },
+  {
+   "palabra": "gran",
+   "inicio": 13.394,
+   "fin": 13.761
+  },
+  {
+   "palabra": "escala",
+   "inicio": 13.761,
+   "fin": 14.273
+  },
+  {
+   "palabra": "paga",
+   "inicio": 14.273,
+   "fin": 14.64
+  },
+  {
+   "palabra": "por",
+   "inicio": 14.64,
+   "fin": 14.933
+  },
+  {
+   "palabra": "token",
+   "inicio": 14.933,
+   "fin": 15.372
+  },
+  {
+   "palabra": "no",
+   "inicio": 15.631,
+   "fin": 15.816
+  },
+  {
+   "palabra": "por",
+   "inicio": 15.816,
+   "fin": 16.063
+  },
+  {
+   "palabra": "palabra",
+   "inicio": 16.063,
+   "fin": 16.556
+  }
+ ],
+ "7": [
+  {
+   "palabra": "Un",
+   "inicio": 0.0,
+   "fin": 0.187
+  },
+  {
+   "palabra": "detalle",
+   "inicio": 0.187,
+   "fin": 0.686
+  },
+  {
+   "palabra": "más",
+   "inicio": 0.686,
+   "fin": 0.935
+  },
+  {
+   "palabra": "cada",
+   "inicio": 1.421,
+   "fin": 1.725
+  },
+  {
+   "palabra": "modelo",
+   "inicio": 1.725,
+   "fin": 2.15
+  },
+  {
+   "palabra": "corta",
+   "inicio": 2.15,
+   "fin": 2.514
+  },
+  {
+   "palabra": "a",
+   "inicio": 2.514,
+   "fin": 2.636
+  },
+  {
+   "palabra": "su",
+   "inicio": 2.636,
+   "fin": 2.818
+  },
+  {
+   "palabra": "manera",
+   "inicio": 2.818,
+   "fin": 3.243
+  },
+  {
+   "palabra": "ChatGPT",
+   "inicio": 3.756,
+   "fin": 4.57
+  },
+  {
+   "palabra": "Claude",
+   "inicio": 4.802,
+   "fin": 5.267
+  },
+  {
+   "palabra": "y",
+   "inicio": 5.267,
+   "fin": 5.4
+  },
+  {
+   "palabra": "Gemini",
+   "inicio": 5.4,
+   "fin": 5.866
+  },
+  {
+   "palabra": "no",
+   "inicio": 5.866,
+   "fin": 6.065
+  },
+  {
+   "palabra": "parten",
+   "inicio": 6.065,
+   "fin": 6.531
+  },
+  {
+   "palabra": "igual",
+   "inicio": 6.531,
+   "fin": 6.93
+  },
+  {
+   "palabra": "la",
+   "inicio": 6.93,
+   "fin": 7.129
+  },
+  {
+   "palabra": "misma",
+   "inicio": 7.129,
+   "fin": 7.528
+  },
+  {
+   "palabra": "frase",
+   "inicio": 7.528,
+   "fin": 7.927
+  },
+  {
+   "palabra": "Pero",
+   "inicio": 8.481,
+   "fin": 8.948
+  },
+  {
+   "palabra": "todos",
+   "inicio": 8.948,
+   "fin": 9.29
+  },
+  {
+   "palabra": "cortan",
+   "inicio": 9.29,
+   "fin": 9.69
+  }
+ ],
+ "8": [
+  {
+   "palabra": "Este",
+   "inicio": 0.0,
+   "fin": 0.293
+  },
+  {
+   "palabra": "mismo",
+   "inicio": 0.293,
+   "fin": 0.644
+  },
+  {
+   "palabra": "video",
+   "inicio": 0.644,
+   "fin": 0.996
+  },
+  {
+   "palabra": "sirve",
+   "inicio": 0.996,
+   "fin": 1.348
+  },
+  {
+   "palabra": "de",
+   "inicio": 1.348,
+   "fin": 1.523
+  },
+  {
+   "palabra": "ejemplo",
+   "inicio": 1.523,
+   "fin": 1.992
+  },
+  {
+   "palabra": "Mira",
+   "inicio": 2.515,
+   "fin": 2.755
+  },
+  {
+   "palabra": "el",
+   "inicio": 2.755,
+   "fin": 2.899
+  },
+  {
+   "palabra": "contador",
+   "inicio": 2.899,
+   "fin": 3.331
+  },
+  {
+   "palabra": "de",
+   "inicio": 3.331,
+   "fin": 3.475
+  },
+  {
+   "palabra": "la",
+   "inicio": 3.475,
+   "fin": 3.619
+  },
+  {
+   "palabra": "esquina",
+   "inicio": 3.619,
+   "fin": 4.003
+  },
+  {
+   "palabra": "cuenta",
+   "inicio": 4.579,
+   "fin": 4.941
+  },
+  {
+   "palabra": "los",
+   "inicio": 4.941,
+   "fin": 5.148
+  },
+  {
+   "palabra": "tokens",
+   "inicio": 5.148,
+   "fin": 5.511
+  },
+  {
+   "palabra": "de",
+   "inicio": 5.511,
+   "fin": 5.666
+  },
+  {
+   "palabra": "todo",
+   "inicio": 5.666,
+   "fin": 5.925
+  },
+  {
+   "palabra": "lo",
+   "inicio": 5.925,
+   "fin": 6.08
+  },
+  {
+   "palabra": "que",
+   "inicio": 6.08,
+   "fin": 6.287
+  },
+  {
+   "palabra": "has",
+   "inicio": 6.287,
+   "fin": 6.494
+  },
+  {
+   "palabra": "escuchado",
+   "inicio": 6.494,
+   "fin": 7.012
+  },
+  {
+   "palabra": "Hasta",
+   "inicio": 7.587,
+   "fin": 7.915
+  },
+  {
+   "palabra": "aquí",
+   "inicio": 7.915,
+   "fin": 8.188
+  },
+  {
+   "palabra": "van",
+   "inicio": 8.188,
+   "fin": 8.407
+  },
+  {
+   "palabra": "ciento",
+   "inicio": 8.407,
+   "fin": 8.789
+  },
+  {
+   "palabra": "noventa",
+   "inicio": 8.789,
+   "fin": 9.226
+  },
+  {
+   "palabra": "y",
+   "inicio": 9.226,
+   "fin": 9.335
+  },
+  {
+   "palabra": "nueve",
+   "inicio": 9.335,
+   "fin": 9.663
+  },
+  {
+   "palabra": "palabras",
+   "inicio": 9.663,
+   "fin": 10.155
+  },
+  {
+   "palabra": "y",
+   "inicio": 10.723,
+   "fin": 10.841
+  },
+  {
+   "palabra": "doscientos",
+   "inicio": 10.841,
+   "fin": 11.487
+  },
+  {
+   "palabra": "setenta",
+   "inicio": 11.487,
+   "fin": 11.957
+  },
+  {
+   "palabra": "y",
+   "inicio": 11.957,
+   "fin": 12.074
+  },
+  {
+   "palabra": "un",
+   "inicio": 12.074,
+   "fin": 12.251
+  },
+  {
+   "palabra": "tokens",
+   "inicio": 12.251,
+   "fin": 12.662
+  },
+  {
+   "palabra": "En",
+   "inicio": 13.132,
+   "fin": 13.331
+  },
+  {
+   "palabra": "español",
+   "inicio": 13.331,
+   "fin": 13.863
+  },
+  {
+   "palabra": "casi",
+   "inicio": 13.863,
+   "fin": 14.195
+  },
+  {
+   "palabra": "siempre",
+   "inicio": 14.195,
+   "fin": 14.727
+  },
+  {
+   "palabra": "hay",
+   "inicio": 14.727,
+   "fin": 14.993
+  },
+  {
+   "palabra": "más",
+   "inicio": 14.993,
+   "fin": 15.259
+  },
+  {
+   "palabra": "tokens",
+   "inicio": 15.259,
+   "fin": 15.724
+  },
+  {
+   "palabra": "que",
+   "inicio": 15.724,
+   "fin": 15.99
+  },
+  {
+   "palabra": "palabras",
+   "inicio": 15.99,
+   "fin": 16.588
+  }
+ ],
+ "9": [
+  {
+   "palabra": "Entonces",
+   "inicio": 0.0,
+   "fin": 0.807
+  },
+  {
+   "palabra": "la",
+   "inicio": 1.023,
+   "fin": 1.296
+  },
+  {
+   "palabra": "IA",
+   "inicio": 1.296,
+   "fin": 1.569
+  },
+  {
+   "palabra": "lee",
+   "inicio": 1.569,
+   "fin": 1.932
+  },
+  {
+   "palabra": "palabras",
+   "inicio": 1.932,
+   "fin": 2.751
+  },
+  {
+   "palabra": "No",
+   "inicio": 3.099,
+   "fin": 3.446
+  },
+  {
+   "palabra": "Lee",
+   "inicio": 3.826,
+   "fin": 4.214
+  },
+  {
+   "palabra": "tokens",
+   "inicio": 4.214,
+   "fin": 4.893
+  },
+  {
+   "palabra": "pedazos",
+   "inicio": 5.247,
+   "fin": 5.704
+  },
+  {
+   "palabra": "de",
+   "inicio": 5.704,
+   "fin": 5.876
+  },
+  {
+   "palabra": "palabras",
+   "inicio": 5.876,
+   "fin": 6.391
+  },
+  {
+   "palabra": "convertidos",
+   "inicio": 6.391,
+   "fin": 7.077
+  },
+  {
+   "palabra": "en",
+   "inicio": 7.077,
+   "fin": 7.249
+  },
+  {
+   "palabra": "números",
+   "inicio": 7.249,
+   "fin": 7.706
+  }
+ ]
+}
