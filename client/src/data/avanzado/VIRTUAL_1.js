@@ -135,8 +135,8 @@ export const VIRTUAL_1 = {
                 headers: ["IA", "Modelos", "Ventana de contexto"],
                 rows: [
                     ["Claude", "Fable 5.1, Opus 5.5, Sonnet 5 y Haiku 4.5", "1M tokens (Haiku 4.5: 200K)"],
-                    ["ChatGPT", "GPT-6 Astra; por API, también GPT-6 Sol y Luna (desde el 22 de septiembre)", "GPT-6 Sol por API: 1 050 000 tokens"],
-                    ["Gemini", "Gemini 3.1 Pro y Gemini 3 Flash", "—"]
+                    ["ChatGPT", "GPT-6 Astra; desde el 22 de septiembre, también GPT-6 Sol y Luna", "GPT-6 Sol por API: 1\u00A0050\u00A0000 tokens"],
+                    ["Gemini", "Gemini 3.1 Pro y Gemini 3 Flash", "Gemini 3.1 Pro: 1M tokens"]
                 ]
             }
         },
