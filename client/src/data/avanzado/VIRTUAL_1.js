@@ -454,10 +454,10 @@ Si para algún punto el documento no alcanza, responde exactamente: "la informac
                     "<b>Art. 34:</b> el encargo exige un contrato que prohíba al proveedor usar los datos para otros fines o pasarlos a terceros, y que lo obligue a devolverlos o destruirlos al terminar.",
                     "<b>Datos sensibles (arts. 4 y 26):</b> salud, pasado judicial y datos biométricos, entre otros. Tratarlos está prohibido por regla general.",
                     "<b>Resolución SPDP-SPD-2026-0004-R (28 ene 2026), art. 23:</b> el encargo de tratamiento no es transferencia internacional.",
-                    "<b>Seudonimizar no es anonimizar (arts. 2 y 4):</b> lo anonimizado ya no permite identificar a la persona sin un esfuerzo desproporcionado, y queda fuera de la ley; lo seudonimizado sí lo permite con la tabla que guardas aparte, así que sigue siendo dato personal."
+                    "<b>Seudonimizar no es anonimizar (arts. 2, lit. c, y 4):</b> lo anonimizado ya no permite identificar a la persona sin un esfuerzo desproporcionado, y la ley no se le aplica mientras siga así; lo seudonimizado sí lo permite con la tabla que guardas aparte, así que sigue siendo dato personal."
                 ],
                 Heading2: "Encargo o transferencia: la diferencia que importa",
-                paragraph2: "Si el proveedor solo procesa por tu cuenta, rige el encargo (arts. 34 y 47). Si usa los datos para fines propios, como entrenar modelos, es transferencia internacional. Hoy ningún país tiene nivel adecuado declarado, salvo los de la Comunidad Andina (Resolución 0004-R, art. 59); Estados Unidos no. Entonces hacen falta garantías contractuales, autorización de la SPDP o el consentimiento explícito e informado del titular (art. 60.2).",
+                paragraph2: "Si el proveedor solo procesa por tu cuenta, rige el encargo (arts. 34 y 47). Si usa los datos para fines propios, como entrenar modelos, es transferencia internacional. Hoy ningún país tiene nivel adecuado declarado, salvo los de la Comunidad Andina (Resolución 0004-R, art. 59); Estados Unidos no. Entonces hacen falta garantías contractuales, autorización de la SPDP o el consentimiento explícito e informado del titular (LOPDP, art. 60, num. 2).",
                 highlight: { type: "info", text: "Criterio del curso: si no tienes un contrato de encargo por escrito, trátalo como transferencia. Seudonimiza o pide consentimiento." }
             }
         },

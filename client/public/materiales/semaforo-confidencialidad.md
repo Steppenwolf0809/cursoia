@@ -30,6 +30,7 @@ IA Avanzada para Abogados · Virtual 1. Propuesta del curso, no norma. Ante la d
 - Tú eres el responsable; el proveedor de IA es el encargado (arts. 4, 34 y 47).
 - El encargo exige un contrato que prohíba otros usos y obligue a devolver o destruir los datos (art. 34).
 - El encargo no es transferencia internacional (Resolución SPDP-SPD-2026-0004-R, art. 23). Si el proveedor usa los datos para fines propios, sí lo es; Estados Unidos no tiene nivel adecuado declarado.
+- Seudonimizar no es anonimizar (arts. 2, lit. c, y 4): lo anonimizado ya no permite identificar a la persona sin un esfuerzo desproporcionado, y la ley no se le aplica mientras siga así; lo seudonimizado sí lo permite con la tabla que guardas aparte, así que sigue siendo dato personal.
 - Criterio del curso: sin contrato de encargo por escrito, trátalo como transferencia: seudonimiza o pide consentimiento.
 
 ## Errores comunes
