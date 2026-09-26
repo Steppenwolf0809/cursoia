@@ -12,6 +12,7 @@ colors:
   token-4: "#DDD6FE"
   token-5: "#FDE68A"
   sobre-token: "#0F172A"
+  halo: "#3182CE"
 typography:
   H:
     family: "Inter"
@@ -42,6 +43,7 @@ básico; donde las diapositivas no tienen un color para el rol, se deriva de las
 | `--token-4` | `#DDD6FE` | `violet-200`: derivado del `to-indigo-600` de los degradados del básico |
 | `--token-5` | `#FDE68A` | `amber-200`: la familia del acento, en claro; se distingue del acento por su luminosidad |
 | `--sobre-token` | `#0F172A` | el mismo `slate-900` del fondo |
+| `--halo` | `#3182CE` | `secondary` del básico, al 22 % en el halo del fondo. Con el acento dorado el halo salía gris pardo: dorado y azul marino son opuestos y se neutralizan |
 
 ## Contraste (WCAG)
 
